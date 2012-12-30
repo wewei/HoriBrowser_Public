@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
+		4C690783169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
+		4C690785169036E600132B2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690784169036E600132B2E /* CoreGraphics.framework */; };
+		4C69078B169036E600132B2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C690789169036E600132B2E /* InfoPlist.strings */; };
+		4C69078D169036E600132B2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C69078C169036E600132B2E /* main.m */; };
+		4C690791169036E600132B2E /* HBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C690790169036E600132B2E /* HBAppDelegate.m */; };
+		4C690793169036E600132B2E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C690792169036E600132B2E /* Default.png */; };
+		4C690795169036E600132B2E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C690794169036E600132B2E /* Default@2x.png */; };
+		4C690797169036E600132B2E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C690796169036E600132B2E /* Default-568h@2x.png */; };
+		4C69079F169036E600132B2E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C69079E169036E600132B2E /* SenTestingKit.framework */; };
+		4C6907A0169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
+		4C6907A1169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
+		4C6907A9169036E600132B2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C6907A7169036E600132B2E /* InfoPlist.strings */; };
+		4C6907AC169036E600132B2E /* HoriBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907AB169036E600132B2E /* HoriBrowserTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C6907A2169036E600132B2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C690773169036E600132B2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C69077B169036E600132B2E;
+			remoteInfo = HoriBrowser;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C69077C169036E600132B2E /* HoriBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoriBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C690780169036E600132B2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C690782169036E600132B2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C690784169036E600132B2E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C690788169036E600132B2E /* HoriBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HoriBrowser-Info.plist"; sourceTree = "<group>"; };
+		4C69078A169036E600132B2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C69078C169036E600132B2E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4C69078E169036E600132B2E /* HoriBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoriBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		4C69078F169036E600132B2E /* HBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBAppDelegate.h; sourceTree = "<group>"; };
+		4C690790169036E600132B2E /* HBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBAppDelegate.m; sourceTree = "<group>"; };
+		4C690792169036E600132B2E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4C690794169036E600132B2E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4C690796169036E600132B2E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4C69079D169036E600132B2E /* HoriBrowserTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoriBrowserTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C69079E169036E600132B2E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4C6907A6169036E600132B2E /* HoriBrowserTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HoriBrowserTests-Info.plist"; sourceTree = "<group>"; };
+		4C6907A8169036E600132B2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C6907AA169036E600132B2E /* HoriBrowserTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoriBrowserTests.h; sourceTree = "<group>"; };
+		4C6907AB169036E600132B2E /* HoriBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoriBrowserTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C690779169036E600132B2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C690781169036E600132B2E /* UIKit.framework in Frameworks */,
+				4C690783169036E600132B2E /* Foundation.framework in Frameworks */,
+				4C690785169036E600132B2E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C690799169036E600132B2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C69079F169036E600132B2E /* SenTestingKit.framework in Frameworks */,
+				4C6907A0169036E600132B2E /* UIKit.framework in Frameworks */,
+				4C6907A1169036E600132B2E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C690771169036E600132B2E = {
+			isa = PBXGroup;
+			children = (
+				4C690786169036E600132B2E /* HoriBrowser */,
+				4C6907A4169036E600132B2E /* HoriBrowserTests */,
+				4C69077F169036E600132B2E /* Frameworks */,
+				4C69077D169036E600132B2E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C69077D169036E600132B2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C69077C169036E600132B2E /* HoriBrowser.app */,
+				4C69079D169036E600132B2E /* HoriBrowserTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C69077F169036E600132B2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C690780169036E600132B2E /* UIKit.framework */,
+				4C690782169036E600132B2E /* Foundation.framework */,
+				4C690784169036E600132B2E /* CoreGraphics.framework */,
+				4C69079E169036E600132B2E /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C690786169036E600132B2E /* HoriBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				4C69078F169036E600132B2E /* HBAppDelegate.h */,
+				4C690790169036E600132B2E /* HBAppDelegate.m */,
+				4C690787169036E600132B2E /* Supporting Files */,
+			);
+			path = HoriBrowser;
+			sourceTree = "<group>";
+		};
+		4C690787169036E600132B2E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C690788169036E600132B2E /* HoriBrowser-Info.plist */,
+				4C690789169036E600132B2E /* InfoPlist.strings */,
+				4C69078C169036E600132B2E /* main.m */,
+				4C69078E169036E600132B2E /* HoriBrowser-Prefix.pch */,
+				4C690792169036E600132B2E /* Default.png */,
+				4C690794169036E600132B2E /* Default@2x.png */,
+				4C690796169036E600132B2E /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C6907A4169036E600132B2E /* HoriBrowserTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C6907AA169036E600132B2E /* HoriBrowserTests.h */,
+				4C6907AB169036E600132B2E /* HoriBrowserTests.m */,
+				4C6907A5169036E600132B2E /* Supporting Files */,
+			);
+			path = HoriBrowserTests;
+			sourceTree = "<group>";
+		};
+		4C6907A5169036E600132B2E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C6907A6169036E600132B2E /* HoriBrowserTests-Info.plist */,
+				4C6907A7169036E600132B2E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C69077B169036E600132B2E /* HoriBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C6907AF169036E600132B2E /* Build configuration list for PBXNativeTarget "HoriBrowser" */;
+			buildPhases = (
+				4C690778169036E600132B2E /* Sources */,
+				4C690779169036E600132B2E /* Frameworks */,
+				4C69077A169036E600132B2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HoriBrowser;
+			productName = HoriBrowser;
+			productReference = 4C69077C169036E600132B2E /* HoriBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4C69079C169036E600132B2E /* HoriBrowserTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C6907B2169036E600132B2E /* Build configuration list for PBXNativeTarget "HoriBrowserTests" */;
+			buildPhases = (
+				4C690798169036E600132B2E /* Sources */,
+				4C690799169036E600132B2E /* Frameworks */,
+				4C69079A169036E600132B2E /* Resources */,
+				4C69079B169036E600132B2E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C6907A3169036E600132B2E /* PBXTargetDependency */,
+			);
+			name = HoriBrowserTests;
+			productName = HoriBrowserTests;
+			productReference = 4C69079D169036E600132B2E /* HoriBrowserTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C690773169036E600132B2E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = HB;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "HoriTech Ltd.";
+			};
+			buildConfigurationList = 4C690776169036E600132B2E /* Build configuration list for PBXProject "HoriBrowser" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4C690771169036E600132B2E;
+			productRefGroup = 4C69077D169036E600132B2E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C69077B169036E600132B2E /* HoriBrowser */,
+				4C69079C169036E600132B2E /* HoriBrowserTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C69077A169036E600132B2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C69078B169036E600132B2E /* InfoPlist.strings in Resources */,
+				4C690793169036E600132B2E /* Default.png in Resources */,
+				4C690795169036E600132B2E /* Default@2x.png in Resources */,
+				4C690797169036E600132B2E /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C69079A169036E600132B2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6907A9169036E600132B2E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C69079B169036E600132B2E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C690778169036E600132B2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C69078D169036E600132B2E /* main.m in Sources */,
+				4C690791169036E600132B2E /* HBAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C690798169036E600132B2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6907AC169036E600132B2E /* HoriBrowserTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C6907A3169036E600132B2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C69077B169036E600132B2E /* HoriBrowser */;
+			targetProxy = 4C6907A2169036E600132B2E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4C690789169036E600132B2E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C69078A169036E600132B2E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C6907A7169036E600132B2E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C6907A8169036E600132B2E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C6907AD169036E600132B2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4C6907AE169036E600132B2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C6907B0169036E600132B2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HoriBrowser/HoriBrowser-Prefix.pch";
+				INFOPLIST_FILE = "HoriBrowser/HoriBrowser-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4C6907B1169036E600132B2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HoriBrowser/HoriBrowser-Prefix.pch";
+				INFOPLIST_FILE = "HoriBrowser/HoriBrowser-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4C6907B3169036E600132B2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HoriBrowser.app/HoriBrowser";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HoriBrowser/HoriBrowser-Prefix.pch";
+				INFOPLIST_FILE = "HoriBrowserTests/HoriBrowserTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4C6907B4169036E600132B2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HoriBrowser.app/HoriBrowser";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HoriBrowser/HoriBrowser-Prefix.pch";
+				INFOPLIST_FILE = "HoriBrowserTests/HoriBrowserTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C690776169036E600132B2E /* Build configuration list for PBXProject "HoriBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C6907AD169036E600132B2E /* Debug */,
+				4C6907AE169036E600132B2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C6907AF169036E600132B2E /* Build configuration list for PBXNativeTarget "HoriBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C6907B0169036E600132B2E /* Debug */,
+				4C6907B1169036E600132B2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4C6907B2169036E600132B2E /* Build configuration list for PBXNativeTarget "HoriBrowserTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C6907B3169036E600132B2E /* Debug */,
+				4C6907B4169036E600132B2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C690773169036E600132B2E /* Project object */;
+}
