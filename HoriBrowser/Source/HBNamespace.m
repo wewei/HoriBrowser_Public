@@ -10,7 +10,7 @@
 #import "HBInvocationContext.h"
 
 static HBNamespace *rootNamespace = nil;
-static HBNamespace *utilityNamespace = nil;
+static HBNamespace *systemNamespace = nil;
 
 @interface HBNamespace()
 
@@ -28,13 +28,13 @@ static HBNamespace *utilityNamespace = nil;
     return rootNamespace;
 }
 
-+ (HBNamespace *)utilityNamespace
++ (HBNamespace *)systemNamespace
 {
-    if (utilityNamespace == nil) {
-        utilityNamespace = [[HBNamespace alloc] init];
-        [[HBNamespace rootNamespace] setObject:utilityNamespace forName:@"Utility"];
+    if (systemNamespace == nil) {
+        systemNamespace = [[HBNamespace alloc] init];
+        [[HBNamespace rootNamespace] setObject:systemNamespace forName:@"System"];
     }
-    return utilityNamespace;
+    return systemNamespace;
 }
 
 @synthesize objects = __objects;

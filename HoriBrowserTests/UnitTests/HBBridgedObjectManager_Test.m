@@ -14,7 +14,7 @@
 - (void)testExample
 {
     HBBridgedObjectManager *sharedManager = [HBBridgedObjectManager sharedManager];
-    NSString *path = @"/Utility/ObjectManager";
+    NSString *path = @"/System/ObjectManager";
     STAssertEquals(sharedManager,
                    [sharedManager objectForPath:path],
                    @"The shared HBBridgedObjectManager should be mapped at %@",

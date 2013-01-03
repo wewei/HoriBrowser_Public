@@ -11,7 +11,7 @@
 @interface HBNamespace : NSObject
 
 + (HBNamespace *)rootNamespace;
-+ (HBNamespace *)utilityNamespace;
++ (HBNamespace *)systemNamespace;
 
 - (id)objectForName:(NSString *)name;
 - (void)setObject:(id)object forName:(NSString *)name;

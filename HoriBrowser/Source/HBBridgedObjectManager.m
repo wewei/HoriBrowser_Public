@@ -17,7 +17,7 @@ static HBBridgedObjectManager *sharedManager = nil;
 {
     if (sharedManager == nil) {
         sharedManager = [[HBBridgedObjectManager alloc] init];
-        [[HBNamespace utilityNamespace] setObject:sharedManager forName:@"ObjectManager"];
+        [[HBNamespace systemNamespace] setObject:sharedManager forName:@"ObjectManager"];
     }
     return sharedManager;
 }
