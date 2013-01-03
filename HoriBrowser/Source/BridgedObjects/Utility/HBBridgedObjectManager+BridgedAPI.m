@@ -14,8 +14,7 @@
 - (void)method_hello_world:(HBInvocationContext *)context
 {
     NSLog(@"hello world");
-    context.status = [NSNumber numberWithInteger:HBInvocationStatusSuccess];
-    [context complete];
+    [context succeed];
 }
 
 @end

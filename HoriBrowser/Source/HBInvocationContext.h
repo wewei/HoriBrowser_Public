@@ -10,6 +10,15 @@
 
 @class HBExecutionUnit;
 
+typedef enum {
+    HBInvocationStatusSucceeded        = 0,
+    HBInvocationStatusFailed,
+    HBInvocationStatusObjectNotFound,
+    HBInvocationStatusMethodNotFound,
+    HBInvocationStatusArgumentError,
+    HBInvocationStatusInternalError,
+} HBInvocationStatus;
+
 @interface HBInvocationContext : NSObject
 
 + (HBInvocationContext *)contextWithExecutionUnit:(HBExecutionUnit *)executionUnit
@@ -31,13 +40,8 @@
 
 - (void)complete;
 
-@end
+- (void)completeWithStatus:(HBInvocationStatus)status;
+- (void)succeed;
+- (void)fail;
 
-typedef enum {
-    HBInvocationStatusSuccess        = 0,
-    HBInvocationStatusFailed,
-    HBInvocationStatusObjectNotFound,
-    HBInvocationStatusMethodNotFound,
-    HBInvocationStatusArgumentError,
-    HBInvocationStatusInternalError,
-} HBInvocationStatus;
+@end

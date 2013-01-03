@@ -76,6 +76,22 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     (void)[self.executionUnit.webView stringByEvaluatingJavaScriptFromString:completionScript];
 }
 
+- (void)completeWithStatus:(HBInvocationStatus)status
+{
+    self.status = [NSNumber numberWithInteger:status];
+    [self complete];
+}
+
+- (void)succeed
+{
+    [self completeWithStatus:HBInvocationStatusSucceeded];
+}
+
+- (void)fail
+{
+    [self completeWithStatus:HBInvocationStatusFailed];
+}
+
 - (void)dealloc
 {
     self.executionUnit = nil;
