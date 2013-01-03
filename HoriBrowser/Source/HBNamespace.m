@@ -8,6 +8,8 @@
 
 #import "HBNamespace.h"
 #import "HBInvocationContext.h"
+#import "HBBridgedObjectManager.h"
+#import "HBAppDelegate.h"
 
 static HBNamespace *rootNamespace = nil;
 static HBNamespace *systemNamespace = nil;
@@ -24,6 +26,7 @@ static HBNamespace *systemNamespace = nil;
 {
     if (rootNamespace == nil) {
         rootNamespace = [[HBNamespace alloc] init];
+        [rootNamespace setObject:[HBNamespace systemNamespace] forName:@"System"];
     }
     return rootNamespace;
 }
@@ -32,7 +35,13 @@ static HBNamespace *systemNamespace = nil;
 {
     if (systemNamespace == nil) {
         systemNamespace = [[HBNamespace alloc] init];
-        [[HBNamespace rootNamespace] setObject:systemNamespace forName:@"System"];
+        
+        [systemNamespace setObject:[HBBridgedObjectManager sharedManager] forName:@"ObjectManager"];
+        
+        UIWindow *mainWindow = ((HBAppDelegate *)[UIApplication sharedApplication].delegate).window;
+        [systemNamespace setObject:mainWindow forName:@"MainWindow"];
+        
+        [systemNamespace setObject:mainWindow.rootViewController forName:@"RootViewController"];
     }
     return systemNamespace;
 }

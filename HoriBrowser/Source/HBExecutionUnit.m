@@ -12,7 +12,7 @@
 #import "NSObject+Bridge.h"
 #import "HBInvocationContext.h"
 #import "HBConfiguration.h"
-
+#import "HBNamespace.h"
 
 
 @interface HBExecutionUnit()
@@ -24,6 +24,8 @@
 @implementation HBExecutionUnit
 
 @synthesize webView = __webView;
+@synthesize webViewController = __webViewController;
+@synthesize currentNamespace = __currentNamespace;
 
 @synthesize flushing = _flushing;
 
@@ -36,6 +38,24 @@
     return __webView;
 }
 
+- (UIViewController *)webViewController
+{
+    if (__webViewController == nil) {
+        __webViewController = [[UIViewController alloc] init];
+        __webViewController.view = self.webView;
+    }
+    return __webViewController;
+}
+
+- (HBNamespace *)currentNamespace
+{
+    if (__currentNamespace == nil) {
+        __currentNamespace = [[HBNamespace alloc] init];
+        [__currentNamespace setObject:self.webView forName:@"WebView"];
+        [__currentNamespace setObject:self.webViewController forName:@"WebViewController"];
+    }
+    return __currentNamespace;
+}
 
 - (id)init
 {
@@ -50,6 +70,8 @@
 - (void)dealloc
 {
     [__webView release];
+    [__webViewController release];
+    [__currentNamespace release];
     [super dealloc];
 }
 
@@ -63,7 +85,8 @@
 {
     HBInvocationContext *context = [HBInvocationContext contextWithExecutionUnit:self
                                                          andInvocationDictionary:invocationDict];
-    id object = [[HBBridgedObjectManager sharedManager] objectForPath:context.objectPath];
+    id object = [[HBBridgedObjectManager sharedManager] objectForPath:context.objectPath
+                                                      inExecutionUnit:self];
     if (object == nil) {
         context.status = [NSNumber numberWithInteger:HBInvocationStatusObjectNotFound];
         [context complete];

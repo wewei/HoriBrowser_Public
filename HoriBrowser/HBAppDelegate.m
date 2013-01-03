@@ -35,6 +35,8 @@ return __mainExecutionUnit;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    self.window.rootViewController = [[[UIViewController alloc] init] autorelease];
     [self.mainExecutionUnit loadURL:[HBConfiguration sharedConfiguration].serverURL];
     return YES;
 }

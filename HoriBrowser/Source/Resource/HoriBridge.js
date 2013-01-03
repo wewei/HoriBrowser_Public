@@ -26,7 +26,7 @@ var $H = function () {
         this.__method = method;
         this.__arguments = arguments;
         this.__callback = callback;
-        this.__index = (__invocationCounter ++);
+        this.__index = ((__invocationCounter ++) & 0x7fffffff);
     };
     
     Invocation.prototype.constructor = Invocation;
@@ -57,11 +57,13 @@ var $H = function () {
     
     __bridge.__completeInvocation = function (completionDict) {
         invocation = __activeInvocations[completionDict.index];
-        alert(completionDict.index);
-        alert(invocation);
         if (invocation) {
             if (invocation.__callback) {
-                invocation.__callback(completionDict.status, completionDict.returnValue);
+                var callback = invocation.__callback;
+                var routine = function () {
+                    callback(completionDict.status, completionDict.returnValue);
+                };
+                setTimeout(routine, 1);
             }
             delete __activeInvocations[completionDict.index];
         }

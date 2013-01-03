@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class HBExecutionUnit;
+
 @interface HBBridgedObjectManager : NSObject
 
 + (HBBridgedObjectManager *)sharedManager;
 
-- (id)objectForPath:(NSString *)path;
+- (id)objectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
 
 @end
