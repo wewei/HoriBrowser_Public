@@ -57,6 +57,8 @@ var $H = function () {
     
     __bridge.__completeInvocation = function (completionDict) {
         invocation = __activeInvocations[completionDict.index];
+        alert(completionDict.index);
+        alert(invocation);
         if (invocation) {
             if (invocation.__callback) {
                 invocation.__callback(completionDict.status, completionDict.returnValue);

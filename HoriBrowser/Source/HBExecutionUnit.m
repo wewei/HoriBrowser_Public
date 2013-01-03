@@ -8,7 +8,7 @@
 
 #import "HBExecutionUnit.h"
 #import "HBJSONSerialization.h"
-#import "HBNamespace.h"
+#import "HBBridgedObjectManager.h"
 #import "NSObject+Bridge.h"
 #import "HBInvocationContext.h"
 #import "HBConfiguration.h"
@@ -63,7 +63,7 @@
 {
     HBInvocationContext *context = [HBInvocationContext contextWithExecutionUnit:self
                                                          andInvocationDictionary:invocationDict];
-    id object = [[HBNamespace globalNamespace] objectForName:context.objectPath];
+    id object = [[HBBridgedObjectManager sharedManager] objectForPath:context.objectPath];
     if (object == nil) {
         context.status = [NSNumber numberWithInteger:HBInvocationStatusObjectNotFound];
         [context complete];

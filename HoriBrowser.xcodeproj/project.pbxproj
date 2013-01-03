@@ -14,6 +14,9 @@
 		4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */; };
 		4C01B4B1169537690064AD49 /* CreateBridgeFrame.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */; };
 		4C01B4B3169538F20064AD49 /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4AD169418080064AD49 /* HoriBridge.js */; };
+		4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */; };
+		4C01B4BE16954C890064AD49 /* HBBridgedObjectManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */; };
+		4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */; };
 		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
 		4C690783169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
 		4C690785169036E600132B2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690784169036E600132B2E /* CoreGraphics.framework */; };
@@ -55,6 +58,12 @@
 		4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInvocationContext.m; sourceTree = "<group>"; };
 		4C01B4AD169418080064AD49 /* HoriBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HoriBridge.js; sourceTree = "<group>"; };
 		4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CreateBridgeFrame.js; sourceTree = "<group>"; };
+		4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedObjectManager.h; sourceTree = "<group>"; };
+		4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedObjectManager.m; sourceTree = "<group>"; };
+		4C01B4BC16954C890064AD49 /* HBBridgedObjectManager_Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedObjectManager_Test.h; sourceTree = "<group>"; };
+		4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedObjectManager_Test.m; sourceTree = "<group>"; };
+		4C01B4BF16954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBBridgedObjectManager+BridgedAPI.h"; sourceTree = "<group>"; };
+		4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBBridgedObjectManager+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C69077C169036E600132B2E /* HoriBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoriBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C690780169036E600132B2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C690782169036E600132B2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,6 +121,8 @@
 				4C01B49D1693DBC70064AD49 /* HBJSONSerialization_Test.h */,
 				4C01B49E1693DBC70064AD49 /* HBJSONSerialization_Test.m */,
 				4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */,
+				4C01B4BC16954C890064AD49 /* HBBridgedObjectManager_Test.h */,
+				4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -128,8 +139,18 @@
 		4C01B4B41695469F0064AD49 /* BridgedObjects */ = {
 			isa = PBXGroup;
 			children = (
+				4C01B4B5169548C00064AD49 /* Utility */,
 			);
-			name = BridgedObjects;
+			path = BridgedObjects;
+			sourceTree = "<group>";
+		};
+		4C01B4B5169548C00064AD49 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4C01B4BF16954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.h */,
+				4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		4C690771169036E600132B2E = {
@@ -220,6 +241,8 @@
 				4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */,
 				4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */,
 				4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */,
+				4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */,
+				4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */,
 				4C01B4A21693FB510064AD49 /* HBNamespace.h */,
 				4C01B4A31693FB510064AD49 /* HBNamespace.m */,
 				4C6907B916907A9B00132B2E /* HBConfiguration.h */,
@@ -365,6 +388,8 @@
 				4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */,
 				4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */,
 				4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */,
+				4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */,
+				4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +399,7 @@
 			files = (
 				4C6907AC169036E600132B2E /* HoriBrowserTests.m in Sources */,
 				4C01B49F1693DBC70064AD49 /* HBJSONSerialization_Test.m in Sources */,
+				4C01B4BE16954C890064AD49 /* HBBridgedObjectManager_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,29 +9,52 @@
 #import "HBNamespace.h"
 #import "HBInvocationContext.h"
 
-static HBNamespace *globalNamespace = nil;
+static HBNamespace *rootNamespace = nil;
+static HBNamespace *utilityNamespace = nil;
+
+@interface HBNamespace()
+
+@property (readonly, nonatomic) NSMutableDictionary *objects;
+
+@end
 
 @implementation HBNamespace
 
-+ (HBNamespace *)globalNamespace
++ (HBNamespace *)rootNamespace
 {
-    if (globalNamespace == nil) {
-        globalNamespace = [[HBNamespace alloc] init];
+    if (rootNamespace == nil) {
+        rootNamespace = [[HBNamespace alloc] init];
     }
-    return globalNamespace;
+    return rootNamespace;
+}
+
++ (HBNamespace *)utilityNamespace
+{
+    if (utilityNamespace == nil) {
+        utilityNamespace = [[HBNamespace alloc] init];
+        [[HBNamespace rootNamespace] setObject:utilityNamespace forName:@"Utility"];
+    }
+    return utilityNamespace;
+}
+
+@synthesize objects = __objects;
+
+- (NSMutableDictionary *)objects
+{
+    if (__objects == nil) {
+        __objects = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    return __objects;
 }
 
 - (id)objectForName:(NSString *)name
 {
-    if (name.length == 0)
-        return self;
-    return nil; // TODO
+    return [self.objects objectForKey:name];
 }
 
-- (void)method_createObject:(HBInvocationContext *)context
+- (void)setObject:(id)object forName:(NSString *)name
 {
-    NSLog(@"hello");
-    [context complete];
+    [self.objects setObject:object forKey:name];
 }
 
 @end

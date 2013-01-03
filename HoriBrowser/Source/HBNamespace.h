@@ -10,8 +10,10 @@
 
 @interface HBNamespace : NSObject
 
-+ (HBNamespace *)globalNamespace;
++ (HBNamespace *)rootNamespace;
++ (HBNamespace *)utilityNamespace;
 
 - (id)objectForName:(NSString *)name;
+- (void)setObject:(id)object forName:(NSString *)name;
 
 @end
