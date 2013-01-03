@@ -7,17 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HBInvocationStatus.h"
 
 @class HBExecutionUnit;
-
-typedef enum {
-    HBInvocationStatusSucceeded        = 0,
-    HBInvocationStatusFailed,
-    HBInvocationStatusObjectNotFound,
-    HBInvocationStatusMethodNotFound,
-    HBInvocationStatusArgumentError,
-    HBInvocationStatusInternalError,
-} HBInvocationStatus;
 
 @interface HBInvocationContext : NSObject
 
