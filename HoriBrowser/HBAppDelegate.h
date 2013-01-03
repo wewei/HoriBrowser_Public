@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HBExecutionUnit.h"
 
 @interface HBAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (retain, nonatomic) HBExecutionUnit *mainExecutionUnit;
 
 @property (strong, nonatomic) UIWindow *window;
 

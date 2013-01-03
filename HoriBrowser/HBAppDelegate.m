@@ -7,12 +7,25 @@
 //
 
 #import "HBAppDelegate.h"
+#import "HBConfiguration.h"
 
 @implementation HBAppDelegate
 
+@synthesize mainExecutionUnit = __mainExecutionUnit;
+
+- (HBExecutionUnit *)mainExecutionUnit
+{
+    if (__mainExecutionUnit == nil) {
+        __mainExecutionUnit = [[HBExecutionUnit alloc] init];
+    }
+return __mainExecutionUnit;
+}
+
 - (void)dealloc
 {
+    [__mainExecutionUnit release];
     [_window release];
+    
     [super dealloc];
 }
 
@@ -22,6 +35,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [self.mainExecutionUnit loadURL:[HBConfiguration sharedConfiguration].serverURL];
     return YES;
 }
 

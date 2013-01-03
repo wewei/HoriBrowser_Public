@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>123</key>
+	<integer>123</integer>
+	<key>123.456</key>
+	<real>123.456</real>
+	<key>&quot;Hello world&quot;</key>
+	<string>Hello world</string>
+	<key>[1, 2, 2.5, &quot;abc&quot;, &quot;foo bar&quot;]</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+		<real>2.5</real>
+		<string>abc</string>
+		<string>foo bar</string>
+	</array>
+	<key>{&quot;a&quot;: 1, &quot;b&quot;: 2, &quot;c d&quot;: 2.5}</key>
+	<dict>
+		<key>a</key>
+		<integer>1</integer>
+		<key>b</key>
+		<integer>2</integer>
+		<key>c d</key>
+		<real>2.5</real>
+	</dict>
+</dict>
+</plist>

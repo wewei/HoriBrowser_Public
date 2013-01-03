@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C01B49F1693DBC70064AD49 /* HBJSONSerialization_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B49E1693DBC70064AD49 /* HBJSONSerialization_Test.m */; };
+		4C01B4A11693E0F00064AD49 /* HBJSONSerialization_TestCases.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */; };
+		4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A31693FB510064AD49 /* HBNamespace.m */; };
+		4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */; };
+		4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */; };
+		4C01B4B1169537690064AD49 /* CreateBridgeFrame.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */; };
+		4C01B4B3169538F20064AD49 /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4AD169418080064AD49 /* HoriBridge.js */; };
 		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
 		4C690783169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
 		4C690785169036E600132B2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690784169036E600132B2E /* CoreGraphics.framework */; };
@@ -21,6 +28,9 @@
 		4C6907A1169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
 		4C6907A9169036E600132B2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C6907A7169036E600132B2E /* InfoPlist.strings */; };
 		4C6907AC169036E600132B2E /* HoriBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907AB169036E600132B2E /* HoriBrowserTests.m */; };
+		4C6907B816907A3900132B2E /* HBExecutionUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907B716907A3900132B2E /* HBExecutionUnit.m */; };
+		4C6907BB16907A9B00132B2E /* HBConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907BA16907A9B00132B2E /* HBConfiguration.m */; };
+		4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +44,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C01B49D1693DBC70064AD49 /* HBJSONSerialization_Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBJSONSerialization_Test.h; sourceTree = "<group>"; };
+		4C01B49E1693DBC70064AD49 /* HBJSONSerialization_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBJSONSerialization_Test.m; sourceTree = "<group>"; };
+		4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HBJSONSerialization_TestCases.plist; sourceTree = "<group>"; };
+		4C01B4A21693FB510064AD49 /* HBNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBNamespace.h; sourceTree = "<group>"; };
+		4C01B4A31693FB510064AD49 /* HBNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBNamespace.m; sourceTree = "<group>"; };
+		4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Bridge.h"; sourceTree = "<group>"; };
+		4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Bridge.m"; sourceTree = "<group>"; };
+		4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBInvocationContext.h; sourceTree = "<group>"; };
+		4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInvocationContext.m; sourceTree = "<group>"; };
+		4C01B4AD169418080064AD49 /* HoriBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HoriBridge.js; sourceTree = "<group>"; };
+		4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CreateBridgeFrame.js; sourceTree = "<group>"; };
 		4C69077C169036E600132B2E /* HoriBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoriBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C690780169036E600132B2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C690782169036E600132B2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,6 +74,12 @@
 		4C6907A8169036E600132B2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C6907AA169036E600132B2E /* HoriBrowserTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoriBrowserTests.h; sourceTree = "<group>"; };
 		4C6907AB169036E600132B2E /* HoriBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoriBrowserTests.m; sourceTree = "<group>"; };
+		4C6907B616907A3900132B2E /* HBExecutionUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBExecutionUnit.h; sourceTree = "<group>"; };
+		4C6907B716907A3900132B2E /* HBExecutionUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBExecutionUnit.m; sourceTree = "<group>"; };
+		4C6907B916907A9B00132B2E /* HBConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBConfiguration.h; sourceTree = "<group>"; };
+		4C6907BA16907A9B00132B2E /* HBConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBConfiguration.m; sourceTree = "<group>"; };
+		4C6907C81693D7BD00132B2E /* HBJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBJSONSerialization.h; sourceTree = "<group>"; };
+		4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBJSONSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +106,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C01B49B1693DB680064AD49 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C01B49D1693DBC70064AD49 /* HBJSONSerialization_Test.h */,
+				4C01B49E1693DBC70064AD49 /* HBJSONSerialization_Test.m */,
+				4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		4C01B4AC169417E80064AD49 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				4C01B4AD169418080064AD49 /* HoriBridge.js */,
+				4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		4C01B4B41695469F0064AD49 /* BridgedObjects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = BridgedObjects;
+			sourceTree = "<group>";
+		};
 		4C690771169036E600132B2E = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +165,7 @@
 		4C690786169036E600132B2E /* HoriBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				4C6907B5169036F500132B2E /* Source */,
 				4C69078F169036E600132B2E /* HBAppDelegate.h */,
 				4C690790169036E600132B2E /* HBAppDelegate.m */,
 				4C690787169036E600132B2E /* Supporting Files */,
@@ -136,6 +190,8 @@
 		4C6907A4169036E600132B2E /* HoriBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
+				4C01B49B1693DB680064AD49 /* UnitTests */,
+				4C6907C016928EFF00132B2E /* LearningTests */,
 				4C6907AA169036E600132B2E /* HoriBrowserTests.h */,
 				4C6907AB169036E600132B2E /* HoriBrowserTests.m */,
 				4C6907A5169036E600132B2E /* Supporting Files */,
@@ -150,6 +206,42 @@
 				4C6907A7169036E600132B2E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C6907B5169036F500132B2E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4C01B4B41695469F0064AD49 /* BridgedObjects */,
+				4C01B4AC169417E80064AD49 /* Resource */,
+				4C6907C41693D72500132B2E /* Utility */,
+				4C6907B616907A3900132B2E /* HBExecutionUnit.h */,
+				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
+				4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */,
+				4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */,
+				4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */,
+				4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */,
+				4C01B4A21693FB510064AD49 /* HBNamespace.h */,
+				4C01B4A31693FB510064AD49 /* HBNamespace.m */,
+				4C6907B916907A9B00132B2E /* HBConfiguration.h */,
+				4C6907BA16907A9B00132B2E /* HBConfiguration.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		4C6907C016928EFF00132B2E /* LearningTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LearningTests;
+			sourceTree = "<group>";
+		};
+		4C6907C41693D72500132B2E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4C6907C81693D7BD00132B2E /* HBJSONSerialization.h */,
+				4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +316,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C01B4B3169538F20064AD49 /* HoriBridge.js in Resources */,
+				4C01B4B1169537690064AD49 /* CreateBridgeFrame.js in Resources */,
 				4C69078B169036E600132B2E /* InfoPlist.strings in Resources */,
 				4C690793169036E600132B2E /* Default.png in Resources */,
 				4C690795169036E600132B2E /* Default@2x.png in Resources */,
@@ -236,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6907A9169036E600132B2E /* InfoPlist.strings in Resources */,
+				4C01B4A11693E0F00064AD49 /* HBJSONSerialization_TestCases.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +359,12 @@
 			files = (
 				4C69078D169036E600132B2E /* main.m in Sources */,
 				4C690791169036E600132B2E /* HBAppDelegate.m in Sources */,
+				4C6907B816907A3900132B2E /* HBExecutionUnit.m in Sources */,
+				4C6907BB16907A9B00132B2E /* HBConfiguration.m in Sources */,
+				4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */,
+				4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */,
+				4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */,
+				4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6907AC169036E600132B2E /* HoriBrowserTests.m in Sources */,
+				4C01B49F1693DBC70064AD49 /* HBJSONSerialization_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +532,7 @@
 				4C6907B1169036E600132B2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C6907B2169036E600132B2E /* Build configuration list for PBXNativeTarget "HoriBrowserTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +541,7 @@
 				4C6907B4169036E600132B2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
