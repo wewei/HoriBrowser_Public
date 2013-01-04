@@ -15,5 +15,6 @@
 + (HBBridgedObjectManager *)sharedManager;
 
 - (id)objectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
+- (void)setObject:(id)object forPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
 
 @end
