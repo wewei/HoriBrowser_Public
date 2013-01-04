@@ -15,11 +15,12 @@
 {
     id arguments = [context.arguments objectForKey:@"arguments"];
     
-    id object = [self instantiateWithArguments:arguments];
+    id object = [self instantiateWithArguments:arguments inExecutionUnit:context.executionUnit];
     if (object != nil) {
         NSString *path = [context.arguments objectForKey:@"path"];
         HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
         [objectManager setObject:object forPath:path inExecutionUnit:context.executionUnit];
+        context.returnValue = path;
         [context succeed];
     } else {
         [context fail];

@@ -139,15 +139,17 @@
     return YES;
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    (void)[webView stringByEvaluatingJavaScriptFromString:[HBConfiguration sharedConfiguration].bridgeScript];
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *script = [HBConfiguration sharedConfiguration].createFrameScript;
-    (void)[webView stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'object'"];
+    if (![checkResult isEqualToString:@"true"]) {
+        NSString *script = [HBConfiguration sharedConfiguration].bridgeScript;
+        (void)[webView stringByEvaluatingJavaScriptFromString:script];
+    }
 }
 
 @end

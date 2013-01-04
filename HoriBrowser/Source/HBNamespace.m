@@ -30,6 +30,7 @@ static HBNamespace *classNamespace = nil;
     if (rootNamespace == nil) {
         rootNamespace = [[HBNamespace alloc] init];
         [rootNamespace setObject:[HBNamespace systemNamespace] forName:@"System"];
+        [rootNamespace setObject:[HBNamespace classNamespace] forName:@"Class"];
     }
     return rootNamespace;
 }

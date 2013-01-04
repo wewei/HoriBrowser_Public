@@ -12,8 +12,6 @@
 		4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A31693FB510064AD49 /* HBNamespace.m */; };
 		4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */; };
 		4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */; };
-		4C01B4B1169537690064AD49 /* CreateBridgeFrame.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */; };
-		4C01B4B3169538F20064AD49 /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4AD169418080064AD49 /* HoriBridge.js */; };
 		4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */; };
 		4C01B4BE16954C890064AD49 /* HBBridgedObjectManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */; };
 		4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */; };
@@ -42,6 +40,7 @@
 		4C6907BB16907A9B00132B2E /* HBConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907BA16907A9B00132B2E /* HBConfiguration.m */; };
 		4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */; };
 		4CB19C141696F42E003083FF /* HBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB19C131696F42E003083FF /* HBUtil.m */; };
+		4CB19C1716972645003083FF /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4CB19C1616972645003083FF /* HoriBridge.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +63,6 @@
 		4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Bridge.m"; sourceTree = "<group>"; };
 		4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBInvocationContext.h; sourceTree = "<group>"; };
 		4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInvocationContext.m; sourceTree = "<group>"; };
-		4C01B4AD169418080064AD49 /* HoriBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HoriBridge.js; sourceTree = "<group>"; };
-		4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CreateBridgeFrame.js; sourceTree = "<group>"; };
 		4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedObjectManager.h; sourceTree = "<group>"; };
 		4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedObjectManager.m; sourceTree = "<group>"; };
 		4C01B4BC16954C890064AD49 /* HBBridgedObjectManager_Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedObjectManager_Test.h; sourceTree = "<group>"; };
@@ -113,6 +110,7 @@
 		4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBJSONSerialization.m; sourceTree = "<group>"; };
 		4CB19C121696F42E003083FF /* HBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUtil.h; sourceTree = "<group>"; };
 		4CB19C131696F42E003083FF /* HBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUtil.m; sourceTree = "<group>"; };
+		4CB19C1616972645003083FF /* HoriBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HoriBridge.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +152,7 @@
 		4C01B4AC169417E80064AD49 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				4C01B4AD169418080064AD49 /* HoriBridge.js */,
-				4C01B4B0169537690064AD49 /* CreateBridgeFrame.js */,
+				4CB19C1616972645003083FF /* HoriBridge.js */,
 				4C01B4D91695C1A30064AD49 /* BridgedClasses.plist */,
 			);
 			path = Resource;
@@ -387,8 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C01B4B3169538F20064AD49 /* HoriBridge.js in Resources */,
-				4C01B4B1169537690064AD49 /* CreateBridgeFrame.js in Resources */,
+				4CB19C1716972645003083FF /* HoriBridge.js in Resources */,
 				4C69078B169036E600132B2E /* InfoPlist.strings in Resources */,
 				4C690793169036E600132B2E /* Default.png in Resources */,
 				4C690795169036E600132B2E /* Default@2x.png in Resources */,

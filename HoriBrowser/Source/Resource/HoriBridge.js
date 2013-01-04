@@ -1,8 +1,9 @@
-
-// alert("hello world");
-
 var $H = function () {
-    var __bridgedObjects = new Object();
+    
+    var BRIDGE_FRAME_ID = "hori_bridge_frame";
+    var BRIDGE_FRAME_SRC = "bridge://localhost/flush";
+
+	var __bridgedObjects = new Object();
     var __activeInvocations = new Object();
     var __invocationQueue = new Array();
     
@@ -10,13 +11,23 @@ var $H = function () {
         this.path = path;
     };
     
+    function createBridgeFrame() {
+        var frame = document.createElement("iframe");
+        frame.style.display = "none";
+        frame.id = BRIDGE_FRAME_ID;
+        frame.src = BRIDGE_FRAME_SRC;
+        document.documentElement.appendChild(frame);
+        return frame;
+    }
+    
     BridgedObject.prototype.constructor = BridgedObject;
     BridgedObject.prototype.call = function (method, arguments, callback) {
         var invocation = new Invocation(this.path, method, arguments, callback);
         __invocationQueue.push(invocation);
-		var frame = document.getElementById("hori_bridge_frame");
-        if (frame)
-            frame.contentDocument.location.reload();
+		var frame = document.getElementById(BRIDGE_FRAME_ID);
+        if (frame == null)
+            frame = createBridgeFrame();
+        frame.src = BRIDGE_FRAME_SRC;
     };
     
     var __invocationCounter = 0;
@@ -61,7 +72,7 @@ var $H = function () {
             if (invocation.__callback) {
                 var callback = invocation.__callback;
                 var routine = function () {
-                    callback(completionDict.status, completionDict.returnValue);
+                    callback(completionDict.exception, completionDict.returnValue);
                 };
                 setTimeout(routine, 1);
             }
@@ -78,6 +89,5 @@ var $H = function () {
     
     hori.__bridge = __bridge;
     
-    return hori;
+    return hori;    
 }();
-

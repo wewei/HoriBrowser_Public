@@ -38,6 +38,14 @@ return __mainExecutionUnit;
     
     self.window.rootViewController = [[[UIViewController alloc] init] autorelease];
     [self.mainExecutionUnit loadURL:[HBConfiguration sharedConfiguration].serverURL];
+    
+#ifdef DEBUG
+    NSLog(@"Debug build.");
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
+#endif // DEBUG
+    
     return YES;
 }
 

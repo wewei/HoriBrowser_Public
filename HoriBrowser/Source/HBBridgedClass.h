@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HBExecutionUnit;
+
 @interface HBBridgedClass : NSObject
 
 @property (readonly, nonatomic) NSString *name;
@@ -16,6 +18,6 @@
 + (HBBridgedClass *)classWithName:(NSString *)name objcName:(NSString *)objcName;
 - (id)initWithName:(NSString *)name objcName:(NSString *)objcName;
 
-- (id)instantiateWithArguments:(id)arguments;
+- (id)instantiateWithArguments:(id)arguments inExecutionUnit:(HBExecutionUnit *)executionUnit;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class HBExecutionUnit;
+
 @protocol HBInstantiatable <NSObject>
 
-- (id)initWithArguments:(id)arguments;
+- (id)initWithArguments:(id)arguments inExecutionUnit:(HBExecutionUnit *)executionUnit;
 
 @end

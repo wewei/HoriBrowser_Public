@@ -29,13 +29,23 @@
     return self;
 }
 
-- (id)instantiateWithArguments:(id)arguments
+- (id)instantiateWithArguments:(id)arguments inExecutionUnit:(HBExecutionUnit *)executionUnit
 {
     Class objcClass = NSClassFromString(self.objcName);
     SEL initSel = @selector(initWithArguments:);
-    id instance = nil;
+    id<HBInstantiatable> instance = nil;
     if ([objcClass instanceMethodForSelector:initSel]) {
-        instance = [[(id<HBInstantiatable>)[objcClass alloc] initWithArguments:arguments] autorelease];
+        instance = (id<HBInstantiatable>)[objcClass alloc];
+        @try {
+            [instance initWithArguments:arguments inExecutionUnit:executionUnit];
+        }
+        @catch (NSException *exception) {
+            [instance release];
+            @throw;
+        }
+        @finally {
+            ;
+        }
     }
     return instance;
 }
