@@ -10,10 +10,9 @@
 
 @class HBNamespace;
 
-@interface HBExecutionUnit : NSObject<UIWebViewDelegate>
+@interface HBExecutionUnit : UIViewController<UIWebViewDelegate>
 
 @property (readonly, nonatomic) UIWebView *webView;
-@property (readonly, nonatomic) UIViewController *webViewController;
 @property (readonly, nonatomic) HBNamespace *currentNamespace;
 
 - (void)loadURL:(NSURL *)URL;

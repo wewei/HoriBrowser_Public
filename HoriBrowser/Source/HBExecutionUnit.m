@@ -24,7 +24,6 @@
 @implementation HBExecutionUnit
 
 @synthesize webView = __webView;
-@synthesize webViewController = __webViewController;
 @synthesize currentNamespace = __currentNamespace;
 
 @synthesize flushing = _flushing;
@@ -38,21 +37,12 @@
     return __webView;
 }
 
-- (UIViewController *)webViewController
-{
-    if (__webViewController == nil) {
-        __webViewController = [[UIViewController alloc] init];
-        __webViewController.view = self.webView;
-    }
-    return __webViewController;
-}
-
 - (HBNamespace *)currentNamespace
 {
     if (__currentNamespace == nil) {
         __currentNamespace = [[HBNamespace alloc] init];
+        [__currentNamespace setObject:self forName:@"WebViewController"];
         [__currentNamespace setObject:self.webView forName:@"WebView"];
-        [__currentNamespace setObject:self.webViewController forName:@"WebViewController"];
     }
     return __currentNamespace;
 }
@@ -63,6 +53,8 @@
     if (self) {
         __webView = nil;
         _flushing = NO;
+        
+        self.view = self.webView;
     }
     return self;
 }
@@ -70,7 +62,6 @@
 - (void)dealloc
 {
     [__webView release];
-    [__webViewController release];
     [__currentNamespace release];
     [super dealloc];
 }
