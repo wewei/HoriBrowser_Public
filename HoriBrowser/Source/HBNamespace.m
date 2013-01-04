@@ -10,9 +10,12 @@
 #import "HBInvocationContext.h"
 #import "HBBridgedObjectManager.h"
 #import "HBAppDelegate.h"
+#import "HBBridgedClass.h"
+#import "HBConfiguration.h"
 
 static HBNamespace *rootNamespace = nil;
 static HBNamespace *systemNamespace = nil;
+static HBNamespace *classNamespace = nil;
 
 @interface HBNamespace()
 
@@ -44,6 +47,19 @@ static HBNamespace *systemNamespace = nil;
         [systemNamespace setObject:mainWindow.rootViewController forName:@"RootViewController"];
     }
     return systemNamespace;
+}
+
++ (HBNamespace *)classNamespace
+{
+    if (classNamespace == nil) {
+        classNamespace = [[HBNamespace alloc] init];
+        NSDictionary *bridgedClasses = [HBConfiguration sharedConfiguration].bridgedClasses;
+        [bridgedClasses enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            HBBridgedClass *bridgedClass = [HBBridgedClass classWithName:key objcName:obj];
+            [classNamespace setObject:bridgedClass forName:key];
+        }];
+    }
+    return classNamespace;
 }
 
 @synthesize objects = __objects;

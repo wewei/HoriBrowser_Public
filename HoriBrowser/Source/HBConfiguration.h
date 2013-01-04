@@ -17,4 +17,6 @@
 @property (readonly, nonatomic) NSString *bridgeScript;
 @property (readonly, nonatomic) NSString *createFrameScript;
 
+@property (readonly, nonatomic) NSDictionary *bridgedClasses;
+
 @end

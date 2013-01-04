@@ -12,6 +12,7 @@
 
 + (HBNamespace *)rootNamespace;
 + (HBNamespace *)systemNamespace;
++ (HBNamespace *)classNamespace;
 
 - (id)objectForName:(NSString *)name;
 - (void)setObject:(id)object forName:(NSString *)name;

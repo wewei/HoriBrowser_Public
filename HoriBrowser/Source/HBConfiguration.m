@@ -62,6 +62,17 @@ static HBConfiguration *sharedInstance = nil;
     return __createFrameScript;
 }
 
+@synthesize bridgedClasses = __bridgedClasses;
+
+- (NSDictionary *)bridgedClasses
+{
+    if (__bridgedClasses == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"BridgedClasses" ofType:@"plist"];
+        __bridgedClasses = [[NSDictionary alloc] initWithContentsOfFile:path];
+    }
+    return __bridgedClasses;
+}
+
 - (void)dealloc
 {
     [__serverURL release];

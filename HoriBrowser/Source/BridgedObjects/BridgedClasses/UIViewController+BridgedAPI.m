@@ -24,7 +24,7 @@
             [context succeed];
         }];
     } else {
-        [context completeWithStatus:HBInvocationStatusArgumentError];
+        [context completeWithStatus:HBStatusInvocationArgumentError];
     }
 }
 
