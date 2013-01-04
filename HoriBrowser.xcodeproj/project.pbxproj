@@ -10,7 +10,7 @@
 		4C01B49F1693DBC70064AD49 /* HBJSONSerialization_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B49E1693DBC70064AD49 /* HBJSONSerialization_Test.m */; };
 		4C01B4A11693E0F00064AD49 /* HBJSONSerialization_TestCases.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */; };
 		4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A31693FB510064AD49 /* HBNamespace.m */; };
-		4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */; };
+		4C01B4A8169407C20064AD49 /* NSObject+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4A7169407C20064AD49 /* NSObject+BridgedAPI.m */; };
 		4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */; };
 		4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */; };
 		4C01B4BE16954C890064AD49 /* HBBridgedObjectManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */; };
@@ -59,8 +59,8 @@
 		4C01B4A01693E0F00064AD49 /* HBJSONSerialization_TestCases.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HBJSONSerialization_TestCases.plist; sourceTree = "<group>"; };
 		4C01B4A21693FB510064AD49 /* HBNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBNamespace.h; sourceTree = "<group>"; };
 		4C01B4A31693FB510064AD49 /* HBNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBNamespace.m; sourceTree = "<group>"; };
-		4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Bridge.h"; sourceTree = "<group>"; };
-		4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Bridge.m"; sourceTree = "<group>"; };
+		4C01B4A6169407C10064AD49 /* NSObject+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BridgedAPI.h"; sourceTree = "<group>"; };
+		4C01B4A7169407C20064AD49 /* NSObject+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBInvocationContext.h; sourceTree = "<group>"; };
 		4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInvocationContext.m; sourceTree = "<group>"; };
 		4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedObjectManager.h; sourceTree = "<group>"; };
@@ -182,6 +182,8 @@
 		4C01B4DB1695C3A40064AD49 /* BridgedClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4C01B4A6169407C10064AD49 /* NSObject+BridgedAPI.h */,
+				4C01B4A7169407C20064AD49 /* NSObject+BridgedAPI.m */,
 				4C01B4DD1695C4110064AD49 /* UINavigationController+BridgedAPI.h */,
 				4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */,
 				4C01B4C316955AFE0064AD49 /* UIWindow+BridgedAPI.h */,
@@ -280,8 +282,6 @@
 				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
 				4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */,
 				4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */,
-				4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */,
-				4C01B4A7169407C20064AD49 /* NSObject+Bridge.m */,
 				4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */,
 				4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */,
 				4C01B4A21693FB510064AD49 /* HBNamespace.h */,
@@ -431,7 +431,7 @@
 				4C6907BB16907A9B00132B2E /* HBConfiguration.m in Sources */,
 				4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */,
 				4C01B4A41693FB510064AD49 /* HBNamespace.m in Sources */,
-				4C01B4A8169407C20064AD49 /* NSObject+Bridge.m in Sources */,
+				4C01B4A8169407C20064AD49 /* NSObject+BridgedAPI.m in Sources */,
 				4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */,
 				4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */,
 				4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */,

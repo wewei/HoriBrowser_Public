@@ -9,7 +9,7 @@
 #import "HBExecutionUnit.h"
 #import "HBJSONSerialization.h"
 #import "HBBridgedObjectManager.h"
-#import "NSObject+Bridge.h"
+#import "NSObject+BridgedAPI.h"
 #import "HBInvocationContext.h"
 #import "HBConfiguration.h"
 #import "HBNamespace.h"

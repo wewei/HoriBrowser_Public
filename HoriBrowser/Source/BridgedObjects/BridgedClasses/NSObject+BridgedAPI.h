@@ -1,5 +1,5 @@
 //
-//  NSObject+Bridge.h
+//  NSObject+BridgedAPI.h
 //  HoriBrowser
 //
 //  Created by Wei Wei on 1/2/13.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HBInvocationContext.h"
 
-@interface NSObject (Bridge)
+@interface NSObject (BridgedAPI)
 
 - (void)triggerInvocationWithContext:(HBInvocationContext *)context;
 
