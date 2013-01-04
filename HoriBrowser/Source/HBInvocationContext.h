@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HBInvocationStatus.h"
+
+
+extern NSString * const HBInvocationFailedException;
+
+extern NSString * const HBInvocationUnknownReason;
+extern NSString * const HBInvocationObjectNotFoundReason;
+extern NSString * const HBInvocationMethodNotFoundReason;
+extern NSString * const HBInvocationArgumentErrorReason;
 
 @class HBExecutionUnit;
 
@@ -22,7 +29,7 @@
 @property (retain, nonatomic) id arguments;
 @property (retain, nonatomic) NSNumber *index;
 
-@property (retain, nonatomic) NSNumber *status;
+@property (retain, nonatomic) NSException *exception;
 @property (retain, nonatomic) id returnValue;
 
 @property (readonly, nonatomic) NSDictionary *completionJSON;
@@ -32,7 +39,7 @@
 
 - (void)complete;
 
-- (void)completeWithStatus:(HBInvocationStatus)status;
+- (void)completeWithException:(NSException *)exception;
 - (void)succeed;
 - (void)fail;
 

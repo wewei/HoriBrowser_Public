@@ -88,8 +88,12 @@
     id object = [[HBBridgedObjectManager sharedManager] objectForPath:context.objectPath
                                                       inExecutionUnit:self];
     if (object == nil) {
-        context.status = [NSNumber numberWithInteger:HBInvocationStatusObjectNotFound];
-        [context complete];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:context.objectPath
+                                                             forKey:@"objectPath"];  // TODO, give it a name?
+        NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                         reason:HBInvocationObjectNotFoundReason
+                                                       userInfo:userInfo];
+        [context completeWithException:exception];
     }
     
     [object triggerInvocationWithContext:context];

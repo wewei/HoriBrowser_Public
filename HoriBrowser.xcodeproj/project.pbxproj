@@ -41,6 +41,7 @@
 		4C6907B816907A3900132B2E /* HBExecutionUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907B716907A3900132B2E /* HBExecutionUnit.m */; };
 		4C6907BB16907A9B00132B2E /* HBConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907BA16907A9B00132B2E /* HBConfiguration.m */; };
 		4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */; };
+		4CB19C141696F42E003083FF /* HBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB19C131696F42E003083FF /* HBUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +78,6 @@
 		4C01B4C716955F8D0064AD49 /* UIView+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4C9169560960064AD49 /* UIViewController+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BridgedAPI.m"; sourceTree = "<group>"; };
-		4C01B4CC1695877B0064AD49 /* HBStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBStatus.h; sourceTree = "<group>"; };
 		4C01B4D316958CBF0064AD49 /* HBBridgedClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedClass.h; sourceTree = "<group>"; };
 		4C01B4D416958CC00064AD49 /* HBBridgedClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedClass.m; sourceTree = "<group>"; };
 		4C01B4D616958DFD0064AD49 /* HBBridgedClass+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBBridgedClass+BridgedAPI.h"; sourceTree = "<group>"; };
@@ -111,6 +111,8 @@
 		4C6907BA16907A9B00132B2E /* HBConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBConfiguration.m; sourceTree = "<group>"; };
 		4C6907C81693D7BD00132B2E /* HBJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBJSONSerialization.h; sourceTree = "<group>"; };
 		4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBJSONSerialization.m; sourceTree = "<group>"; };
+		4CB19C121696F42E003083FF /* HBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUtil.h; sourceTree = "<group>"; };
+		4CB19C131696F42E003083FF /* HBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,7 +281,6 @@
 				4C6907C41693D72500132B2E /* Utility */,
 				4C6907B616907A3900132B2E /* HBExecutionUnit.h */,
 				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
-				4C01B4CC1695877B0064AD49 /* HBStatus.h */,
 				4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */,
 				4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */,
 				4C01B4A6169407C10064AD49 /* NSObject+Bridge.h */,
@@ -308,6 +309,8 @@
 			children = (
 				4C6907C81693D7BD00132B2E /* HBJSONSerialization.h */,
 				4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */,
+				4CB19C121696F42E003083FF /* HBUtil.h */,
+				4CB19C131696F42E003083FF /* HBUtil.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				4C01B4D516958CC00064AD49 /* HBBridgedClass.m in Sources */,
 				4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */,
 				4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */,
+				4CB19C141696F42E003083FF /* HBUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

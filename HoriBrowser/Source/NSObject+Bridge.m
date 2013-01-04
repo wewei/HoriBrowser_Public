@@ -24,10 +24,22 @@
 {
     SEL selector = [self selectorForMethod:context.method];
     if (selector != nil) {
-        [self performSelector:selector withObject:context];
+        @try {
+            [self performSelector:selector withObject:context];
+        }
+        @catch (NSException *exception) {
+            [context completeWithException:exception];
+        }
+        @finally {
+            ;
+        }
     } else {
-        context.status = [NSNumber numberWithInteger:HBInvocationStatusMethodNotFound];
-        [context complete];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:context.method
+                                                             forKey:@"method"];
+        NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                         reason:HBInvocationMethodNotFoundReason
+                                                       userInfo:userInfo];
+        [context completeWithException:exception];
     }
 }
 

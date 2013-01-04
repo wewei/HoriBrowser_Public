@@ -16,7 +16,7 @@
     HBBridgedObjectManager *sharedManager = [HBBridgedObjectManager sharedManager];
     NSString *path = @"/System/ObjectManager";
     STAssertEquals(sharedManager,
-                   [sharedManager objectForPath:path],
+                   [sharedManager objectForPath:path inExecutionUnit:nil],
                    @"The shared HBBridgedObjectManager should be mapped at %@",
                    path);
 }

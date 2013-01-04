@@ -10,12 +10,24 @@
 #import "HBJSONSerialization.h"
 #import "HBExecutionUnit.h"
 
+NSString * const HBInvocationFailedException = @"InvocationFailed";
+
+NSString * const HBInvocationUnknownReason = @"Unknown Reason.";
+NSString * const HBInvocationObjectNotFoundReason = @"Target object not found.";
+NSString * const HBInvocationMethodNotFoundReason = @"Method not found.";
+NSString * const HBInvocationArgumentErrorReason = @"Argument Error";
+
+
 static NSString * const HBInvocationAttributeObjectPath = @"objectPath";
 static NSString * const HBInvocationAttributeMethod = @"method";
 static NSString * const HBInvocationAttributeArguments = @"arguments";
 static NSString * const HBInvocationAttributeIndex = @"index";
 
-static NSString * const HBCompletionAttributeStatus = @"status";
+static NSString * const HBExceptionAttributeName = @"name";
+static NSString * const HBExceptionAttributeReason = @"reason";
+static NSString * const HBExceptionAttributeUserInfo = @"userInfo";
+
+static NSString * const HBCompletionAttributeException = @"exception";
 static NSString * const HBCompletionAttributeReturnValue = @"returnValue";
 static NSString * const HBCompletionAttributeIndex = @"index";
 
@@ -34,16 +46,23 @@ static NSString * const HBCompletionAttributeIndex = @"index";
 @synthesize arguments = _arguments;
 @synthesize index = _index;
 
-@synthesize status = _status;
+@synthesize exception = _exception;
 @synthesize returnValue = _returnValue;
 
 - (NSString *)completionJSON
 {
-    NSDictionary * completionDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     self.status, HBCompletionAttributeStatus,
-                                     self.returnValue, HBCompletionAttributeReturnValue,
-                                     self.index, HBCompletionAttributeIndex,
-                                     nil];
+    NSDictionary *exceptionDict = nil;
+    if (self.exception != nil)
+        exceptionDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                         HBNoneNil(self.exception.name), HBExceptionAttributeName,
+                         HBNoneNil(self.exception.reason), HBExceptionAttributeReason,
+                         HBNoneNil(self.exception.userInfo), HBExceptionAttributeUserInfo,
+                         nil];
+    NSDictionary *completionDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    HBNoneNil(exceptionDict), HBCompletionAttributeException,
+                                    HBNoneNil(self.returnValue), HBCompletionAttributeReturnValue,
+                                    HBNoneNil(self.index), HBCompletionAttributeIndex,
+                                    nil];
     
     NSError *error = nil;
     NSString *completionJSON = [HBJSONSerialization stringWithJSONObject:completionDict error:&error];
@@ -63,7 +82,7 @@ static NSString * const HBCompletionAttributeIndex = @"index";
         self.arguments = [dictionary objectForKey:HBInvocationAttributeArguments];
         self.index = [dictionary objectForKey:HBInvocationAttributeIndex];
         
-        self.status = [NSNumber numberWithInteger:HBInvocationStatusFailed];
+        self.exception = nil;
         self.returnValue = [NSNull null];
     }
     return self;
@@ -76,20 +95,22 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     (void)[self.executionUnit.webView stringByEvaluatingJavaScriptFromString:completionScript];
 }
 
-- (void)completeWithStatus:(HBInvocationStatus)status
+- (void)completeWithException:(NSException *)exception
 {
-    self.status = [NSNumber numberWithInteger:status];
+    self.exception = exception;
     [self complete];
 }
 
 - (void)succeed
 {
-    [self completeWithStatus:HBInvocationStatusSucceeded];
+    [self completeWithException:nil];
 }
 
 - (void)fail
 {
-    [self completeWithStatus:HBInvocationStatusFailed];
+    [self completeWithException:[NSException exceptionWithName:HBInvocationFailedException
+                                                        reason:HBInvocationUnknownReason
+                                                      userInfo:nil]];
 }
 
 - (void)dealloc
@@ -100,7 +121,7 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     self.arguments = nil;
     self.index = nil;
     
-    self.status = nil;
+    self.exception = nil;
     self.returnValue = nil;
     
     [super dealloc];

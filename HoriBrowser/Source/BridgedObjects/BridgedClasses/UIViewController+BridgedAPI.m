@@ -24,7 +24,11 @@
             [context succeed];
         }];
     } else {
-        [context completeWithStatus:HBStatusInvocationArgumentError];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"viewController" forKey:@"argument"];
+        NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                         reason:HBInvocationArgumentErrorReason
+                                                       userInfo:userInfo];
+        [context completeWithException:exception];
     }
 }
 

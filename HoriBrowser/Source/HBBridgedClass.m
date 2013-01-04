@@ -35,7 +35,7 @@
     SEL initSel = @selector(initWithArguments:);
     id instance = nil;
     if ([objcClass instanceMethodForSelector:initSel]) {
-        instance = [(id<HBInstantiatable>)[objcClass alloc] initWithArguments:arguments];
+        instance = [[(id<HBInstantiatable>)[objcClass alloc] initWithArguments:arguments] autorelease];
     }
     return instance;
 }
