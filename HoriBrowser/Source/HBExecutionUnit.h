@@ -15,6 +15,9 @@
 @property (readonly, nonatomic) UIWebView *webView;
 @property (readonly, nonatomic) HBNamespace *currentNamespace;
 
++ (HBExecutionUnit *)executionUnit;
+
 - (void)loadURL:(NSURL *)URL;
+- (void)loadURL:(NSURL *)URL withCompletion:(void (^)(BOOL))completion;
 
 @end

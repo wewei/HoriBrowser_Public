@@ -18,15 +18,25 @@
 @interface HBExecutionUnit()
 
 @property (assign, atomic, getter = isFlushing) BOOL flushing;
+@property (assign, atomic, getter = isLoading) BOOL loading;
+@property (copy, nonatomic) void (^completion)(BOOL);
 
 @end
 
 @implementation HBExecutionUnit
 
++ (HBExecutionUnit *)executionUnit
+{
+    return [[[HBExecutionUnit alloc] init] autorelease];
+}
+
 @synthesize webView = __webView;
 @synthesize currentNamespace = __currentNamespace;
 
 @synthesize flushing = _flushing;
+@synthesize loading = _loading;
+
+@synthesize completion = _completion;
 
 - (UIWebView *)webView
 {
@@ -53,7 +63,9 @@
     if (self) {
         __webView = nil;
         _flushing = NO;
+        _loading = NO;
         
+        self.completion = nil;
         self.view = self.webView;
     }
     return self;
@@ -63,13 +75,38 @@
 {
     [__webView release];
     [__currentNamespace release];
+    
+    self.completion = nil;
+    
     [super dealloc];
 }
 
 - (void)loadURL:(NSURL *)URL
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    [self.webView loadRequest:request];
+    [self loadURL:URL withCompletion:nil];
+}
+
+- (void)loadURL:(NSURL *)URL withCompletion:(void (^)(BOOL))completion
+{
+    assert(!self.isLoading);
+    assert(self.completion == nil);
+    if (!self.isLoading) {
+        self.loading = YES;
+        self.completion = completion;
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        [self.webView loadRequest:request];
+    }
+}
+
+- (void)loadURLComplete:(BOOL)loaded
+{
+    if (self.completion != nil) {
+        self.completion(loaded);
+    }
+    self.loading = FALSE;
+    // This must be the last statement, setCompletion to nil may dealloc self.
+    self.completion = nil;
 }
 
 - (void)triggerInvocationWithDictionary:(NSDictionary *)invocationDict
@@ -130,10 +167,6 @@
     return YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-}
-
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'object'"];
@@ -141,6 +174,16 @@
         NSString *script = [HBConfiguration sharedConfiguration].bridgeScript;
         (void)[webView stringByEvaluatingJavaScriptFromString:script];
     }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self loadURLComplete:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self loadURLComplete:NO];
 }
 
 @end
