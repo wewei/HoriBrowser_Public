@@ -1,0 +1,64 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>It works</h1>
+		<input type="text"></input>
+		<button onclick="showBaidu()">Baidu</button>
+		<button onclick="testGetProperty()">test getProperty</button>
+		<script type="text/javascript">
+		function showBaidu()
+		{
+			var navCtrl = $H("/User/NavigatioinController");
+			navCtrl.call(
+				"pushScene",
+				{
+					"url": "http://www.baidu.com",
+					"waitForLoading" : 1,
+					"stopOnFailure" : 1,
+				},
+				function (exception, returnValue) {
+					if (exception)
+						alert(JSON.stringify(exception));
+				});
+		}
+
+		function testGetProperty()
+		{
+			$H("/Current/WebViewController").getProperty(
+				"navigationItemTitle",
+				function (exception, returnValue) {
+					alert(returnValue);
+				}
+			);
+		}
+
+		function setRootViewController(path)
+		{
+			var rootViewController = $H("/System/RootViewController");
+			rootViewController.call(
+				"presentViewController",
+				{
+					"viewController": path,
+					"animated": 1,
+				}
+			);
+		}
+
+		var navCtrlClass = $H("/Class/NavigationController");
+		navCtrlClass.call(
+			"new",
+			{
+				"path"  : "/User/NavigatioinController",
+				"arguments" : {
+					"rootViewController" : "/Current/WebViewController",
+				},
+			},
+			function (exception, returnValue) {
+				setRootViewController(returnValue);
+				$H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");
+			}
+		);
+		</script>
+	</body>
+</html>
