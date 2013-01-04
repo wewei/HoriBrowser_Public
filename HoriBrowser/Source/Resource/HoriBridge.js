@@ -3,7 +3,7 @@ var $H = function () {
     var BRIDGE_FRAME_ID = "hori_bridge_frame";
     var BRIDGE_FRAME_SRC = "bridge://localhost/flush";
 
-	var __bridgedObjects = new Object();
+    var __bridgedObjects = new Object();
     var __activeInvocations = new Object();
     var __invocationQueue = new Array();
     
@@ -24,10 +24,29 @@ var $H = function () {
     BridgedObject.prototype.call = function (method, arguments, callback) {
         var invocation = new Invocation(this.path, method, arguments, callback);
         __invocationQueue.push(invocation);
-		var frame = document.getElementById(BRIDGE_FRAME_ID);
+        var frame = document.getElementById(BRIDGE_FRAME_ID);
         if (frame == null)
             frame = createBridgeFrame();
         frame.src = BRIDGE_FRAME_SRC;
+    };
+    
+    BridgedObject.prototype.setProperty = function (property, value, callback) {
+        this.call(
+            "setProperty",
+            {
+                "property" : property,
+                "value" : value,
+            },
+            callback
+        );
+    };
+    
+    BridgedObject.prototype.getProperty = function (property, callback) {
+        this.call(
+            "getProperty",
+            { "property" : property },
+            callback
+        );
     };
     
     var __invocationCounter = 0;

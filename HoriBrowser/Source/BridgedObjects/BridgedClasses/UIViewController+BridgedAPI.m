@@ -32,4 +32,14 @@
     }
 }
 
+- (NSString *)getter_navigationItemTitle
+{
+    return self.navigationItem.title;
+}
+
+- (void)setter_navigationItemTitle:(NSString *)title
+{
+    self.navigationItem.title = title;
+}
+
 @end
