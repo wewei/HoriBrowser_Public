@@ -46,6 +46,8 @@ return __mainExecutionUnit;
     [[NSURLCache sharedURLCache] setMemoryCapacity:0];
 #endif // DEBUG
     
+    srandom(millisecondsSince1970());
+    
     return YES;
 }
 

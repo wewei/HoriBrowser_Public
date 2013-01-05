@@ -11,3 +11,7 @@
 id HBNoneNil(id obj) {
     return obj == nil ? [NSNull null] : obj;
 }
+
+unsigned int millisecondsSince1970() {
+    return (unsigned int)([[NSDate date] timeIntervalSince1970] * 1000);
+}

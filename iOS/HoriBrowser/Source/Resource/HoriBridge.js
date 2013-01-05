@@ -48,9 +48,13 @@ var $H = function () {
             callback
         );
     };
-    
+
     BridgedObject.prototype.unlink = function (callback) {
         this.call("unlink", null, callback);
+    };
+    
+    BridgedObject.prototype.move = function (path, callback) {
+        this.call("moveToPath", { "path" : path }, callback);
     };
     
     var __invocationCounter = 0;

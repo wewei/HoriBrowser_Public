@@ -16,6 +16,7 @@ NSString * const HBObjectManagerUnknownReason = @"Unknown reason";
 NSString * const HBObjectManagerInvalidPathReason = @"The object path is not valid.";
 NSString * const HBObjectManagerDuplicatedCreationReason = @"The object at certain path already exists.";
 NSString * const HBObjectManagerRequireNamespaceReason = @"Require namespace at a certain path.";
+NSString * const HBObjectManagerPathNotEditableReason = @"The path is not editable.";
 
 static BOOL HBSplitPath(NSString *path, NSString **namespacePath, NSString **objectName)
 {
@@ -51,6 +52,9 @@ static HBBridgedObjectManager *sharedManager = nil;
 
 - (id)objectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit
 {
+    if ([path hasSuffix:@"/"])
+        path = [path substringToIndex:path.length - 1];
+    
     NSArray *components = [path componentsSeparatedByString:@"/"];
     id object = nil;
     for (NSString *component in components) {
@@ -70,18 +74,13 @@ static HBBridgedObjectManager *sharedManager = nil;
     return object;
 }
 
-- (void)raiseExceptionForInvalidPath:(NSString *)path
-{
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
-    NSException *exception = [NSException exceptionWithName:HBObjectManagerException
-                                                     reason:HBObjectManagerInvalidPathReason
-                                                   userInfo:userInfo];
-    [exception raise];
-}
 
 - (HBNamespace *)ensureNamespaceForPath:(NSString *)path
                         inExecutionUnit:(HBExecutionUnit *)executionUnit
 {
+    if ([path hasSuffix:@"/"])
+        path = [path substringToIndex:path.length - 1];
+    
     NSArray *components = [path componentsSeparatedByString:@"/"];
     HBNamespace *namespace = nil;
     NSInteger index = components.count - 1;
@@ -92,7 +91,7 @@ static HBBridgedObjectManager *sharedManager = nil;
         index --;
     }
     if (index < 0)
-        [self raiseExceptionForInvalidPath:path];
+        [self raiseInvalidPathException:path];
         
     for (;index < components.count; index ++) {
         NSString *component = [components objectAtIndex:index];
@@ -109,7 +108,7 @@ static HBBridgedObjectManager *sharedManager = nil;
             }
             namespace = (HBNamespace *)subNamespace;
         } else {
-            [self raiseExceptionForInvalidPath:path];
+            [self raiseInvalidPathException:path];
         }
     }
     
@@ -136,8 +135,15 @@ static HBBridgedObjectManager *sharedManager = nil;
         } else
             [NSException raise:HBObjectManagerException format:HBObjectManagerUnknownReason];
     } else {
-        [self raiseExceptionForInvalidPath:path];
+        [self raiseInvalidPathException:path];
     }
+}
+
+- (BOOL)isPathScriptEditable:(NSString *)path
+{
+    return ([path hasPrefix:@"/User/"] ||
+            [path hasPrefix:@"/Current/User/"] ||
+            [path hasPrefix:@"/Current/Temp/"]);
 }
 
 - (void)unlinkObjectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit
@@ -157,8 +163,27 @@ static HBBridgedObjectManager *sharedManager = nil;
             [exception raise];
         }
     } else {
-        [self raiseExceptionForInvalidPath:path];
+        [self raiseInvalidPathException:path];
     }
 }
+
+- (void)raiseInvalidPathException:(NSString *)path
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
+    NSException *exception = [NSException exceptionWithName:HBObjectManagerException
+                                                     reason:HBObjectManagerInvalidPathReason
+                                                   userInfo:userInfo];
+    [exception raise];
+}
+
+- (void)raisePathNotEditableException:(NSString *)path
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
+    NSException *exception = [NSException exceptionWithName:HBObjectManagerException
+                                                     reason:HBObjectManagerPathNotEditableReason
+                                                   userInfo:userInfo];
+    [exception raise];
+}
+
 
 @end

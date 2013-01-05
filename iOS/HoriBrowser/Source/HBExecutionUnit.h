@@ -14,10 +14,13 @@
 
 @property (readonly, nonatomic) UIWebView *webView;
 @property (readonly, nonatomic) HBNamespace *currentNamespace;
+@property (readonly, nonatomic) HBNamespace *tempNamespace;
 
 + (HBExecutionUnit *)executionUnit;
 
 - (void)loadURL:(NSURL *)URL;
 - (void)loadURL:(NSURL *)URL withCompletion:(void (^)(BOOL))completion;
+
+- (NSString *)generateTemporaryPath;
 
 @end

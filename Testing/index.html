@@ -49,16 +49,19 @@
 		navCtrlClass.call(
 			"new",
 			{
-				"path"  : "/User/NavigatioinController",
+			//	"path"  : "/User/NavigatioinController",
 				"arguments" : {
 					"rootViewController" : "/Current/WebViewController",
 				},
 			},
 			function (exception, returnValue) {
 				setRootViewController(returnValue);
-				$H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");
+                alert(returnValue);
+                $H(returnValue).move("/User/NavigatioinController");
 			}
 		);
+        $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");
+
 		</script>
 	</body>
 </html>

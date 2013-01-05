@@ -32,6 +32,7 @@
 
 @synthesize webView = __webView;
 @synthesize currentNamespace = __currentNamespace;
+@synthesize tempNamespace = __tempNamespace;
 
 @synthesize flushing = _flushing;
 @synthesize loading = _loading;
@@ -53,8 +54,17 @@
         __currentNamespace = [[HBNamespace alloc] init];
         [__currentNamespace setObject:self forName:@"WebViewController"];
         [__currentNamespace setObject:self.webView forName:@"WebView"];
+        [__currentNamespace setObject:self.tempNamespace forName:@"Temp"];
     }
     return __currentNamespace;
+}
+
+- (HBNamespace *)tempNamespace
+{
+    if (__tempNamespace == nil) {
+        __tempNamespace = [[HBNamespace alloc] init];
+    }
+    return __tempNamespace;
 }
 
 - (id)init
@@ -107,6 +117,23 @@
     self.loading = FALSE;
     // This must be the last statement, setCompletion to nil may dealloc self.
     self.completion = nil;
+}
+
+- (NSString *)generateTemporaryPath
+{
+    unsigned long long timeSeg = (unsigned long long)[[NSDate date] timeIntervalSince1970] * 1000;
+    NSInteger randSeg = (NSInteger)(rand() & 0xffff);
+    NSInteger randSegStart = randSeg;
+    NSString *name = nil;
+    do {
+        name = [NSString stringWithFormat:@"%012llX%4X", timeSeg, randSeg];
+        if ([self.tempNamespace objectForName:name] == nil)
+            break;
+        randSeg ++;
+        if (randSeg == randSegStart)
+            return nil;
+    } while (true);
+    return [NSString stringWithFormat:@"/Current/Temp/%@", name];
 }
 
 - (void)triggerInvocationWithDictionary:(NSDictionary *)invocationDict

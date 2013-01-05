@@ -16,6 +16,11 @@
 
 - (id)objectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
 - (void)setObject:(id)object forPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
+
+- (BOOL)isPathScriptEditable:(NSString *)path;
 - (void)unlinkObjectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
+
+- (void)raiseInvalidPathException:(NSString *)path;
+- (void)raisePathNotEditableException:(NSString *)path;
 
 @end

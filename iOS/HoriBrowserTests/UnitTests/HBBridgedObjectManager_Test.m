@@ -8,6 +8,7 @@
 
 #import "HBBridgedObjectManager_Test.h"
 #import "HBBridgedObjectManager.h"
+#import "HBNamespace.h"
 
 @implementation HBBridgedObjectManager_Test
 
@@ -19,6 +20,15 @@
                    [sharedManager objectForPath:path inExecutionUnit:nil],
                    @"The shared HBBridgedObjectManager should be mapped at %@",
                    path);
+    
+    STAssertEquals([HBNamespace rootNamespace],
+                   [sharedManager objectForPath:@"" inExecutionUnit:nil],
+                   @"Empty string should be mapped to the rootNamespace");
+    
+    
+    STAssertEquals([HBNamespace rootNamespace],
+                   [sharedManager objectForPath:@"/" inExecutionUnit:nil],
+                   @"'/' should be mapped to the rootNamespace");
 }
 
 @end

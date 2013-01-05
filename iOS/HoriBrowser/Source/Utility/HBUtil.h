@@ -9,3 +9,4 @@
 #import <Foundation/Foundation.h>
 
 inline id HBNoneNil(id obj);
+inline unsigned int millisecondsSince1970();

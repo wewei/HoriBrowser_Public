@@ -8,6 +8,7 @@
 
 #import "HBBridgedClass+BridgedAPI.h"
 #import "HBBridgedObjectManager.h"
+#import "HBExecutionUnit.h"
 
 @implementation HBBridgedClass (BridgedAPI)
 
@@ -18,10 +19,16 @@
     id object = [self instantiateWithArguments:arguments inExecutionUnit:context.executionUnit];
     if (object != nil) {
         NSString *path = [context.arguments objectForKey:@"path"];
+        if (path == nil)
+            path = [context.executionUnit generateTemporaryPath];
         HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
-        [objectManager setObject:object forPath:path inExecutionUnit:context.executionUnit];
-        context.returnValue = path;
-        [context succeed];
+        if ([objectManager isPathScriptEditable:path]) {
+            [objectManager setObject:object forPath:path inExecutionUnit:context.executionUnit];
+            context.returnValue = path;
+            [context succeed];
+        } else {
+            [objectManager raisePathNotEditableException:path];
+        }
     } else {
         [context fail];
         return;
