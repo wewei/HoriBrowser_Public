@@ -22,6 +22,7 @@
 		4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4D716958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m */; };
 		4C01B4DA1695C1A30064AD49 /* BridgedClasses.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4D91695C1A30064AD49 /* BridgedClasses.plist */; };
 		4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */; };
+		4C66081816981A7E003C3852 /* HBExecutionUnit+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */; };
 		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
 		4C690783169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
 		4C690785169036E600132B2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690784169036E600132B2E /* CoreGraphics.framework */; };
@@ -83,6 +84,8 @@
 		4C01B4DD1695C4110064AD49 /* UINavigationController+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4E41695E8730064AD49 /* HBInstantiatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBInstantiatable.h; sourceTree = "<group>"; };
+		4C66081616981A7D003C3852 /* HBExecutionUnit+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBExecutionUnit+BridgedAPI.h"; sourceTree = "<group>"; };
+		4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBExecutionUnit+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C69077C169036E600132B2E /* HoriBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoriBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C690780169036E600132B2E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C690782169036E600132B2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -192,6 +195,8 @@
 				4C01B4C716955F8D0064AD49 /* UIView+BridgedAPI.m */,
 				4C01B4C9169560960064AD49 /* UIViewController+BridgedAPI.h */,
 				4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */,
+				4C66081616981A7D003C3852 /* HBExecutionUnit+BridgedAPI.h */,
+				4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */,
 			);
 			path = BridgedClasses;
 			sourceTree = "<group>";
@@ -442,6 +447,7 @@
 				4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */,
 				4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */,
 				4CB19C141696F42E003083FF /* HBUtil.m in Sources */,
+				4C66081816981A7E003C3852 /* HBExecutionUnit+BridgedAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

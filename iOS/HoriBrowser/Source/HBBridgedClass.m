@@ -47,7 +47,7 @@
             ;
         }
     }
-    return instance;
+    return [instance autorelease];
 }
 
 - (void)dealloc

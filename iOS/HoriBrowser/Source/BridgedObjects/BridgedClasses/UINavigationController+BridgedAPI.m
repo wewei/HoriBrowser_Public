@@ -85,4 +85,28 @@ NSString * const HBNavControllerCannotLoadURLReason = @"Cannot connect to the UR
     }
 }
 
+- (void)method_pushViewController:(HBInvocationContext *)context
+{
+    NSDictionary *arguments = context.arguments;
+    
+    BOOL animated = YES;
+    id animatedNumber = [arguments objectForKey:@"animated"];
+    if ([animatedNumber isKindOfClass:[NSNumber class]])
+        animated = ((NSNumber *)animatedNumber).boolValue;
+    
+    NSString *path = [arguments objectForKey:@"viewController"];
+    id object = [[HBBridgedObjectManager sharedManager] objectForPath:path
+                                                      inExecutionUnit:context.executionUnit];
+    if ([object isKindOfClass:[UIViewController class]]) {
+        [self pushViewController:object animated:animated];
+        [context succeed];
+    } else {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"viewController" forKey:@"argument"];
+        NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                         reason:HBInvocationArgumentErrorReason
+                                                       userInfo:userInfo];
+        [exception raise];
+    }
+}
+
 @end

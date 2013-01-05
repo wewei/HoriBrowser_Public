@@ -4,5 +4,7 @@
 <dict>
 	<key>NavigationController</key>
 	<string>UINavigationController</string>
+	<key>WebViewController</key>
+	<string>HBExecutionUnit</string>
 </dict>
 </plist>

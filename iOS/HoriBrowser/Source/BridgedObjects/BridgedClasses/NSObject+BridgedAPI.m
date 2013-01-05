@@ -127,11 +127,11 @@ NSString * const HBObjectPropertyNotWritableReason = @"Property not writable.";
     HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
     if ([objectManager isPathScriptEditable:pathFrom]) {
         if ([objectManager isPathScriptEditable:pathTo]) {
-            [[HBBridgedObjectManager sharedManager] setObject:self
-                                                      forPath:pathTo
-                                              inExecutionUnit:context.executionUnit];
-            [[HBBridgedObjectManager sharedManager] unlinkObjectForPath:pathFrom
-                                                        inExecutionUnit:context.executionUnit];
+            [objectManager setObject:self
+                             forPath:pathTo
+                     inExecutionUnit:context.executionUnit];
+            [objectManager unlinkObjectForPath:pathFrom
+                               inExecutionUnit:context.executionUnit];
             [context succeed];
         } else {
             [objectManager raisePathNotEditableException:pathTo];

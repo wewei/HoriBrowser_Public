@@ -21,6 +21,9 @@ static HBNamespace *classNamespace = nil;
 
 @property (readonly, nonatomic) NSMutableDictionary *objects;
 
+@property (assign, nonatomic) id owner;
+@property (retain, nonatomic) NSString *ownerName;
+
 @end
 
 @implementation HBNamespace
@@ -64,6 +67,8 @@ static HBNamespace *classNamespace = nil;
 }
 
 @synthesize objects = __objects;
+@synthesize owner = _owner;
+@synthesize ownerName = _ownerName;
 
 - (NSMutableDictionary *)objects
 {
@@ -73,8 +78,17 @@ static HBNamespace *classNamespace = nil;
     return __objects;
 }
 
+- (void)dealloc
+{
+    [__objects release];
+    [_ownerName release];
+    [super dealloc];
+}
+
 - (id)objectForName:(NSString *)name
 {
+    if ([name isEqualToString:self.ownerName])
+        return self.owner;
     return [self.objects objectForKey:name];
 }
 
@@ -87,4 +101,15 @@ static HBNamespace *classNamespace = nil;
     }
 }
 
+- (void)setOwner:(id)owner withName:(NSString *)name
+{
+    assert([self objectForName:name] == nil);
+    self.owner = owner;
+    self.ownerName = name;
+}
+
+- (NSInteger)numberOfObjects
+{
+    return self.objects.count + ((self.owner != nil)? 1 : 0);
+}
 @end

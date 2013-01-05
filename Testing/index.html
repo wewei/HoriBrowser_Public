@@ -7,20 +7,39 @@
 		<button onclick="showBaidu()">Baidu</button>
 		<button onclick="testGetProperty(10)">test getProperty</button>
 		<script type="text/javascript">
+        function createWebView(callback)
+        {
+            var webViewCtrlClass = $H("/Class/WebViewController");
+            webViewCtrlClass.call("new", { "arguments" : null }, callback);
+        }
+
+        function webViewLoadURL(webViewCtrl, url, callback)
+        {
+            webViewCtrl.call("loadURL", { "url" : url }, callback);
+        }
+
+        function pushViewController(viewCtrl, callback)
+        {
+            var navCtrl = $H("/User/NavigationController");
+            navCtrl.call("pushViewController", { "viewController" : viewCtrl.path }, callback);
+        }
+
 		function showBaidu()
 		{
-			var navCtrl = $H("/User/NavigatioinController");
-			navCtrl.call(
-				"pushScene",
-				{
-					"url": "http://www.baidu.com",
-					"waitForLoading" : 1,
-					"stopOnFailure" : 1,
-				},
-				function (exception, returnValue) {
-					if (exception)
-						alert(JSON.stringify(exception));
-				});
+            createWebView(function(exception, returnValue) {
+                if (exception)
+                    alert(JSON.stringify(exception));
+                var webViewCtrl = $H(returnValue);
+                webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function (exception) {
+                    if (exception)
+                        alert(JSON.stringify(exception));
+                    pushViewController(webViewCtrl, function(exception) {
+                        if (exception)
+                            alert(JSON.stringify(exception));
+                        webViewCtrl.unlink();
+                    });
+                });
+            });
 		}
 
 		function testGetProperty(n)
@@ -52,7 +71,6 @@
 		navCtrlClass.call(
 			"new",
 			{
-			//	"path"  : "/User/NavigatioinController",
 				"arguments" : {
 					"rootViewController" : "/Current/WebViewController",
 				},
@@ -60,7 +78,7 @@
 			function (exception, returnValue) {
 				setRootViewController(returnValue);
                 // alert(returnValue);
-                $H(returnValue).move("/User/NavigatioinController");
+                $H(returnValue).move("/User/NavigationController");
 			}
 		);
         $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");

@@ -14,7 +14,11 @@
 + (HBNamespace *)systemNamespace;
 + (HBNamespace *)classNamespace;
 
+@property (readonly, nonatomic) NSInteger numberOfObjects;
+
 - (id)objectForName:(NSString *)name;
 - (void)setObject:(id)object forName:(NSString *)name;
+
+- (void)setOwner:(id)owner withName:(NSString *)name;
 
 @end
