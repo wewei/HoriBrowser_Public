@@ -5,7 +5,7 @@
 		<h1>It works</h1>
 		<input type="text"></input>
 		<button onclick="showBaidu()">Baidu</button>
-		<button onclick="testGetProperty()">test getProperty</button>
+		<button onclick="testGetProperty(10)">test getProperty</button>
 		<script type="text/javascript">
 		function showBaidu()
 		{
@@ -23,14 +23,17 @@
 				});
 		}
 
-		function testGetProperty()
+		function testGetProperty(n)
 		{
-			$H("/Current/WebViewController").getProperty(
-				"navigationItemTitle",
-				function (exception, returnValue) {
-					alert(returnValue);
-				}
-			);
+            if (n > 0) {
+                $H("/Current/WebViewController").getProperty(
+                    "navigationItemTitle",
+                    function (exception, returnValue) {
+                        document.body.innerHTML += "<p>" + returnValue + "</p>\n";
+                        testGetProperty(n - 1);
+                    }
+                );
+            }
 		}
 
 		function setRootViewController(path)
@@ -56,7 +59,7 @@
 			},
 			function (exception, returnValue) {
 				setRootViewController(returnValue);
-                alert(returnValue);
+                // alert(returnValue);
                 $H(returnValue).move("/User/NavigatioinController");
 			}
 		);

@@ -10,3 +10,9 @@
 
 inline id HBNoneNil(id obj);
 inline unsigned int millisecondsSince1970();
+
+#ifdef ENABLE_PERF_TAG
+void performanceTag(NSString *tag);
+#else // ENABLE_PERF_TAG
+#define performanceTag(tag)
+#endif // ENABLE_PERF_TAG

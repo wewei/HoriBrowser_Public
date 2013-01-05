@@ -101,6 +101,7 @@
     assert(!self.isLoading);
     assert(self.completion == nil);
     if (!self.isLoading) {
+        performanceTag(@"StartLoad");
         self.loading = YES;
         self.completion = completion;
         
@@ -111,6 +112,7 @@
 
 - (void)loadURLComplete:(BOOL)loaded
 {
+    performanceTag(@"LoadComplete");
     if (self.completion != nil) {
         self.completion(loaded);
     }
@@ -138,11 +140,14 @@
 
 - (void)triggerInvocationWithDictionary:(NSDictionary *)invocationDict
 {
+    performanceTag(@"TriggerInvocation");
     HBInvocationContext *context = [HBInvocationContext contextWithExecutionUnit:self
                                                          andInvocationDictionary:invocationDict];
     id object = [[HBBridgedObjectManager sharedManager] objectForPath:context.objectPath
                                                       inExecutionUnit:self];
-    if (object == nil) {
+    if (object != nil) {
+        [object triggerInvocationWithContext:context];
+    } else {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:context.objectPath
                                                              forKey:@"objectPath"];  // TODO, give it a name?
         NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
@@ -151,7 +156,6 @@
         [context completeWithException:exception];
     }
     
-    [object triggerInvocationWithContext:context];
 }
 
 - (BOOL)pullInvocation

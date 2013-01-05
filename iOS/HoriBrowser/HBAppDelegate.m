@@ -32,9 +32,8 @@ return __mainExecutionUnit;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    performanceTag(@"AppStart");
     
     self.window.rootViewController = [[[UIViewController alloc] init] autorelease];
     [self.mainExecutionUnit loadURL:[HBConfiguration sharedConfiguration].serverURL];
@@ -47,6 +46,10 @@ return __mainExecutionUnit;
 #endif // DEBUG
     
     srandom(millisecondsSince1970());
+    
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
