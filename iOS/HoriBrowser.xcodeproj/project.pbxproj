@@ -224,6 +224,7 @@
 		4C690786169036E600132B2E /* HoriBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				4C01B4AC169417E80064AD49 /* Resource */,
 				4C6907B5169036F500132B2E /* Source */,
 				4C69078F169036E600132B2E /* HBAppDelegate.h */,
 				4C690790169036E600132B2E /* HBAppDelegate.m */,
@@ -271,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				4C01B4B41695469F0064AD49 /* BridgedObjects */,
-				4C01B4AC169417E80064AD49 /* Resource */,
 				4C6907C41693D72500132B2E /* Utility */,
 				4C6907B616907A3900132B2E /* HBExecutionUnit.h */,
 				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
