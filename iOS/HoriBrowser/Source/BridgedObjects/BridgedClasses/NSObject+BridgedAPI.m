@@ -73,7 +73,7 @@ NSString * const HBObjectPropertyNotWritableReason = @"Property not writable.";
         NSException *exception = [NSException exceptionWithName:HBObjectException
                                                          reason:HBObjectPropertyNotReadableReason
                                                        userInfo:userInfo];
-        [context completeWithException:exception];
+        [exception raise];
     }
 }
 
@@ -102,7 +102,7 @@ NSString * const HBObjectPropertyNotWritableReason = @"Property not writable.";
         NSException *exception = [NSException exceptionWithName:HBObjectException
                                                          reason:HBObjectPropertyNotWritableReason
                                                        userInfo:userInfo];
-        [context completeWithException:exception];
+        [exception raise];
     }
 }
 
