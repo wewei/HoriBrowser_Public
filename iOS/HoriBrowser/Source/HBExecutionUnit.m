@@ -95,6 +95,7 @@
 {
     [__webView release];
     [__currentNamespace release];
+    [__tempNamespace release];
     
     self.completion = nil;
     
