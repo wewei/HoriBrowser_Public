@@ -11,12 +11,6 @@
 
 @implementation HBBridgedObjectManager (BridgedAPI)
 
-- (void)method_hello_world:(HBInvocationContext *)context
-{
-    NSLog(@"hello world");
-    [context succeed];
-}
-
 - (void)method_readObject:(HBInvocationContext *)context
 {
     id path = nil;
