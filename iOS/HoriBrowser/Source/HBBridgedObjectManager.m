@@ -15,6 +15,7 @@ NSString * const HBObjectManagerException = @"ObjectManagerException";
 NSString * const HBObjectManagerUnknownReason = @"Unknown reason";
 NSString * const HBObjectManagerInvalidPathReason = @"The object path is not valid.";
 NSString * const HBObjectManagerDuplicatedCreationReason = @"The object at certain path already exists.";
+NSString * const HBObjectManagerRequireNamespaceReason = @"Require namespace at a certain path.";
 
 static BOOL HBSplitPath(NSString *path, NSString **namespacePath, NSString **objectName)
 {
@@ -126,7 +127,7 @@ static HBBridgedObjectManager *sharedManager = nil;
             if ([namespace objectForName:objectName] == nil)
                 [namespace setObject:object forName:objectName];
             else {
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"objectPath"];
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
                 NSException *exception = [NSException exceptionWithName:HBObjectManagerException
                                                                  reason:HBObjectManagerDuplicatedCreationReason
                                                                userInfo:userInfo];
@@ -134,6 +135,27 @@ static HBBridgedObjectManager *sharedManager = nil;
             }
         } else
             [NSException raise:HBObjectManagerException format:HBObjectManagerUnknownReason];
+    } else {
+        [self raiseExceptionForInvalidPath:path];
+    }
+}
+
+- (void)unlinkObjectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit
+{
+    NSString *namespacePath = nil;
+    NSString *objectName = nil;
+    if (HBSplitPath(path, &namespacePath, &objectName)) {
+        id namespaceObj = [self objectForPath:namespacePath inExecutionUnit:executionUnit];
+        if ([namespaceObj isKindOfClass:[HBNamespace class]]) {
+            HBNamespace *namespace = (HBNamespace *)namespaceObj;
+            [namespace setObject:nil forName:objectName];
+        } else {
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObject:namespacePath forKey:@"path"];
+            NSException *exception = [NSException exceptionWithName:HBObjectManagerException
+                                                             reason:HBObjectManagerRequireNamespaceReason
+                                                           userInfo:userInfo];
+            [exception raise];
+        }
     } else {
         [self raiseExceptionForInvalidPath:path];
     }

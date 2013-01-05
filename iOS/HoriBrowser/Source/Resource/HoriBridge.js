@@ -49,6 +49,10 @@ var $H = function () {
         );
     };
     
+    BridgedObject.prototype.unlink = function (callback) {
+        this.call("unlink", null, callback);
+    };
+    
     var __invocationCounter = 0;
     
     var Invocation = function (objectPath, method, arguments, callback) {

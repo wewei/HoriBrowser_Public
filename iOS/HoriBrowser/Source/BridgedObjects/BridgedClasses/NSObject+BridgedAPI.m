@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+BridgedAPI.h"
+#import "HBBridgedObjectManager.h"
 
 NSString * const HBObjectException = @"ObjectException";
 
@@ -103,6 +104,14 @@ NSString * const HBObjectPropertyNotWritableReason = @"Property not writable.";
                                                        userInfo:userInfo];
         [context completeWithException:exception];
     }
+}
+
+- (void)method_unlink:(HBInvocationContext *)context
+{
+    NSString *path = context.objectPath;
+    [[HBBridgedObjectManager sharedManager] unlinkObjectForPath:path
+                                                inExecutionUnit:context.executionUnit];
+    [context succeed];
 }
 
 @end

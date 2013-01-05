@@ -80,7 +80,11 @@ static HBNamespace *classNamespace = nil;
 
 - (void)setObject:(id)object forName:(NSString *)name
 {
-    [self.objects setObject:object forKey:name];
+    if (object == nil) {
+        [self.objects removeObjectForKey:name];
+    } else {
+        [self.objects setObject:object forKey:name];
+    }
 }
 
 @end
