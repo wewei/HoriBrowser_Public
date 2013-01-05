@@ -211,7 +211,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'object'"];
+    NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'function'"];
     if (![checkResult isEqualToString:@"true"]) {
         NSString *script = [HBConfiguration sharedConfiguration].bridgeScript;
         (void)[webView stringByEvaluatingJavaScriptFromString:script];
