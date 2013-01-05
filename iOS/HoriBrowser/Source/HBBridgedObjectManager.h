@@ -14,8 +14,17 @@
 
 + (HBBridgedObjectManager *)sharedManager;
 
-- (id)objectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
-- (void)setObject:(id)object forPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
+- (id)objectForPath:(NSString *)path
+    inExecutionUnit:(HBExecutionUnit *)executionUnit;
+
+- (void)setObject:(id)object
+          forPath:(NSString *)path
+  inExecutionUnit:(HBExecutionUnit *)executionUnit;
+
+- (void)setObject:(id)object
+          forPath:(NSString *)path
+  inExecutionUnit:(HBExecutionUnit *)executionUnit
+         override:(BOOL)override;
 
 - (BOOL)isPathScriptEditable:(NSString *)path;
 - (void)unlinkObjectForPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit;
