@@ -25,7 +25,7 @@ static HBConfiguration *sharedInstance = nil;
 - (NSURL *)serverURL
 {
     if (__serverURL == nil) {
-        __serverURL = [[NSURL alloc] initWithString:@"http://localhost/"];
+        __serverURL = [[NSURL alloc] initWithString:@"http://localhost/TestHoriBrowser"];
     }
     return __serverURL;
 }
