@@ -120,7 +120,7 @@ var $H = function () {
             if (invocation.__callback) {
                 var callback = invocation.__callback;
                 var routine = function () {
-                    callback(completionDict.exception, completionDict.returnValue);
+                    callback(completionDict.returnValue, completionDict.exception);
                 };
                 setTimeout(routine, 1);
             }
