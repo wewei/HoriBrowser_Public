@@ -160,7 +160,7 @@
         [object triggerInvocationWithContext:context];
     } else {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:context.objectPath
-                                                             forKey:@"objectPath"];  // TODO, give it a name?
+                                                             forKey:@"objectPath"];
         NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
                                                          reason:HBInvocationObjectNotFoundReason
                                                        userInfo:userInfo];

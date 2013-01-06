@@ -31,5 +31,6 @@
 
 - (void)raiseInvalidPathException:(NSString *)path;
 - (void)raisePathNotEditableException:(NSString *)path;
+- (void)raiseDuplicatedCreationException:(NSString *)path;
 
 @end

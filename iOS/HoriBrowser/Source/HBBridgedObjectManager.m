@@ -134,11 +134,7 @@ static HBBridgedObjectManager *sharedManager = nil;
             if ([namespace objectForName:objectName] == nil || override)
                 [namespace setObject:object forName:objectName];
             else {
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
-                NSException *exception = [NSException exceptionWithName:HBObjectManagerException
-                                                                 reason:HBObjectManagerDuplicatedCreationReason
-                                                               userInfo:userInfo];
-                [exception raise];
+                [self raiseDuplicatedCreationException:path];
             }
         } else
             [NSException raise:HBObjectManagerException format:HBObjectManagerUnknownReason];
@@ -193,5 +189,13 @@ static HBBridgedObjectManager *sharedManager = nil;
     [exception raise];
 }
 
+- (void)raiseDuplicatedCreationException:(NSString *)path
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];
+    NSException *exception = [NSException exceptionWithName:HBObjectManagerException
+                                                     reason:HBObjectManagerDuplicatedCreationReason
+                                                   userInfo:userInfo];
+    [exception raise];
+}
 
 @end

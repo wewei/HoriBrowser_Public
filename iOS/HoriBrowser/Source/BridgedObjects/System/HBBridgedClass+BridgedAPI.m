@@ -10,28 +10,40 @@
 #import "HBBridgedObjectManager.h"
 #import "HBExecutionUnit.h"
 
+NSString * const HBBridgedClassException = @"BridgedClassException";
+
+NSString * const HBBridgedClassCreationFailureReason = @"Failed to create object.";
+
 @implementation HBBridgedClass (BridgedAPI)
 
 - (void)method_new:(HBInvocationContext *)context
 {
     id arguments = [context.arguments objectForKey:@"arguments"];
+    NSString *path = [context.arguments objectForKey:@"path"];
     
-    id object = [self instantiateWithArguments:arguments inExecutionUnit:context.executionUnit];
-    if (object != nil) {
-        NSString *path = [context.arguments objectForKey:@"path"];
-        if (path == nil)
-            path = [context.executionUnit generateTemporaryPath];
-        HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
-        if ([objectManager isPathScriptEditable:path]) {
-            [objectManager setObject:object forPath:path inExecutionUnit:context.executionUnit];
-            context.returnValue = path;
-            [context succeed];
+    if (path == nil)
+        path = [context.executionUnit generateTemporaryPath];
+    
+    HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
+    if ([objectManager isPathScriptEditable:path]) {
+        if ([objectManager objectForPath:path inExecutionUnit:context.executionUnit] == nil) {
+            id object = [self instantiateWithArguments:arguments inExecutionUnit:context.executionUnit];
+            if (object != nil) {
+                [objectManager setObject:object forPath:path inExecutionUnit:context.executionUnit];
+                context.returnValue = path;
+                [context succeed];
+            } else {
+                NSDictionary *userInfo = nil; // TODO, add some userInfo?
+                NSException *exception = [NSException exceptionWithName:HBBridgedClassException
+                                                                 reason:HBBridgedClassCreationFailureReason
+                                                               userInfo:userInfo];
+                [exception raise];
+            }
         } else {
-            [objectManager raisePathNotEditableException:path];
+            [objectManager raiseDuplicatedCreationException:path];
         }
     } else {
-        [context fail];
-        return;
+        [objectManager raisePathNotEditableException:path];
     }
 }
 
