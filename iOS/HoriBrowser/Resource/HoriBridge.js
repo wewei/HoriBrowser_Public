@@ -4,12 +4,7 @@ var $H = function () {
     var BRIDGE_FRAME_SRC = "bridge://localhost/flush";
 
     var __bridgedObjects = new Object();
-    var __activeInvocations = new Object();
     var __invocationQueue = new Array();
-    
-    var BridgedObject = function (path) {
-        this.path = path;
-    };
     
     function createBridgeFrame() {
         var frame = document.createElement("iframe");
@@ -19,7 +14,18 @@ var $H = function () {
         document.documentElement.appendChild(frame);
         return frame;
     }
-    
+
+    function asyncCall(func, args) {
+        if (typeof func === 'function') {
+            var routine = function () { func(args); };
+            setTimeout(routine, 1);
+        }
+    }
+
+    var BridgedObject = function (path) {
+        this.path = path;
+    };
+
     BridgedObject.prototype.constructor = BridgedObject;
     BridgedObject.prototype.call = function (method, args, callback) {
         var invocation = new Invocation(this.path, method, args, callback);
@@ -78,6 +84,7 @@ var $H = function () {
 		);
     };
     
+    var __activeInvocations = new Object();
     var __invocationCounter = 0;
     
     var Invocation = function (objectPath, method, args, callback) {
@@ -123,19 +130,14 @@ var $H = function () {
 
     Invocation.prototype.triggerCallbackAsync = function (index, args) {
         var callback = this.__callbacks[index];
-        if (typeof callback === 'function') {
-            var routine = function () {
-                callback(args);
-            }
-            setTimeout(routine, 1);
-        }
+        asyncCall(callback, args);
     };
     
     var __bridge = new Object();
-    
+
     __bridge.__retrieveInvocation = function () {
-        invocation = __invocationQueue.shift();
-        if (invocation != undefined) {
+        var invocation = __invocationQueue.shift();
+        if (invocation) {
             __activeInvocations[invocation.__index] = invocation;
             return invocation.toString();
         } else {
@@ -144,7 +146,7 @@ var $H = function () {
     };
     
     __bridge.__triggerCallback = function (invocationIndex, callbackIndex, args) {
-        invocation = __activeInvocations[invocationIndex];
+        var invocation = __activeInvocations[invocationIndex];
         if (invocation) {
             return invocation.triggerCallback(callbackIndex, args);
         }
@@ -152,13 +154,46 @@ var $H = function () {
     };
 
     __bridge.__triggerCallbackAsync = function (invocationIndex, callbackIndex, args) {
-        invocation = __activeInvocations[invocationIndex];
+        var invocation = __activeInvocations[invocationIndex];
         if (invocation)
             return invocation.triggerCallbackAsync(callbackIndex, args);
     };
+    
+    var __persistedCallbacks = new Object();
+    var __persistedCallbackCounter = 0;
+    
+    __bridge.__persistCallback = function (invocationIndex, callbackIndex) {
+        var invocation = __activeInvocations[invocationIndex];
+        if (invocation) {
+            var callback = invocation.__callbacks[callbackIndex];
+            if (typeof callback === 'function') {
+                var persistedCallbackIndex = ((__persistedCallbackCounter ++) & 0x7fffffff);
+                __persistedCallbacks[persistedCallbackIndex] = callback;
+                return persistedCallbackIndex;
+            }
+        }
+        return null;
+    };
+
+    __bridge.__unlinkCallback = function (persistedCallbackIndex) {
+        delete __persistedCallbacks[persistedCallbackIndex];
+    };
+
+    __bridge.__triggerPersistedCallback = function (persistedCallbackIndex, args) {
+        var callback = __persistedCallbacks[persistedCallbackIndex];
+        var result = null;
+        if (typeof callback === 'function')
+            result = callback(args);
+        return JSON.stringify(result);
+    };
+    
+    __bridge.__triggerPersistedCallbackAsync = function (persistedCallbackIndex, args) {
+        var callback = __persistedCallbacks[persistedCallbackIndex];
+        asyncCall(callback, args);
+    };
 
     __bridge.__completeInvocation = function (completionDict) {
-        invocation = __activeInvocations[completionDict.index];
+        var invocation = __activeInvocations[completionDict.index];
         if (invocation) {
             invocation.triggerCallbackAsync(0, {
                 "returnValue" : completionDict.returnValue,
@@ -176,9 +211,10 @@ var $H = function () {
     };
     
     hori.__bridge = __bridge;
+    hori.__asyncCall = asyncCall;
     
     return hori;    
 }();
 
-if (typeof $H_main === 'function')
-    setTimeout($H_main, 1);
+$H.__asyncCall($H_main, null);
+    
