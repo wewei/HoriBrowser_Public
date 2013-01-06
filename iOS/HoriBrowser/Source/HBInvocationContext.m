@@ -113,6 +113,15 @@ static NSString * const HBCompletionAttributeIndex = @"index";
                                                       userInfo:nil]];
 }
 
+- (void)raiseArgumentError:(NSString *)argument
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:argument forKey:@"argument"];
+    NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                     reason:HBInvocationArgumentErrorReason
+                                                   userInfo:userInfo];
+    [exception raise];
+}
+
 - (void)dealloc
 {
     self.executionUnit = nil;

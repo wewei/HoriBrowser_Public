@@ -43,4 +43,6 @@ extern NSString * const HBInvocationArgumentErrorReason;
 - (void)succeed;
 - (void)fail;
 
+- (void)raiseArgumentError:(NSString *)argument;
+
 @end

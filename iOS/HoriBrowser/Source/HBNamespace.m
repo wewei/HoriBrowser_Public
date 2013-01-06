@@ -46,8 +46,6 @@ static HBNamespace *classNamespace = nil;
         [systemNamespace setObject:[HBBridgedObjectManager sharedManager] forName:@"ObjectManager"];
         
         UIWindow *mainWindow = ((HBAppDelegate *)[UIApplication sharedApplication].delegate).window;
-        [systemNamespace setObject:mainWindow forName:@"MainWindow"];
-        
         [systemNamespace setObject:mainWindow.rootViewController forName:@"RootViewController"];
     }
     return systemNamespace;

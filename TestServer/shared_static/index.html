@@ -3,10 +3,30 @@
 	</head>
 	<body>
 		<h1>It works</h1>
-		<input type="text"></input>
-		<button onclick="showBaidu()">Baidu</button>
-		<button onclick="testGetProperty(10)">test getProperty</button>
+		<input type="text" id="textIn"></input>
+		<button onclick="showBaidu()">Baidu</button></br>
+		<button onclick="testGetProperty(10)">test getProperty</button></br>
+		<button onclick="testWrite()">Write</button>
+		<button onclick="testWriteJSON()">Write JSON</button>
+		<button onclick="testRead()">Read</button></br>
 		<script type="text/javascript">
+		var PATH = "/User/foobar";
+		function testWriteJSON()
+		{
+			var text = document.getElementById("textIn").value;
+			$H(PATH).write(JSON.parse(text), function() { alert("write JSON OK"); });
+		}
+		function testWrite()
+		{
+			var text = document.getElementById("textIn").value;
+			$H(PATH).write(text, function() { alert("write OK"); });
+		}
+
+		function testRead()
+		{
+			$H(PATH).read(function(returnValue) { alert(returnValue); });
+		}
+
         function createWebView(callback)
         {
             var webViewCtrlClass = $H("/Class/WebViewController");
@@ -26,16 +46,10 @@
 
 		function showBaidu()
 		{
-            createWebView(function(exception, returnValue) {
-                if (exception)
-                    alert(JSON.stringify(exception));
+            createWebView(function(returnValue) {
                 var webViewCtrl = $H(returnValue);
-                webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function (exception) {
-                    if (exception)
-                        alert(JSON.stringify(exception));
-                    pushViewController(webViewCtrl, function(exception) {
-                        if (exception)
-                            alert(JSON.stringify(exception));
+                webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function () {
+                    pushViewController(webViewCtrl, function() {
                         webViewCtrl.unlink();
                     });
                 });
@@ -47,7 +61,7 @@
             if (n > 0) {
                 $H("/Current/WebViewController").getProperty(
                     "navigationItemTitle",
-                    function (exception, returnValue) {
+                    function (returnValue) {
                         document.body.innerHTML += "<p>" + returnValue + "</p>\n";
                         testGetProperty(n - 1);
                     }
@@ -71,14 +85,13 @@
 		navCtrlClass.call(
 			"new",
 			{
+				"path" : "/User/NavigationController",
 				"arguments" : {
 					"rootViewController" : "/Current/WebViewController",
 				},
 			},
-			function (exception, returnValue) {
+			function (returnValue) {
 				setRootViewController(returnValue);
-                // alert(returnValue);
-                $H(returnValue).move("/User/NavigationController");
 			}
 		);
         $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");

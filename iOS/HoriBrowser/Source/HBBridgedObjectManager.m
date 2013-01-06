@@ -117,13 +117,21 @@ static HBBridgedObjectManager *sharedManager = nil;
 
 - (void)setObject:(id)object forPath:(NSString *)path inExecutionUnit:(HBExecutionUnit *)executionUnit
 {
+    [self setObject:object forPath:path inExecutionUnit:executionUnit override:NO];
+}
+
+- (void)setObject:(id)object
+          forPath:(NSString *)path
+  inExecutionUnit:(HBExecutionUnit *)executionUnit
+         override:(BOOL)override
+{
     NSString *namespacePath = nil;
     NSString *objectName = nil;
     if (HBSplitPath(path, &namespacePath, &objectName)) {
         HBNamespace *namespace = [self ensureNamespaceForPath:namespacePath
                                               inExecutionUnit:executionUnit];
         if (namespace != nil) {
-            if ([namespace objectForName:objectName] == nil)
+            if ([namespace objectForName:objectName] == nil || override)
                 [namespace setObject:object forName:objectName];
             else {
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObject:path forKey:@"path"];

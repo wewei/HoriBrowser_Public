@@ -81,7 +81,7 @@ NSString * const HBNavControllerCannotLoadURLReason = @"Cannot connect to the UR
         NSException *exception = [NSException exceptionWithName:HBNavControllerException
                                                          reason:HBNavControllerInvalidURLReason
                                                        userInfo:userInfo];
-        [context completeWithException:exception];
+        [exception raise];
     }
 }
 

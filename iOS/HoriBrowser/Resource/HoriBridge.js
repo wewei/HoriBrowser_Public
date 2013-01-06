@@ -56,6 +56,27 @@ var $H = function () {
     BridgedObject.prototype.move = function (path, callback) {
         this.call("moveToPath", { "path" : path }, callback);
     };
+
+	BridgedObject.prototype.read = function (callback) {
+		$H("/System/ObjectManager").call(
+			"readObject",
+			{
+				"path" : this.path,
+			},
+			callback
+		);
+	};
+    
+    BridgedObject.prototype.write = function (value, callback) {
+        $H("/System/ObjectManager").call(
+			"writeObject",
+			{
+				"path"  : this.path,
+				"value" : value,
+			},
+			callback
+		);
+    };
     
     var __invocationCounter = 0;
     
@@ -99,7 +120,7 @@ var $H = function () {
             if (invocation.__callback) {
                 var callback = invocation.__callback;
                 var routine = function () {
-                    callback(completionDict.exception, completionDict.returnValue);
+                    callback(completionDict.returnValue, completionDict.exception);
                 };
                 setTimeout(routine, 1);
             }

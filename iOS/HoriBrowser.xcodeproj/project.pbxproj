@@ -15,8 +15,6 @@
 		4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */; };
 		4C01B4BE16954C890064AD49 /* HBBridgedObjectManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */; };
 		4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */; };
-		4C01B4C516955AFE0064AD49 /* UIWindow+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4C416955AFE0064AD49 /* UIWindow+BridgedAPI.m */; };
-		4C01B4C816955F8D0064AD49 /* UIView+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4C716955F8D0064AD49 /* UIView+BridgedAPI.m */; };
 		4C01B4CB169560960064AD49 /* UIViewController+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */; };
 		4C01B4D516958CC00064AD49 /* HBBridgedClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4D416958CC00064AD49 /* HBBridgedClass.m */; };
 		4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4D716958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m */; };
@@ -70,10 +68,6 @@
 		4C01B4BD16954C890064AD49 /* HBBridgedObjectManager_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedObjectManager_Test.m; sourceTree = "<group>"; };
 		4C01B4BF16954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBBridgedObjectManager+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4C016954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBBridgedObjectManager+BridgedAPI.m"; sourceTree = "<group>"; };
-		4C01B4C316955AFE0064AD49 /* UIWindow+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+BridgedAPI.h"; sourceTree = "<group>"; };
-		4C01B4C416955AFE0064AD49 /* UIWindow+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+BridgedAPI.m"; sourceTree = "<group>"; };
-		4C01B4C616955F8D0064AD49 /* UIView+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BridgedAPI.h"; sourceTree = "<group>"; };
-		4C01B4C716955F8D0064AD49 /* UIView+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4C9169560960064AD49 /* UIViewController+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4D316958CBF0064AD49 /* HBBridgedClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBBridgedClass.h; sourceTree = "<group>"; };
@@ -189,10 +183,6 @@
 				4C01B4A7169407C20064AD49 /* NSObject+BridgedAPI.m */,
 				4C01B4DD1695C4110064AD49 /* UINavigationController+BridgedAPI.h */,
 				4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */,
-				4C01B4C316955AFE0064AD49 /* UIWindow+BridgedAPI.h */,
-				4C01B4C416955AFE0064AD49 /* UIWindow+BridgedAPI.m */,
-				4C01B4C616955F8D0064AD49 /* UIView+BridgedAPI.h */,
-				4C01B4C716955F8D0064AD49 /* UIView+BridgedAPI.m */,
 				4C01B4C9169560960064AD49 /* UIViewController+BridgedAPI.h */,
 				4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */,
 				4C66081616981A7D003C3852 /* HBExecutionUnit+BridgedAPI.h */,
@@ -234,6 +224,7 @@
 		4C690786169036E600132B2E /* HoriBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				4C01B4AC169417E80064AD49 /* Resource */,
 				4C6907B5169036F500132B2E /* Source */,
 				4C69078F169036E600132B2E /* HBAppDelegate.h */,
 				4C690790169036E600132B2E /* HBAppDelegate.m */,
@@ -281,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				4C01B4B41695469F0064AD49 /* BridgedObjects */,
-				4C01B4AC169417E80064AD49 /* Resource */,
 				4C6907C41693D72500132B2E /* Utility */,
 				4C6907B616907A3900132B2E /* HBExecutionUnit.h */,
 				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
@@ -440,8 +430,6 @@
 				4C01B4AB16940D0C0064AD49 /* HBInvocationContext.m in Sources */,
 				4C01B4BB1695494F0064AD49 /* HBBridgedObjectManager.m in Sources */,
 				4C01B4C116954ED20064AD49 /* HBBridgedObjectManager+BridgedAPI.m in Sources */,
-				4C01B4C516955AFE0064AD49 /* UIWindow+BridgedAPI.m in Sources */,
-				4C01B4C816955F8D0064AD49 /* UIView+BridgedAPI.m in Sources */,
 				4C01B4CB169560960064AD49 /* UIViewController+BridgedAPI.m in Sources */,
 				4C01B4D516958CC00064AD49 /* HBBridgedClass.m in Sources */,
 				4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */,

@@ -28,7 +28,7 @@
         NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
                                                          reason:HBInvocationArgumentErrorReason
                                                        userInfo:userInfo];
-        [context completeWithException:exception];
+        [exception raise];
     }
 }
 
