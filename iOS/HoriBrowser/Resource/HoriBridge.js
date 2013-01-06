@@ -139,3 +139,6 @@ var $H = function () {
     
     return hori;    
 }();
+
+if (typeof $H_main === 'function')
+    setTimeout($H_main, 1);

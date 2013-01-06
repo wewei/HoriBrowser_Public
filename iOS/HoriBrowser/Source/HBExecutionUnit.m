@@ -211,15 +211,15 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
     NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'function'"];
     if (![checkResult isEqualToString:@"true"]) {
         NSString *script = [HBConfiguration sharedConfiguration].bridgeScript;
         (void)[webView stringByEvaluatingJavaScriptFromString:script];
     }
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
     [self loadURLComplete:YES];
 }
 

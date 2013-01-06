@@ -94,7 +94,7 @@ NSString * const HBObjectPropertyNotWritableReason = @"Property not writable.";
     id value = [arguments objectForKey:@"value"];
     SEL selector = [self selectorForPropertySetter:property];
     if (selector != nil) {
-        context.returnValue = [self performSelector:selector withObject:value];
+        [self performSelector:selector withObject:value];
         [context succeed];
     } else {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:property
