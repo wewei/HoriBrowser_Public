@@ -11,79 +11,89 @@
 		<button onclick="testWriteJSON()">Write JSON</button>
 		<button onclick="testRead()">Read</button></br>
 		<script type="text/javascript">
-        function $H_main() {
-            var PATH = "/User/foobar";
-            alert(typeof $H === 'function');
-            function testWriteJSON()
-            {
-                var text = document.getElementById("textIn").value;
-                $H(PATH).write(JSON.parse(text), function() { alert("write JSON OK"); });
-            }
-            function testWrite()
-            {
-                var text = document.getElementById("textIn").value;
-                $H(PATH).write(text, function() { alert("write OK"); });
-            }
 
-            function testRead()
-            {
-                $H(PATH).read(function(returnValue) { alert(returnValue); });
-            }
+        var PATH = "/User/foobar";
+        function testWriteJSON()
+        {
+            var text = document.getElementById("textIn").value;
+            $H(PATH).write(JSON.parse(text), function() { alert("write JSON OK"); });
+        }
+        function testWrite()
+        {
+            var text = document.getElementById("textIn").value;
+            $H(PATH).write(text, function() { alert("write OK"); });
+        }
 
-            function createWebView(callback)
-            {
-                var webViewCtrlClass = $H("/Class/WebViewController");
-                webViewCtrlClass.call("new", { "arguments" : null }, callback);
-            }
+        function testRead()
+        {
+            $H(PATH).read(function(args) { alert(args.returnValue); });
+        }
 
-            function webViewLoadURL(webViewCtrl, url, callback)
-            {
-                webViewCtrl.call("loadURL", { "url" : url }, callback);
-            }
+        function createWebView(callback)
+        {
+            var webViewCtrlClass = $H("/Class/WebViewController");
+            webViewCtrlClass.call("new", { "arguments" : null }, callback);
+        }
 
-            function pushViewController(viewCtrl, callback)
-            {
-                var navCtrl = $H("/User/NavigationController");
-                navCtrl.call("pushViewController", { "viewController" : viewCtrl.path }, callback);
-            }
+        function webViewLoadURL(webViewCtrl, url, callback)
+        {
+            webViewCtrl.call(
+                "loadURL",
+                {
+                    "url" : url,
+                    "onStartLoading" :
+                        function () {
+                            alert("start load.");
+                            return "hello";
+                        },
+                },
+                callback);
+        }
 
-            function showBaidu()
-            {
-                createWebView(function(returnValue) {
-                    var webViewCtrl = $H(returnValue);
-                    webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function () {
-                        pushViewController(webViewCtrl, function() {
-                            webViewCtrl.unlink();
-                        });
+        function pushViewController(viewCtrl, callback)
+        {
+            var navCtrl = $H("/User/NavigationController");
+            navCtrl.call("pushViewController", { "viewController" : viewCtrl.path }, callback);
+        }
+
+        function showBaidu()
+        {
+            createWebView(function(args) {
+                var webViewCtrl = $H(args.returnValue);
+                webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function () {
+                    pushViewController(webViewCtrl, function() {
+                        webViewCtrl.unlink();
                     });
                 });
-            }
+            });
+        }
 
-            function testGetProperty(n)
-            {
-                if (n > 0) {
-                    $H("/Current/WebViewController").getProperty(
-                        "navigationItemTitle",
-                        function (returnValue) {
-                            document.body.innerHTML += "<p>" + returnValue + "</p>\n";
-                            testGetProperty(n - 1);
-                        }
-                    );
-                }
-            }
-
-            function setRootViewController(path)
-            {
-                var rootViewController = $H("/System/RootViewController");
-                rootViewController.call(
-                    "presentViewController",
-                    {
-                        "viewController": path,
-                        "animated": 1,
+        function testGetProperty(n)
+        {
+            if (n > 0) {
+                $H("/Current/WebViewController").getProperty(
+                    "navigationItemTitle",
+                    function (args) {
+                        document.body.innerHTML += "<p>" + args.returnValue + "</p>\n";
+                        testGetProperty(n - 1);
                     }
                 );
             }
+        }
 
+        function setRootViewController(path)
+        {
+            var rootViewController = $H("/System/RootViewController");
+            rootViewController.call(
+                "presentViewController",
+                {
+                    "viewController": path,
+                    "animated": 1,
+                }
+            );
+        }
+
+        function $H_main() {
             var navCtrlClass = $H("/Class/NavigationController");
             navCtrlClass.call(
                 "new",
@@ -93,11 +103,11 @@
                         "rootViewController" : "/Current/WebViewController",
                     },
                 },
-                function (returnValue, exception) {
-                    if (exception != null)
-                        alert(JSON.stringify(exception));
+                function (args) {
+                    if (args.exception != null)
+                        alert(JSON.stringify(args.exception));
                     else
-                        setRootViewController(returnValue);
+                        setRootViewController(args.returnValue);
                 }
             );
             $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");

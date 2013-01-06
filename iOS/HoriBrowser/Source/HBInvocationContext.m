@@ -88,6 +88,29 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     return self;
 }
 
+- (id)triggerCallbackSyncWithIndex:(NSUInteger)index andArguments:(id)arguments
+{
+    NSError *error = nil;
+    NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
+    assert(error == nil);
+    NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallback(%u, %u, %@)",
+                                self.index.unsignedIntegerValue, index, argsJSON];
+    NSString *resultString = [self.executionUnit.webView stringByEvaluatingJavaScriptFromString:callbackScript];
+    id result = [HBJSONSerialization JSONObjectWithString:resultString error:&error];
+    // TODO check error
+    return result;
+}
+
+- (void)triggerCallbackWithIndex:(NSUInteger)index andArguments:(id)arguments
+{
+    NSError *error = nil;
+    NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
+    assert(error == nil);
+    NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallbackAsync(%u, %u, %@)",
+                                self.index.unsignedIntegerValue, index, argsJSON];
+    (void)[self.executionUnit.webView stringByEvaluatingJavaScriptFromString:callbackScript];
+}
+
 - (void)complete
 {
     NSString *completionScript = [NSString stringWithFormat:@"$H.__bridge.__completeInvocation(%@)",

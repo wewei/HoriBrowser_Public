@@ -21,8 +21,8 @@ var $H = function () {
     }
     
     BridgedObject.prototype.constructor = BridgedObject;
-    BridgedObject.prototype.call = function (method, arguments, callback) {
-        var invocation = new Invocation(this.path, method, arguments, callback);
+    BridgedObject.prototype.call = function (method, args, callback) {
+        var invocation = new Invocation(this.path, method, args, callback);
         __invocationQueue.push(invocation);
         var frame = document.getElementById(BRIDGE_FRAME_ID);
         if (frame == null)
@@ -80,29 +80,58 @@ var $H = function () {
     
     var __invocationCounter = 0;
     
-    var Invocation = function (objectPath, method, arguments, callback) {
+    var Invocation = function (objectPath, method, args, callback) {
         this.__objectPath = objectPath;
         this.__method = method;
-        this.__arguments = arguments;
-        this.__callback = callback;
+        this.__arguments = args;
         this.__index = ((__invocationCounter ++) & 0x7fffffff);
+
+        this.__callbacks = [];
+        if (callback)
+            this.__callbacks.push(callback);
     };
     
     Invocation.prototype.constructor = Invocation;
     Invocation.prototype.toString = function () {
-        var dict = {
+        return this.stringifyJSON({
             "objectPath" : this.__objectPath,
             "method": this.__method,
             "arguments": this.__arguments,
             "index": this.__index,
-        };
-        return JSON.stringify(dict);
+        });
+    };
+
+    Invocation.prototype.stringifyJSON = function(json) {
+        var invocation = this;
+        return JSON.stringify(json, function(key, value) {
+            if (typeof value === 'function') {
+                var callbackIndex = invocation.__callbacks.length;
+                invocation.__callbacks.push(value);
+                return callbackIndex;
+            }
+            return value;
+        });
+    };
+
+    Invocation.prototype.triggerCallback = function (index, args) {
+        var callback = this.__callbacks[index];
+        var result = null;
+        if (typeof callback === 'function')
+            result = callback(args);
+        return this.stringifyJSON(result);
+    };
+
+    Invocation.prototype.triggerCallbackAsync = function (index, args) {
+        var callback = this.__callbacks[index];
+        if (typeof callback === 'function') {
+            var routine = function () {
+                callback(args);
+            }
+            setTimeout(routine, 1);
+        }
     };
     
-    
     var __bridge = new Object();
-    
-    __bridge.__test = function () { return 123; };
     
     __bridge.__retrieveInvocation = function () {
         invocation = __invocationQueue.shift();
@@ -114,16 +143,27 @@ var $H = function () {
         }
     };
     
+    __bridge.__triggerCallback = function (invocationIndex, callbackIndex, args) {
+        invocation = __activeInvocations[invocationIndex];
+        if (invocation) {
+            return invocation.triggerCallback(callbackIndex, args);
+        }
+        return null;
+    };
+
+    __bridge.__triggerCallbackAsync = function (invocationIndex, callbackIndex, args) {
+        invocation = __activeInvocations[invocationIndex];
+        if (invocation)
+            return invocation.triggerCallbackAsync(callbackIndex, args);
+    };
+
     __bridge.__completeInvocation = function (completionDict) {
         invocation = __activeInvocations[completionDict.index];
         if (invocation) {
-            if (invocation.__callback) {
-                var callback = invocation.__callback;
-                var routine = function () {
-                    callback(completionDict.returnValue, completionDict.exception);
-                };
-                setTimeout(routine, 1);
-            }
+            invocation.triggerCallbackAsync(0, {
+                "returnValue" : completionDict.returnValue,
+                "exception"   : completionDict.exception,
+            });
             delete __activeInvocations[completionDict.index];
         }
     };

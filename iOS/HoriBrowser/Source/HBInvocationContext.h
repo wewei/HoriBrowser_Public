@@ -37,6 +37,9 @@ extern NSString * const HBInvocationArgumentErrorReason;
 - (id)initWithExecutionUnit:(HBExecutionUnit *)executionUnit
     andInvocationDictionary:(NSDictionary *)dictionary;
 
+- (void)triggerCallbackWithIndex:(NSUInteger)index andArguments:(id)arguments;
+- (id)triggerCallbackSyncWithIndex:(NSUInteger)index andArguments:(id)arguments;
+
 - (void)complete;
 
 - (void)completeWithException:(NSException *)exception;
