@@ -1,5 +1,6 @@
 <html>
 	<head>
+        <script src="dryObject.js"></script>
 	</head>
 	<body>
 		<h1>It works</h1>
@@ -95,6 +96,9 @@
 
         function $H_main() {
             var navCtrlClass = $H("/Class/NavigationController");
+//            alert(navCtrlClass instanceof $H.__debug.BridgedObject);
+
+//            alert("aha" instanceof Object);
             navCtrlClass.call(
                 "new",
                 {
@@ -111,7 +115,11 @@
                 }
             );
             $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");
+            testDryObject();
         }
+
+        if (typeof $H === "undefined")
+            testDryObject();
 
 		</script>
 	</body>

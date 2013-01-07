@@ -1,19 +1,34 @@
 var $H = function () {
     
-    var BRIDGE_FRAME_ID = "hori_bridge_frame";
-    var BRIDGE_FRAME_SRC = "bridge://localhost/flush";
-
-    var __bridgedObjects = new Object();
-    var __invocationQueue = new Array();
+    var hori = function (path) {
+        if (!__bridgedObjects[path]) {
+            __bridgedObjects[path] = new BridgedObject(path);
+        }
+        return __bridgedObjects[path];
+    };
     
-    function createBridgeFrame() {
+    // Utilities
+
+    function createDummyFrame(frameID, frameSrc) {
         var frame = document.createElement("iframe");
         frame.style.display = "none";
-        frame.id = BRIDGE_FRAME_ID;
-        frame.src = BRIDGE_FRAME_SRC;
+        frame.id = frameID;
+        frame.src = frameSrc;
         document.documentElement.appendChild(frame);
         return frame;
     }
+
+    function reloadDummyFrame(protocol) {
+        frameID = "hori_dummy_frame_" + protocol; 
+        frameSrc = protocol + "://localhost/";
+        var frame = document.getElementById(frameID);
+        if (frame == null)
+            frame = createDummyFrame(frameID, frameSrc);
+        else
+            frame.src = frameSrc;
+    }
+
+    // Async call
 
     function asyncCall(func, args) {
         if (typeof func === 'function') {
@@ -22,6 +37,44 @@ var $H = function () {
         }
     }
 
+    hori.__asyncCall = asyncCall;
+
+    // Log
+
+    var LOG_PROTOCOL = "log";
+
+    var __logQueue = new Array();
+
+    window.console = new Object();
+
+    function horiLog(log) {
+        if (typeof log === "string")
+            __logQueue.push(log);
+        else
+            __logQueue.push(JSON.stringify(log));
+        reloadDummyFrame(LOG_PROTOCOL);
+    };
+
+    window.console.log = horiLog;
+    window.console.debug = horiLog;
+    window.console.info = horiLog;
+    window.console.warn = horiLog;
+    window.console.error = horiLog;
+
+    hori.__log = new Object();
+    hori.__log.__retrieveLogs = function () {
+        var result = JSON.stringify(__logQueue);
+        __logQueue.splice(0, __logQueue.length);
+        return result;
+    };
+
+    // Bridge
+
+    var BRIDGE_PROTOCOL = "bridge";
+
+    var __bridgedObjects = new Object();
+    var __invocationQueue = new Array();
+    
     var BridgedObject = function (path) {
         this.path = path;
     };
@@ -30,10 +83,7 @@ var $H = function () {
     BridgedObject.prototype.call = function (method, args, callback) {
         var invocation = new Invocation(this.path, method, args, callback);
         __invocationQueue.push(invocation);
-        var frame = document.getElementById(BRIDGE_FRAME_ID);
-        if (frame == null)
-            frame = createBridgeFrame();
-        frame.src = BRIDGE_FRAME_SRC;
+        reloadDummyFrame(BRIDGE_PROTOCOL);
     };
     
     BridgedObject.prototype.setProperty = function (property, value, callback) {
@@ -203,15 +253,7 @@ var $H = function () {
         }
     };
 
-    var hori = function (path) {
-        if (!__bridgedObjects[path]) {
-            __bridgedObjects[path] = new BridgedObject(path);
-        }
-        return __bridgedObjects[path];
-    };
-    
     hori.__bridge = __bridge;
-    hori.__asyncCall = asyncCall;
     
     return hori;    
 }();

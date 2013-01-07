@@ -192,7 +192,7 @@
 
 - (void)flushInvocations
 {
-    if (self.flushing)
+    if (self.isFlushing)
         return;
     
     self.flushing = YES;
@@ -200,10 +200,25 @@
     self.flushing = NO;
 }
 
+- (void)printLogs
+{
+    NSString *logsJSON = [self.webView stringByEvaluatingJavaScriptFromString:@"$H.__log.__retrieveLogs();"];
+    NSError *error = nil;
+    NSArray *logs = [HBJSONSerialization JSONObjectWithString:logsJSON error:&error];
+    assert(error == nil);
+    for (NSString *log in logs) {
+        NSLog(@"WebView Log: %@", log);
+    }
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([request.URL.scheme isEqualToString:@"bridge"]) {
+    NSString *scheme = request.URL.scheme;
+    if ([scheme isEqualToString:@"bridge"]) {
         [self flushInvocations];
+        return NO;
+    } else if ([scheme isEqualToString:@"log"]) {
+        [self printLogs];
         return NO;
     }
     return YES;
