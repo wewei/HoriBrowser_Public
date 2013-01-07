@@ -27,4 +27,6 @@
 - (NSUInteger)persistCallback:(HBCallback *)callback;
 - (void)unlinkCallback:(HBCallback *)callback;
 
+- (void)raiseArgumentError:(NSString *)argument;
+
 @end

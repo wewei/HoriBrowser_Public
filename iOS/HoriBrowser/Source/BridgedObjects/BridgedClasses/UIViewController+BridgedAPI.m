@@ -14,13 +14,15 @@
 
 - (void)method_presentViewController:(HBInvocationContext *)context
 {
-    NSString *objectPath = [context.arguments objectForKey:@"viewController"];
-    id object = [[HBBridgedObjectManager sharedManager] objectForPath:objectPath
-                                                      inExecutionUnit:context.executionUnit];
-    NSNumber *animatedNumber = [context.arguments objectForKey:@"animated"];
-    BOOL animated = animatedNumber.boolValue;
-    if ([object isKindOfClass:[UIViewController class]]) {
-        [self presentViewController:object animated:animated completion:^{
+    id viewControllerObj = [context.arguments objectForKey:@"viewController"];
+    
+    if ([viewControllerObj isKindOfClass:[UIViewController class]]) {
+        BOOL animated = YES;
+        id animatedObj = [context.arguments objectForKey:@"animated"];
+        if ([animatedObj isKindOfClass:[NSNumber class]])
+            animated = [(NSNumber *)animatedObj boolValue];
+        
+        [self presentViewController:(UIViewController *)viewControllerObj animated:animated completion:^{
             [context succeed];
         }];
     } else {

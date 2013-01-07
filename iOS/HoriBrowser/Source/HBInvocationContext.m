@@ -144,11 +144,7 @@ static NSString * const HBCompletionAttributeIndex = @"index";
 
 - (void)raiseArgumentError:(NSString *)argument
 {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:argument forKey:@"argument"];
-    NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
-                                                     reason:HBInvocationArgumentErrorReason
-                                                   userInfo:userInfo];
-    [exception raise];
+    [self.executionUnit raiseArgumentError:argument];
 }
 
 - (void)dealloc

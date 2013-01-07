@@ -160,6 +160,15 @@
     // TODO unlink callback
 }
 
+- (void)raiseArgumentError:(NSString *)argument
+{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:argument forKey:@"argument"];
+    NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
+                                                     reason:HBInvocationArgumentErrorReason
+                                                   userInfo:userInfo];
+    [exception raise];
+}
+
 - (void)triggerInvocationWithDictionary:(NSDictionary *)invocationDict
 {
     performanceTag(@"TriggerInvocation");

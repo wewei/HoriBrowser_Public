@@ -54,7 +54,7 @@
         function pushViewController(viewCtrl, callback)
         {
             var navCtrl = $H("/User/NavigationController");
-            navCtrl.call("pushViewController", { "viewController" : viewCtrl.path }, callback);
+            navCtrl.call("pushViewController", { "viewController" : viewCtrl}, callback);
         }
 
         function showBaidu()
@@ -82,13 +82,13 @@
             }
         }
 
-        function setRootViewController(path)
+        function setRootViewController(viewController)
         {
             var rootViewController = $H("/System/RootViewController");
             rootViewController.call(
                 "presentViewController",
                 {
-                    "viewController": path,
+                    "viewController": viewController,
                     "animated": 1,
                 }
             );
@@ -104,14 +104,14 @@
                 {
                     "path" : "/User/NavigationController",
                     "arguments" : {
-                        "rootViewController" : "/Current/WebViewController",
+                        "rootViewController" : $H("/Current/WebViewController"),
                     },
                 },
                 function (args) {
                     if (args.exception != null)
                         alert(JSON.stringify(args.exception));
                     else
-                        setRootViewController(args.returnValue);
+                        setRootViewController($H(args.returnValue));
                 }
             );
             $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");

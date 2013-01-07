@@ -13,7 +13,6 @@
 
 NSString * const HBNavControllerException = @"NavitagionControllerException";
 
-NSString * const HBNavControllerInvalidRootControllerReason = @"The root view controller is not valid.";
 NSString * const HBNavControllerInvalidURLReason = @"The URL of scene is not valid";
 NSString * const HBNavControllerCannotLoadURLReason = @"Cannot connect to the URL of scene.";
 
@@ -22,19 +21,12 @@ NSString * const HBNavControllerCannotLoadURLReason = @"Cannot connect to the UR
 - (id)initWithArguments:(id)arguments inExecutionUnit:(HBExecutionUnit *)executionUnit
 {
     NSDictionary *argumentDict = (NSDictionary *)arguments;
-    NSString *rootViewControllerPath = [argumentDict objectForKey:@"rootViewController"];
-    HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];
-    UIViewController *rootViewController = [objectManager objectForPath:rootViewControllerPath
-                                                        inExecutionUnit:executionUnit];
-    if (rootViewController != nil) {
-        self = [self initWithRootViewController:rootViewController];
+    id rootViewControllerObj = [argumentDict objectForKey:@"rootViewController"];
+    
+    if ([rootViewControllerObj isKindOfClass:[UIViewController class]]) {
+        self = [self initWithRootViewController:(UIViewController *)rootViewControllerObj];
     } else {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:rootViewController
-                                                             forKey:@"rootViewController"];
-        NSException *exception = [NSException exceptionWithName:HBNavControllerException
-                                                         reason:HBNavControllerInvalidRootControllerReason
-                                                       userInfo:userInfo];
-        [exception raise];
+        [executionUnit raiseArgumentError:@"rootViewController"];
     }
     return self;
 }
@@ -94,18 +86,12 @@ NSString * const HBNavControllerCannotLoadURLReason = @"Cannot connect to the UR
     if ([animatedNumber isKindOfClass:[NSNumber class]])
         animated = ((NSNumber *)animatedNumber).boolValue;
     
-    NSString *path = [arguments objectForKey:@"viewController"];
-    id object = [[HBBridgedObjectManager sharedManager] objectForPath:path
-                                                      inExecutionUnit:context.executionUnit];
-    if ([object isKindOfClass:[UIViewController class]]) {
-        [self pushViewController:object animated:animated];
+    id viewControllerObj = [arguments objectForKey:@"viewController"];
+    if ([viewControllerObj isKindOfClass:[UIViewController class]]) {
+        [self pushViewController:(UIViewController *)viewControllerObj animated:animated];
         [context succeed];
     } else {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"viewController" forKey:@"argument"];
-        NSException *exception = [NSException exceptionWithName:HBInvocationFailedException
-                                                         reason:HBInvocationArgumentErrorReason
-                                                       userInfo:userInfo];
-        [exception raise];
+        [context raiseArgumentError:@"viewController"];
     }
 }
 
