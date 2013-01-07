@@ -34,7 +34,7 @@
 
         function createWebView(callback)
         {
-            $H.bridgedClass("WebViewController").call("new", { "arguments" : null }, callback);
+            $H.bridgedClass("WebViewController").NEW(null, callback);
         }
 
         function webViewLoadURL(webViewCtrl, url, callback)
@@ -59,8 +59,7 @@
 
         function showBaidu()
         {
-            createWebView(function(args) {
-                var webViewCtrl = $H(args.returnValue);
+            createWebView(function(webViewCtrl) {
                 webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function () {
                     pushViewController(webViewCtrl, function() {
                         webViewCtrl.unlink();
@@ -94,29 +93,16 @@
         }
 
         function $H_main() {
-            $H.bridgedClass("NavigationController").call(
-                "new",
-                {
-                    "path" : "/User/NavigationController",
-                    "arguments" : {
-                        "rootViewController" : $H.webViewController(),
-                    },
-                },
-                function (args) {
-                    if (args.exception != null)
-                        alert(JSON.stringify(args.exception));
-                    else {
-                        navCtrl = $H(args.returnValue);
-                        setRootViewController(navCtrl);
-                    }
+            $H.bridgedClass("NavigationController").GLOBAL_NEW(
+				"/User/NavigationController",
+				{ "rootViewController" : $H.webViewController() },
+                function (_navCtrl) {
+					navCtrl = _navCtrl;
+					setRootViewController(_navCtrl);
                 }
             );
             $H.webViewController().setProperty("navigationItemTitle", "Welcome");
-            testDryObject();
         }
-
-        if (typeof $H === "undefined")
-            testDryObject();
 
 		</script>
 	</body>

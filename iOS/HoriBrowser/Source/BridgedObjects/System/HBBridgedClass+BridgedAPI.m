@@ -21,7 +21,7 @@ NSString * const HBBridgedClassCreationFailureReason = @"Failed to create object
     id arguments = [context.arguments objectForKey:@"arguments"];
     NSString *path = [context.arguments objectForKey:@"path"];
     
-    if (path == nil)
+    if (path == nil || [path isKindOfClass:[NSNull class]])
         path = [context.executionUnit generateTemporaryPath];
     
     HBBridgedObjectManager *objectManager = [HBBridgedObjectManager sharedManager];

@@ -36,7 +36,9 @@ var $H = function () {
     }
 
     function stringifyJSON(obj, callbacks) {
-        if (obj instanceof BridgedObject) {
+		if (obj == null) {
+			return null;
+        } if (obj instanceof BridgedObject) {
             return stringForObject('bridged', '"' + obj.path + '"');
         } else if (typeof obj === 'object') {
             var pares = new Array();
@@ -53,8 +55,6 @@ var $H = function () {
         }
         return JSON.stringify(obj);
     }
-
-    hori.__debug.stringifyJSON = stringifyJSON;
 
     // Async call
 
@@ -161,7 +161,36 @@ var $H = function () {
 			callback
 		);
     };
-    
+
+	BridgedObject.prototype.GLOBAL_NEW = function (path, args, onSuccess, onFailure) {
+		if (this.path.indexOf('/Class/') === 0) {
+			this.call(
+				'new',
+				{
+					'path' : path,
+					'arguments' : args
+				},
+				function(_args) {
+					if (_args.exception != null) {
+						if (typeof onFailure === 'function')
+							onFailure(_args.exception);
+					} else {
+						if (typeof onSuccess === 'function')
+							onSuccess(hori(_args.returnValue));
+						else if (_args.returnValue !== path) {
+							console.log("unlink non-referenced object");
+							hori(_args.returnValue).unlink();
+						}
+					}
+				}
+			);
+		}
+	};
+
+	BridgedObject.prototype.NEW = function (args, onSuccess, onFailure) {
+		this.GLOBAL_NEW(null, args, onSuccess, onFailure);
+	};
+
     var __activeInvocations = new Object();
     var __invocationCounter = 0;
     
@@ -270,7 +299,7 @@ var $H = function () {
     };
 
     hori.__bridge = __bridge;
-    
+
     // Short cuts
 
     function objectManager() {
@@ -283,15 +312,15 @@ var $H = function () {
     }
     hori.webViewController = webViewController;
 
-    function bridgedClass(className) {
-        return hori("/Class/" + className);
-    }
-    hori.bridgedClass = bridgedClass;
-
     function rootViewController() {
         return hori("/System/RootViewController");
     }
     hori.rootViewController= rootViewController;
+
+    function bridgedClass(className) {
+        return hori("/Class/" + className);
+    }
+    hori.bridgedClass = bridgedClass;
 
     return hori;    
 }();
