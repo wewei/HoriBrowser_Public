@@ -32,40 +32,42 @@
             $H(PATH).read(function(args) { alert(args.returnValue); });
         }
 
-        function createWebView(callback)
-        {
-            $H.bridgedClass("WebViewController").NEW(null, callback);
-        }
-
-        function webViewLoadURL(webViewCtrl, url, callback)
-        {
-            webViewCtrl.call(
-                "loadURL",
-                {
-                    "url" : url,
-                    "onStartLoading" :
-                        function () {
-                            alert("start load.");
-                            return "hello";
-                        },
-                },
-                callback);
-        }
-
-        function pushViewController(viewCtrl, callback)
-        {
-            navCtrl.call("pushViewController", { "viewController" : viewCtrl}, callback);
-        }
-
         function showBaidu()
         {
-            createWebView(function(webViewCtrl) {
-                webViewLoadURL(webViewCtrl, "http://www.baidu.com/", function () {
-                    pushViewController(webViewCtrl, function() {
-                        webViewCtrl.unlink();
-                    });
-                });
-            });
+			$H.bridgedClass("WebViewController").NEW(null).onSuccess(function(webViewCtrlPath) {
+				var webViewCtrl = $H(webViewCtrlPath);
+				function unlinkWebViewCtrl() {
+					webViewCtrl.unlink();
+				}
+				function pushControler() {
+					navCtrl.invoke(
+						"pushViewController",
+						{ "viewController" : webViewCtrl }
+					).onSuccess(
+						unlinkWebViewCtrl
+					).onFailure(
+						unlinkWebViewCtrl
+					);
+				}
+				function loadPage(url) {
+					webViewCtrl.invoke(
+						"loadURL",
+						{
+							"url" : url,
+							"onStartLoading" :
+								function () {
+									alert("start load.");
+									return "hello";
+								},
+						}
+					).onSuccess(
+						pushControler
+					).onFailure(
+						unlinkWebViewCtrl
+					);
+				}
+				loadPage("http://www.baidu.com/");
+			});
         }
 
         function testGetProperty(n)
@@ -83,7 +85,7 @@
 
         function setRootViewController(viewController)
         {
-            $H.rootViewController().call(
+            $H.rootViewController().invoke(
                 "presentViewController",
                 {
                     "viewController": viewController,
@@ -95,12 +97,14 @@
         function $H_main() {
             $H.bridgedClass("NavigationController").GLOBAL_NEW(
 				"/User/NavigationController",
-				{ "rootViewController" : $H.webViewController() },
-                function (_navCtrl) {
-					navCtrl = _navCtrl;
-					setRootViewController(_navCtrl);
-                }
-            );
+				{ "rootViewController" : $H.webViewController() }
+			).onSuccess(function (returnValue) {
+				navCtrl = $H(returnValue);
+				setRootViewController(navCtrl);
+			}).onFailure(function (exception) {
+				console.log(exception);
+				navCtrl = $H("/User/NavigationController");
+            });
             $H.webViewController().setProperty("navigationItemTitle", "Welcome");
         }
 

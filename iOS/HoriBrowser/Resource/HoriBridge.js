@@ -108,14 +108,14 @@ var $H = function () {
     };
 
     BridgedObject.prototype.constructor = BridgedObject;
-    BridgedObject.prototype.call = function (method, args, callback) {
+    BridgedObject.prototype.__call = function (method, args, callback) {
         var invocation = new Invocation(this.path, method, args, callback);
         __invocationQueue.push(invocation);
         reloadDummyFrame(BRIDGE_PROTOCOL);
     };
     
     BridgedObject.prototype.setProperty = function (property, value, callback) {
-        this.call(
+        this.__call(
             'setProperty',
             {
                 'property' : property,
@@ -126,7 +126,7 @@ var $H = function () {
     };
     
     BridgedObject.prototype.getProperty = function (property, callback) {
-        this.call(
+        this.__call(
             'getProperty',
             { 'property' : property },
             callback
@@ -134,15 +134,15 @@ var $H = function () {
     };
 
     BridgedObject.prototype.unlink = function (callback) {
-        this.call('unlink', null, callback);
+        this.__call('unlink', null, callback);
     };
     
     BridgedObject.prototype.move = function (path, callback) {
-        this.call('moveToPath', { 'path' : path }, callback);
+        this.__call('moveToPath', { 'path' : path }, callback);
     };
 
 	BridgedObject.prototype.read = function (callback) {
-		objectManager().call(
+		objectManager().__call(
 			'readObject',
 			{
 				'path' : this.path,
@@ -152,7 +152,7 @@ var $H = function () {
 	};
     
     BridgedObject.prototype.write = function (value, callback) {
-        objectManager().call(
+        objectManager().__call(
 			'writeObject',
 			{
 				'path'  : this.path,
@@ -162,33 +162,74 @@ var $H = function () {
 		);
     };
 
-	BridgedObject.prototype.GLOBAL_NEW = function (path, args, onSuccess, onFailure) {
-		if (this.path.indexOf('/Class/') === 0) {
-			this.call(
-				'new',
-				{
-					'path' : path,
-					'arguments' : args
-				},
-				function(_args) {
-					if (_args.exception != null) {
-						if (typeof onFailure === 'function')
-							onFailure(_args.exception);
-					} else {
-						if (typeof onSuccess === 'function')
-							onSuccess(hori(_args.returnValue));
-						else if (_args.returnValue !== path) {
-							console.log("unlink non-referenced object");
-							hori(_args.returnValue).unlink();
-						}
-					}
-				}
-			);
-		}
+	BridgedObject.prototype.GLOBAL_NEW = function (path, args) {
+		return this.invoke(
+			'new',
+			{
+				'path' : path,
+				'arguments' : args
+			}
+		).onSuccess(function (returnValue) {
+			if (returnValue !== path) {
+				console.log("unlink non-referenced object");
+				hori(returnValue).unlink();
+			}
+		});
 	};
 
-	BridgedObject.prototype.NEW = function (args, onSuccess, onFailure) {
-		this.GLOBAL_NEW(null, args, onSuccess, onFailure);
+	BridgedObject.prototype.NEW = function (args) {
+		return this.GLOBAL_NEW(null, args);
+	};
+
+	var PublicInvocation = function (obj, method, args) {
+		this.__ready = false;
+		this.__returnArgs = null;
+		this.__onSuccess = null;
+		this.__onFailure = null;
+		var pubInvoc =  this;
+		obj.__call(method, args, function (_args) {
+			pubInvoc.__returnArgs = _args;
+			pubInvoc.__ready = true;
+			if (_args.exception === null) {
+				if (pubInvoc.__onSuccess instanceof Function) {
+					pubInvoc.__onSuccess(_args.returnValue);
+				}
+			} else {
+				if (pubInvoc.__onFailure instanceof Function) {
+					pubInvoc.__onFailure(_args.exception);
+				}
+			}
+		});
+	};
+
+	PublicInvocation.prototype.constructor = PublicInvocation;
+
+	PublicInvocation.prototype.onSuccess = function (routine) {
+		if (routine instanceof Function) {
+			if (!this.__ready) {
+				this.__onSuccess = routine;
+			} else if (this.__onSuccess === null && this.__returnArgs.exception === null) {
+				this.__onSuccess = routine;
+				this.__onSuccess(this.__returnArgs.returnValue);
+			}
+		}
+		return this;
+	};
+
+	PublicInvocation.prototype.onFailure = function (routine) {
+		if (routine instanceof Function) {
+			if (!this.__ready) {
+				this.__onFailure = routine;
+			} else if (this.__onFailure === null && this.__returnArgs.exception !== null) {
+				this.__onFailure = routine;
+				this.__onFailure(this.__returnArgs.exception);
+			}
+		}
+		return this;
+	};
+
+	BridgedObject.prototype.invoke = function (method, args) {
+		return new PublicInvocation(this, method, args);
 	};
 
     var __activeInvocations = new Object();
