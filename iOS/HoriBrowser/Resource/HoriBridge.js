@@ -320,7 +320,7 @@ var $H = function () {
         var result = null;
         if (typeof callback === 'function')
             result = callback(args);
-        return stringifyJSON(result, []); // TODO, store
+        return stringifyJSON(result, []); // TODO, store the persisted callback function return values
     };
     
     __bridge.__triggerPersistedCallbackAsync = function (persistedCallbackIndex, args) {
