@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class HBNamespace;
+@class HBCallback;
 
 @interface HBExecutionUnit : UIViewController<UIWebViewDelegate>
 
@@ -22,5 +23,8 @@
 - (void)loadURL:(NSURL *)URL withCompletion:(void (^)(BOOL))completion;
 
 - (NSString *)generateTemporaryPath;
+
+- (NSUInteger)persistCallback:(HBCallback *)callback;
+- (void)unlinkCallback:(HBCallback *)callback;
 
 @end

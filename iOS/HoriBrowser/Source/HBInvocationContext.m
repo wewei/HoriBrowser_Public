@@ -9,13 +9,17 @@
 #import "HBInvocationContext.h"
 #import "HBJSONSerialization.h"
 #import "HBExecutionUnit.h"
+#import "HBBridgedObjectManager.h"
+#import "HBCallback.h"
+#import "HBObjectNormalizer.h"
 
 NSString * const HBInvocationFailedException = @"InvocationFailed";
 
 NSString * const HBInvocationUnknownReason = @"Unknown Reason.";
 NSString * const HBInvocationObjectNotFoundReason = @"Target object not found.";
 NSString * const HBInvocationMethodNotFoundReason = @"Method not found.";
-NSString * const HBInvocationArgumentErrorReason = @"Argument Error";
+NSString * const HBInvocationArgumentErrorReason = @"Argument Error.";
+NSString * const HBInvocationInternalReason = @"Internal Error, make sure you are not calling any internal routine inproperly.";
 
 
 static NSString * const HBInvocationAttributeObjectPath = @"objectPath";
@@ -30,6 +34,7 @@ static NSString * const HBExceptionAttributeUserInfo = @"userInfo";
 static NSString * const HBCompletionAttributeException = @"exception";
 static NSString * const HBCompletionAttributeReturnValue = @"returnValue";
 static NSString * const HBCompletionAttributeIndex = @"index";
+
 
 @implementation HBInvocationContext
 
@@ -48,6 +53,8 @@ static NSString * const HBCompletionAttributeIndex = @"index";
 
 @synthesize exception = _exception;
 @synthesize returnValue = _returnValue;
+
+@synthesize callbacks = __callbacks;
 
 - (NSString *)completionJSON
 {
@@ -71,16 +78,37 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     return completionJSON;
 }
 
+- (NSMutableArray *)callbacks
+{
+    if (__callbacks == nil) {
+        __callbacks = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    return __callbacks;
+}
+
 - (id)initWithExecutionUnit:(HBExecutionUnit *)executionUnit
     andInvocationDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     if (self) {
+        
+        NSDictionary *normalizedDictionary = nil;
         self.executionUnit = executionUnit;
-        self.objectPath = [dictionary objectForKey:HBInvocationAttributeObjectPath];
-        self.method = [dictionary objectForKey:HBInvocationAttributeMethod];
-        self.arguments = [dictionary objectForKey:HBInvocationAttributeArguments];
-        self.index = [dictionary objectForKey:HBInvocationAttributeIndex];
+        @try {
+            HBObjectNormalizer *normalizer = [HBObjectNormalizer normalizerWithInvocationContext:self];
+            normalizedDictionary = [normalizer normalizeObject:dictionary];
+        }
+        @catch (NSException *exception) {
+            [self release];
+            @throw;
+        }
+        @finally {
+            ;
+        }
+        self.objectPath = [normalizedDictionary objectForKey:HBInvocationAttributeObjectPath];
+        self.method = [normalizedDictionary objectForKey:HBInvocationAttributeMethod];
+        self.index = [normalizedDictionary objectForKey:HBInvocationAttributeIndex];
+        self.arguments = [normalizedDictionary objectForKey:HBInvocationAttributeArguments];
         
         self.exception = nil;
         self.returnValue = [NSNull null];
@@ -88,28 +116,6 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     return self;
 }
 
-- (id)triggerCallbackSyncWithIndex:(NSUInteger)index andArguments:(id)arguments
-{
-    NSError *error = nil;
-    NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
-    assert(error == nil);
-    NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallback(%u, %u, %@)",
-                                self.index.unsignedIntegerValue, index, argsJSON];
-    NSString *resultString = [self.executionUnit.webView stringByEvaluatingJavaScriptFromString:callbackScript];
-    id result = [HBJSONSerialization JSONObjectWithString:resultString error:&error];
-    // TODO check error
-    return result;
-}
-
-- (void)triggerCallbackWithIndex:(NSUInteger)index andArguments:(id)arguments
-{
-    NSError *error = nil;
-    NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
-    assert(error == nil);
-    NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallbackAsync(%u, %u, %@)",
-                                self.index.unsignedIntegerValue, index, argsJSON];
-    (void)[self.executionUnit.webView stringByEvaluatingJavaScriptFromString:callbackScript];
-}
 
 - (void)complete
 {
@@ -155,6 +161,8 @@ static NSString * const HBCompletionAttributeIndex = @"index";
     
     self.exception = nil;
     self.returnValue = nil;
+    
+    [__callbacks release];
     
     [super dealloc];
 }

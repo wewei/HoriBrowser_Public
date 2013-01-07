@@ -149,6 +149,17 @@
     return [NSString stringWithFormat:@"/Current/Temp/%@", name];
 }
 
+- (NSUInteger)persistCallback:(HBCallback *)callback
+{
+    // TODO persist callback
+    return 0;
+}
+
+- (void)unlinkCallback:(HBCallback *)callback
+{
+    // TODO unlink callback
+}
+
 - (void)triggerInvocationWithDictionary:(NSDictionary *)invocationDict
 {
     performanceTag(@"TriggerInvocation");

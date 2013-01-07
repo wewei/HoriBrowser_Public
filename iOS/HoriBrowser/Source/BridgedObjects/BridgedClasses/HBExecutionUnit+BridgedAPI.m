@@ -8,6 +8,7 @@
 
 #import "HBExecutionUnit+BridgedAPI.h"
 #import "HBInvocationContext.h"
+#import "HBCallback.h"
 
 NSString * const HBExeUnitException = @"ExecutionUnitException";
 
@@ -27,14 +28,15 @@ NSString * const HBExeUnitCannotLoadURLReason = @"Cannot connect to the URL.";
     NSString *URLString = [arguments objectForKey:@"url"];
     NSURL *URL = [NSURL URLWithString:URLString];
     
-    NSUInteger onStartLoading = 0;
-    id onStartLoadingArg = [arguments objectForKey:@"onStartLoading"];
-    if ([onStartLoadingArg isKindOfClass:[NSNumber class]])
-        onStartLoading = [(NSNumber *)onStartLoadingArg unsignedIntegerValue];
+    HBCallback *onStartLoading = nil;
+    id onStartLoadingObj = [arguments objectForKey:@"onStartLoading"];
+    if ([onStartLoadingObj isKindOfClass:[HBCallback class]])
+        onStartLoading = onStartLoadingObj;
+    
     
     if (URL != nil) {
-        if (onStartLoading > 0)
-            [context triggerCallbackWithIndex:onStartLoading andArguments:nil];
+        if (onStartLoading)
+            [onStartLoading asyncCallWithArguments:nil];
         
         [self loadURL:URL withCompletion:^(BOOL loaded) {
             if (loaded) {

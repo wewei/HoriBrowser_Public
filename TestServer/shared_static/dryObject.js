@@ -1,19 +1,3 @@
-var DryObject = function (type, value) {
-    this.type = type;
-    this.value = value;
-};
-
-DryObject.prototype.constructor = DryObject;
-DryObject.prototype.hello = function () { alert("Hello"); };
-
-function replacer(key, value) {
-    if (typeof value === "object") {
-//        var driedObject = 
-        return new DryObject("object", value);
-    }
-    return value;
-}
-
 function testDryObject()
 {
     var object = new Object();
@@ -21,9 +5,14 @@ function testDryObject()
     object.obj = new Object();
     object.integer = 1;
     object.string = "hello";
+    object.func = function () {
+        alert("hello");
+    };
 
-    console.log(Object.keys(object));
-    console.log(Object.keys(new DryObject("object", object)));
-    // console.log(JSON.stringify(object, replacer));
+    console.log("get here");
+    var str = $H.__debug.stringifyJSON(object, []);
+    console.log(str);
+    console.log(JSON.parse(str));
+//    console.log(JSON.parse(str));
 }
 

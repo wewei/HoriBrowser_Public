@@ -15,6 +15,7 @@ extern NSString * const HBInvocationUnknownReason;
 extern NSString * const HBInvocationObjectNotFoundReason;
 extern NSString * const HBInvocationMethodNotFoundReason;
 extern NSString * const HBInvocationArgumentErrorReason;
+extern NSString * const HBInvocationInternalReason;
 
 @class HBExecutionUnit;
 
@@ -34,11 +35,11 @@ extern NSString * const HBInvocationArgumentErrorReason;
 
 @property (readonly, nonatomic) NSDictionary *completionJSON;
 
+
+@property (readonly, nonatomic) NSMutableArray *callbacks;
+
 - (id)initWithExecutionUnit:(HBExecutionUnit *)executionUnit
     andInvocationDictionary:(NSDictionary *)dictionary;
-
-- (void)triggerCallbackWithIndex:(NSUInteger)index andArguments:(id)arguments;
-- (id)triggerCallbackSyncWithIndex:(NSUInteger)index andArguments:(id)arguments;
 
 - (void)complete;
 

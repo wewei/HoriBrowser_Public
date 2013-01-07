@@ -6,12 +6,15 @@ var $H = function () {
         }
         return __bridgedObjects[path];
     };
+
+    // Debug
+    hori.__debug = new Object();
     
     // Utilities
 
     function createDummyFrame(frameID, frameSrc) {
-        var frame = document.createElement("iframe");
-        frame.style.display = "none";
+        var frame = document.createElement('iframe');
+        frame.style.display = 'none';
         frame.id = frameID;
         frame.src = frameSrc;
         document.documentElement.appendChild(frame);
@@ -19,14 +22,39 @@ var $H = function () {
     }
 
     function reloadDummyFrame(protocol) {
-        frameID = "hori_dummy_frame_" + protocol; 
-        frameSrc = protocol + "://localhost/";
+        frameID = 'hori_dummy_frame_' + protocol; 
+        frameSrc = protocol + '://localhost/';
         var frame = document.getElementById(frameID);
         if (frame == null)
             frame = createDummyFrame(frameID, frameSrc);
         else
             frame.src = frameSrc;
     }
+
+    function stringForObject(type, dataString) {
+        return '{"type":"' + type + '","data":' + dataString + '}';
+    }
+
+    function stringifyJSON(obj, callbacks) {
+        if (obj instanceof BridgedObject) {
+            return stringForObject('bridged', '"' + obj.path + '"');
+        } else if (typeof obj === 'object') {
+            var pares = new Array();
+            for (var key in obj) {
+                var keyStr = stringifyJSON(key, callbacks);
+                var valueStr = stringifyJSON(obj[key], callbacks);
+                pares.push(keyStr + ':' + valueStr);
+            }
+            return stringForObject('object', '{' + pares.join(',') + '}');
+        } else if (typeof obj === 'function') {
+            var callbackIndex = callbacks.length;
+            callbacks.push(obj);
+            return stringForObject('function', callbackIndex);
+        }
+        return JSON.stringify(obj);
+    }
+
+    hori.__debug.stringifyJSON = stringifyJSON;
 
     // Async call
 
@@ -41,14 +69,14 @@ var $H = function () {
 
     // Log
 
-    var LOG_PROTOCOL = "log";
+    var LOG_PROTOCOL = 'log';
 
     var __logQueue = new Array();
 
     window.console = new Object();
 
     function horiLog(log) {
-        if (typeof log === "string")
+        if (typeof log === 'string')
             __logQueue.push(log);
         else
             __logQueue.push(JSON.stringify(log));
@@ -70,7 +98,7 @@ var $H = function () {
 
     // Bridge
 
-    var BRIDGE_PROTOCOL = "bridge";
+    var BRIDGE_PROTOCOL = 'bridge';
 
     var __bridgedObjects = new Object();
     var __invocationQueue = new Array();
@@ -88,10 +116,10 @@ var $H = function () {
     
     BridgedObject.prototype.setProperty = function (property, value, callback) {
         this.call(
-            "setProperty",
+            'setProperty',
             {
-                "property" : property,
-                "value" : value,
+                'property' : property,
+                'value' : value,
             },
             callback
         );
@@ -99,36 +127,36 @@ var $H = function () {
     
     BridgedObject.prototype.getProperty = function (property, callback) {
         this.call(
-            "getProperty",
-            { "property" : property },
+            'getProperty',
+            { 'property' : property },
             callback
         );
     };
 
     BridgedObject.prototype.unlink = function (callback) {
-        this.call("unlink", null, callback);
+        this.call('unlink', null, callback);
     };
     
     BridgedObject.prototype.move = function (path, callback) {
-        this.call("moveToPath", { "path" : path }, callback);
+        this.call('moveToPath', { 'path' : path }, callback);
     };
 
 	BridgedObject.prototype.read = function (callback) {
-		$H("/System/ObjectManager").call(
-			"readObject",
+		$H('/System/ObjectManager').call(
+			'readObject',
 			{
-				"path" : this.path,
+				'path' : this.path,
 			},
 			callback
 		);
 	};
     
     BridgedObject.prototype.write = function (value, callback) {
-        $H("/System/ObjectManager").call(
-			"writeObject",
+        $H('/System/ObjectManager').call(
+			'writeObject',
 			{
-				"path"  : this.path,
-				"value" : value,
+				'path'  : this.path,
+				'value' : value,
 			},
 			callback
 		);
@@ -150,24 +178,12 @@ var $H = function () {
     
     Invocation.prototype.constructor = Invocation;
     Invocation.prototype.toString = function () {
-        return this.stringifyJSON({
-            "objectPath" : this.__objectPath,
-            "method": this.__method,
-            "arguments": this.__arguments,
-            "index": this.__index,
-        });
-    };
-
-    Invocation.prototype.stringifyJSON = function(json) {
-        var invocation = this;
-        return JSON.stringify(json, function(key, value) {
-            if (typeof value === 'function') {
-                var callbackIndex = invocation.__callbacks.length;
-                invocation.__callbacks.push(value);
-                return callbackIndex;
-            }
-            return value;
-        });
+        return stringifyJSON({
+            'objectPath' : this.__objectPath,
+            'method': this.__method,
+            'arguments': this.__arguments,
+            'index': this.__index,
+        }, this.__callbacks);
     };
 
     Invocation.prototype.triggerCallback = function (index, args) {
@@ -175,7 +191,7 @@ var $H = function () {
         var result = null;
         if (typeof callback === 'function')
             result = callback(args);
-        return this.stringifyJSON(result);
+        return stringifyJSON(result, this.__callbacks);
     };
 
     Invocation.prototype.triggerCallbackAsync = function (index, args) {
@@ -234,7 +250,7 @@ var $H = function () {
         var result = null;
         if (typeof callback === 'function')
             result = callback(args);
-        return JSON.stringify(result);
+        return stringifyJSON(result, []); // TODO, store
     };
     
     __bridge.__triggerPersistedCallbackAsync = function (persistedCallbackIndex, args) {
@@ -246,8 +262,8 @@ var $H = function () {
         var invocation = __activeInvocations[completionDict.index];
         if (invocation) {
             invocation.triggerCallbackAsync(0, {
-                "returnValue" : completionDict.returnValue,
-                "exception"   : completionDict.exception,
+                'returnValue' : completionDict.returnValue,
+                'exception'   : completionDict.exception,
             });
             delete __activeInvocations[completionDict.index];
         }
@@ -259,4 +275,4 @@ var $H = function () {
 }();
 
 $H.__asyncCall($H_main, null);
-    
+

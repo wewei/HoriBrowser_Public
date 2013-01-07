@@ -40,6 +40,8 @@
 		4C6907CA1693D7BD00132B2E /* HBJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6907C91693D7BD00132B2E /* HBJSONSerialization.m */; };
 		4CB19C141696F42E003083FF /* HBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB19C131696F42E003083FF /* HBUtil.m */; };
 		4CB19C1716972645003083FF /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4CB19C1616972645003083FF /* HoriBridge.js */; };
+		4CB8F18A169ADD4D0089163F /* HBCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8F189169ADD4D0089163F /* HBCallback.m */; };
+		4CB8F18E169AEA200089163F /* HBObjectNormalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8F18D169AEA200089163F /* HBObjectNormalizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,10 @@
 		4CB19C121696F42E003083FF /* HBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBUtil.h; sourceTree = "<group>"; };
 		4CB19C131696F42E003083FF /* HBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBUtil.m; sourceTree = "<group>"; };
 		4CB19C1616972645003083FF /* HoriBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HoriBridge.js; sourceTree = "<group>"; };
+		4CB8F188169ADD4D0089163F /* HBCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCallback.h; sourceTree = "<group>"; };
+		4CB8F189169ADD4D0089163F /* HBCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCallback.m; sourceTree = "<group>"; };
+		4CB8F18C169AEA200089163F /* HBObjectNormalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBObjectNormalizer.h; sourceTree = "<group>"; };
+		4CB8F18D169AEA200089163F /* HBObjectNormalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBObjectNormalizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,8 +281,12 @@
 				4C6907C41693D72500132B2E /* Utility */,
 				4C6907B616907A3900132B2E /* HBExecutionUnit.h */,
 				4C6907B716907A3900132B2E /* HBExecutionUnit.m */,
+				4CB8F18C169AEA200089163F /* HBObjectNormalizer.h */,
+				4CB8F18D169AEA200089163F /* HBObjectNormalizer.m */,
 				4C01B4A916940D0C0064AD49 /* HBInvocationContext.h */,
 				4C01B4AA16940D0C0064AD49 /* HBInvocationContext.m */,
+				4CB8F188169ADD4D0089163F /* HBCallback.h */,
+				4CB8F189169ADD4D0089163F /* HBCallback.m */,
 				4C01B4B91695494F0064AD49 /* HBBridgedObjectManager.h */,
 				4C01B4BA1695494F0064AD49 /* HBBridgedObjectManager.m */,
 				4C01B4A21693FB510064AD49 /* HBNamespace.h */,
@@ -436,6 +446,8 @@
 				4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */,
 				4CB19C141696F42E003083FF /* HBUtil.m in Sources */,
 				4C66081816981A7E003C3852 /* HBExecutionUnit+BridgedAPI.m in Sources */,
+				4CB8F18A169ADD4D0089163F /* HBCallback.m in Sources */,
+				4CB8F18E169AEA200089163F /* HBObjectNormalizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
