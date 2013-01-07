@@ -142,7 +142,7 @@ var $H = function () {
     };
 
 	BridgedObject.prototype.read = function (callback) {
-		$H('/System/ObjectManager').call(
+		objectManager().call(
 			'readObject',
 			{
 				'path' : this.path,
@@ -152,7 +152,7 @@ var $H = function () {
 	};
     
     BridgedObject.prototype.write = function (value, callback) {
-        $H('/System/ObjectManager').call(
+        objectManager().call(
 			'writeObject',
 			{
 				'path'  : this.path,
@@ -271,6 +271,28 @@ var $H = function () {
 
     hori.__bridge = __bridge;
     
+    // Short cuts
+
+    function objectManager() {
+        return hori("/System/ObjectManager");
+    }
+    hori.objectManager = objectManager;
+
+    function webViewController() {
+        return hori("/Current/WebViewController");
+    }
+    hori.webViewController = webViewController;
+
+    function bridgedClass(className) {
+        return hori("/Class/" + className);
+    }
+    hori.bridgedClass = bridgedClass;
+
+    function rootViewController() {
+        return hori("/System/RootViewController");
+    }
+    hori.rootViewController= rootViewController;
+
     return hori;    
 }();
 

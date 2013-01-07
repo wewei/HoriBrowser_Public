@@ -14,6 +14,8 @@
 		<script type="text/javascript">
 
         var PATH = "/User/foobar";
+        var navCtrl = null;
+
         function testWriteJSON()
         {
             var text = document.getElementById("textIn").value;
@@ -32,8 +34,7 @@
 
         function createWebView(callback)
         {
-            var webViewCtrlClass = $H("/Class/WebViewController");
-            webViewCtrlClass.call("new", { "arguments" : null }, callback);
+            $H.bridgedClass("WebViewController").call("new", { "arguments" : null }, callback);
         }
 
         function webViewLoadURL(webViewCtrl, url, callback)
@@ -53,7 +54,6 @@
 
         function pushViewController(viewCtrl, callback)
         {
-            var navCtrl = $H("/User/NavigationController");
             navCtrl.call("pushViewController", { "viewController" : viewCtrl}, callback);
         }
 
@@ -72,7 +72,7 @@
         function testGetProperty(n)
         {
             if (n > 0) {
-                $H("/Current/WebViewController").getProperty(
+                $H.webViewController().getProperty(
                     "navigationItemTitle",
                     function (args) {
                         document.body.innerHTML += "<p>" + args.returnValue + "</p>\n";
@@ -84,8 +84,7 @@
 
         function setRootViewController(viewController)
         {
-            var rootViewController = $H("/System/RootViewController");
-            rootViewController.call(
+            $H.rootViewController().call(
                 "presentViewController",
                 {
                     "viewController": viewController,
@@ -95,26 +94,24 @@
         }
 
         function $H_main() {
-            var navCtrlClass = $H("/Class/NavigationController");
-//            alert(navCtrlClass instanceof $H.__debug.BridgedObject);
-
-//            alert("aha" instanceof Object);
-            navCtrlClass.call(
+            $H.bridgedClass("NavigationController").call(
                 "new",
                 {
                     "path" : "/User/NavigationController",
                     "arguments" : {
-                        "rootViewController" : $H("/Current/WebViewController"),
+                        "rootViewController" : $H.webViewController(),
                     },
                 },
                 function (args) {
                     if (args.exception != null)
                         alert(JSON.stringify(args.exception));
-                    else
-                        setRootViewController($H(args.returnValue));
+                    else {
+                        navCtrl = $H(args.returnValue);
+                        setRootViewController(navCtrl);
+                    }
                 }
             );
-            $H("/Current/WebViewController").setProperty("navigationItemTitle", "Welcome");
+            $H.webViewController().setProperty("navigationItemTitle", "Welcome");
             testDryObject();
         }
 
