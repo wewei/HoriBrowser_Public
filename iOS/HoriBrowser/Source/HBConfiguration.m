@@ -66,7 +66,7 @@ static HBConfiguration *sharedInstance = nil;
 
 - (NSArray *)additionalPlugins
 {
-    return [self.pluginDictionary objectForKey:@"AdditionalPlugins"];
+    return [self.pluginDictionary objectForKey:@"PluginScripts"];
 }
 
 - (void)dealloc

@@ -34,6 +34,18 @@
     }
 }
 
+- (void)method_dismissViewController:(HBInvocationContext *)context
+{
+    BOOL animated = YES;
+    id animatedObj = [context.arguments objectForKey:@"animated"];
+    if ([animatedObj isKindOfClass:[NSNumber class]])
+        animated = [(NSNumber *)animatedObj boolValue];
+    
+    [self dismissViewControllerAnimated:animated completion:^{
+        [context succeed];
+    }];
+}
+
 - (NSString *)getter_navigationItemTitle
 {
     return self.navigationItem.title;

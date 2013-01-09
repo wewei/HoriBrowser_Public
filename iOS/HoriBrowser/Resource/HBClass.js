@@ -1,9 +1,10 @@
 $H(function (defineClassProc, retrieveClassProc) {
     var hori = this;
 
+	var HBObject = retrieveClassProc('HBObject');
     var HBClass = defineClassProc('HBClass', null,
         function (path, args) {
-            this.superclass(path);
+            HBObject.call(this, path);
             this.name = args;
         }
     );

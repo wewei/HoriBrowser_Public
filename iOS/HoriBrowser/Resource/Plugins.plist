@@ -4,15 +4,21 @@
 <dict>
 	<key>BridgedClasses</key>
 	<dict>
-		<key>HBClass</key>
-		<string>HBBridgedClass</string>
-		<key>HBNavigationController</key>
-		<string>UINavigationController</string>
 		<key>HBWebViewController</key>
 		<string>HBExecutionUnit</string>
+		<key>HBNavigationController</key>
+		<string>UINavigationController</string>
+		<key>HBViewController</key>
+		<string>UIViewController</string>
+		<key>HBClass</key>
+		<string>HBBridgedClass</string>
 	</dict>
-	<key>AdditionalPlugins</key>
+	<key>PluginScripts</key>
 	<array>
+		<string>HBClass</string>
+		<string>HBViewController</string>
+		<string>HBNavigationController</string>
+		<string>HBWebViewController</string>
 		<string>ShortCuts_Plugin</string>
 	</array>
 </dict>

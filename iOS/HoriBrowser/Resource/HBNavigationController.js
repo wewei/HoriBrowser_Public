@@ -1,7 +1,7 @@
 $H(function (defineClassProc, retrieveClassProc, DummyInvocation) {
     var hori = this;
 
-	var HBNavigationController = defineClassProc('HBNavigationController');
+	var HBNavigationController = defineClassProc('HBNavigationController', 'HBViewController');
 
 	HBNavigationController.prototype.pushViewController = function (viewController) {
 		var args = { 'viewController' : viewController };

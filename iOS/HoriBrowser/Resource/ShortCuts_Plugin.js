@@ -3,9 +3,9 @@ $H(function (defineClassProc, retrieveClassProc) {
 
     hori.objectManager = hori('/System/objectManager');
 
-    hori.webViewController = hori('/Current/webViewController');
+    hori.webViewController = hori('/Current/webViewController', 'HBWebViewController');
 
-    hori.rootViewController= hori('/System/rootViewController');
+    hori.rootViewController= hori('/System/rootViewController', 'HBViewController');
 
     var HBObject = retrieveClassProc('HBObject');
 

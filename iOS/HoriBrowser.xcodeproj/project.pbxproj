@@ -22,6 +22,7 @@
 		4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */; };
 		4C19A176169DBAAF00ABC66D /* HBNavigationController.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C19A175169DBAAF00ABC66D /* HBNavigationController.js */; };
 		4C19A178169DBB6100ABC66D /* HBWebViewController.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C19A177169DBB6100ABC66D /* HBWebViewController.js */; };
+		4C19A17A169DD8FD00ABC66D /* HBViewController.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C19A179169DD8FC00ABC66D /* HBViewController.js */; };
 		4C66081816981A7E003C3852 /* HBExecutionUnit+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */; };
 		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
 		4C690783169036E600132B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690782169036E600132B2E /* Foundation.framework */; };
@@ -86,6 +87,7 @@
 		4C01B4E41695E8730064AD49 /* HBInstantiatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBInstantiatable.h; sourceTree = "<group>"; };
 		4C19A175169DBAAF00ABC66D /* HBNavigationController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HBNavigationController.js; sourceTree = "<group>"; };
 		4C19A177169DBB6100ABC66D /* HBWebViewController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HBWebViewController.js; sourceTree = "<group>"; };
+		4C19A179169DD8FC00ABC66D /* HBViewController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HBViewController.js; sourceTree = "<group>"; };
 		4C66081616981A7D003C3852 /* HBExecutionUnit+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBExecutionUnit+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBExecutionUnit+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C69077C169036E600132B2E /* HoriBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoriBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,6 +351,7 @@
 				4CB8F1B1169D809D0089163F /* HBClass.js */,
 				4C19A175169DBAAF00ABC66D /* HBNavigationController.js */,
 				4C19A177169DBB6100ABC66D /* HBWebViewController.js */,
+				4C19A179169DD8FC00ABC66D /* HBViewController.js */,
 			);
 			name = BridgedClasses;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				4C01B4DA1695C1A30064AD49 /* Plugins.plist in Resources */,
 				4C19A176169DBAAF00ABC66D /* HBNavigationController.js in Resources */,
 				4C19A178169DBB6100ABC66D /* HBWebViewController.js in Resources */,
+				4C19A17A169DD8FD00ABC66D /* HBViewController.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

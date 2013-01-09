@@ -1,7 +1,7 @@
 $H(function (defineClassProc, retrieveClassProc) {
 	var hori = this;
 
-	var HBWebViewController = defineClassProc('HBWebViewController');
+	var HBWebViewController = defineClassProc('HBWebViewController', 'HBViewController');
 
 	HBWebViewController.prototype.loadURL = function(url, onStartLoading) {
 		var args = { 'url' : url };

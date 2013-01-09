@@ -203,10 +203,9 @@ var $H = function () {
 
 	// DummyInvocation : GeneralInvocation
 
-	var DummyInvocation = function () { this.superclass(); };
+	var DummyInvocation = function () { GeneralInvocation.call(this); };
 
 	DummyInvocation.prototype = new GeneralInvocation();
-	DummyInvocation.prototype.superclass = GeneralInvocation;
 	DummyInvocation.prototype.constructor = DummyInvocation;
 
 	DummyInvocation.prototype.success = function (returnValue) {
@@ -228,7 +227,7 @@ var $H = function () {
 	// MethodInvocation : GeneralInvocation
 
 	var MethodInvocation = function (obj, method, args) {
-		this.superclass();
+		GeneralInvocation.call(this);
 		var methodInvoc =  this;
 		obj.__call(method, args, function (_args) {
 			methodInvoc.__returnArgs = _args;
@@ -248,7 +247,6 @@ var $H = function () {
 	};
 
 	MethodInvocation.prototype = new GeneralInvocation();
-	MethodInvocation.prototype.superclass = GeneralInvocation;
 	MethodInvocation.prototype.constructor = MethodInvocation;
 
 
@@ -370,13 +368,13 @@ var $H = function () {
 
     function defineClass(className, superclassName, constructor) {
         var superclass = __types[superclassName];
+
         if (!(superclass instanceof Function))
             superclass = HBObject;
-        if (!constructor)
-            constructor = function (args) { this.superclass(args); };
+        if (constructor == null)
+            constructor = function (args) { superclass.call(this, args); };
         if (constructor instanceof Function) {
             constructor.prototype = new superclass();
-            constructor.prototype.superclass = superclass;
             constructor.prototype.constructor = constructor;
             __types[className] = constructor;
             return constructor;
@@ -388,7 +386,9 @@ var $H = function () {
         return __types[className];
     }
 
-    asyncCall($H_main, null);
+	if (window.$H_main instanceof Function)
+		asyncCall(window.$H_main, null);
+
     return hori;    
 }();
 

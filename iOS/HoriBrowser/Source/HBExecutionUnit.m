@@ -265,10 +265,6 @@
     if (![checkResult isEqualToString:@"true"]) {
         HBConfiguration *config = [HBConfiguration sharedConfiguration];
         [self executeScriptWithPath:config.bridgeScriptPath inWebView:webView];
-        [config.bridgedClasses enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:key ofType:@"js"];
-            [self executeScriptWithPath:path inWebView:webView];
-        }];
         [config.additionalPlugins enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSString *path = [[NSBundle mainBundle] pathForResource:obj ofType:@"js"];
             [self executeScriptWithPath:path inWebView:webView];

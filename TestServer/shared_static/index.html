@@ -1,6 +1,5 @@
 <html>
 	<head>
-        <script src="dryObject.js"></script>
 	</head>
 	<body>
 		<h1>It works</h1>
@@ -11,10 +10,20 @@
 		<button onclick="testWrite()">Write</button>
 		<button onclick="testWriteJSON()">Write JSON</button>
 		<button onclick="testRead()">Read</button></br>
+		<button onclick="showPage01()">Show Page01</button></br>
 		<script type="text/javascript">
 
         var PATH = "/User/foobar";
         var navCtrl = null;
+
+		function showPage01() {
+			$H.bridgedClass("HBWebViewController").NEW()
+				.onSuccess(function (webViewCtrl) {
+					console.log('get here');
+					navCtrl.presentViewController(webViewCtrl);
+					webViewCtrl.loadURL("http://localhost:8000/static/page01.html");
+				});
+		}
 
         function testWriteJSON()
         {
@@ -56,6 +65,7 @@
 
         function setRootViewController(viewController)
         {
+			/*
             $H.rootViewController.invoke(
                 "presentViewController",
                 {
@@ -63,6 +73,8 @@
                     "animated": 1,
                 }
             );
+			*/
+			$H.rootViewController.presentViewController(viewController);
         }
 
         function $H_main() {
@@ -74,7 +86,7 @@
 				setRootViewController(navCtrl);
 			}).onFailure(function (exception) {
 				console.log(exception);
-				navCtrl = $H("/User/navigationController");
+				navCtrl = $H("/User/navigationController", "HBNavigationController");
             });
             $H.webViewController.setProperty("navigationItemTitle", "Welcome");
         }
