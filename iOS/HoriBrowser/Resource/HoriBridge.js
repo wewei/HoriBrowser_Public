@@ -2,7 +2,7 @@ var $H = function () {
     
     var hori = function (path, typeName, args) {
         if (!__bridgedObjects[path]) {
-            var constructor = BridgedObject;
+            var constructor = HBObject;
             if (__types[typeName] instanceof Function) {
                 constructor = __types[typeName];
             }
@@ -42,7 +42,7 @@ var $H = function () {
     function stringifyJSON(obj, callbacks) {
 		if (obj == null) {
 			return null;
-        } if (obj instanceof BridgedObject) {
+        } if (obj instanceof HBObject) {
             return stringForObject('bridged', '"' + obj.path + '"');
         } else if (typeof obj === 'object') {
             var pares = new Array();
@@ -107,18 +107,18 @@ var $H = function () {
     var __bridgedObjects = new Object();
     var __invocationQueue = new Array();
     
-    var BridgedObject = function (path, args) {
+    var HBObject = function (path, args) {
         this.path = path;
     };
 
-    BridgedObject.prototype.constructor = BridgedObject;
-    BridgedObject.prototype.__call = function (method, args, callback) {
+    HBObject.prototype.constructor = HBObject;
+    HBObject.prototype.__call = function (method, args, callback) {
         var invocation = new Invocation(this.path, method, args, callback);
         __invocationQueue.push(invocation);
         reloadDummyFrame(BRIDGE_PROTOCOL);
     };
     
-    BridgedObject.prototype.setProperty = function (property, value, callback) {
+    HBObject.prototype.setProperty = function (property, value, callback) {
         this.__call(
             'setProperty',
             {
@@ -129,7 +129,7 @@ var $H = function () {
         );
     };
     
-    BridgedObject.prototype.getProperty = function (property, callback) {
+    HBObject.prototype.getProperty = function (property, callback) {
         this.__call(
             'getProperty',
             { 'property' : property },
@@ -137,15 +137,15 @@ var $H = function () {
         );
     };
 
-    BridgedObject.prototype.unlink = function (callback) {
+    HBObject.prototype.unlink = function (callback) {
         this.__call('unlink', null, callback);
     };
     
-    BridgedObject.prototype.move = function (path, callback) {
+    HBObject.prototype.move = function (path, callback) {
         this.__call('moveToPath', { 'path' : path }, callback);
     };
 
-	BridgedObject.prototype.read = function (callback) {
+	HBObject.prototype.read = function (callback) {
 		objectManager().__call(
 			'readObject',
 			{
@@ -155,7 +155,7 @@ var $H = function () {
 		);
 	};
     
-    BridgedObject.prototype.write = function (value, callback) {
+    HBObject.prototype.write = function (value, callback) {
         objectManager().__call(
 			'writeObject',
 			{
@@ -226,7 +226,7 @@ var $H = function () {
         return this;
     };
 
-	BridgedObject.prototype.invoke = function (method, args) {
+	HBObject.prototype.invoke = function (method, args) {
 		return new PublicInvocation(this, method, args);
 	};
 
@@ -345,7 +345,7 @@ var $H = function () {
     function defineClass(className, superclassName, constructor) {
         var superclass = __types[superclassName];
         if (!(superclass instanceof Function))
-            superclass = BridgedObject;
+            superclass = HBObject;
         if (!constructor)
             constructor = function (args) { this.superclass(args); };
         if (constructor instanceof Function) {
