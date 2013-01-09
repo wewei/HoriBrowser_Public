@@ -44,10 +44,10 @@ static HBNamespace *classNamespace = nil;
     if (systemNamespace == nil) {
         systemNamespace = [[HBNamespace alloc] init];
         
-        [systemNamespace setObject:[HBBridgedObjectManager sharedManager] forName:@"ObjectManager"];
+        [systemNamespace setObject:[HBBridgedObjectManager sharedManager] forName:@"objectManager"];
         
         UIWindow *mainWindow = ((HBAppDelegate *)[UIApplication sharedApplication].delegate).window;
-        [systemNamespace setObject:mainWindow.rootViewController forName:@"RootViewController"];
+        [systemNamespace setObject:mainWindow.rootViewController forName:@"rootViewController"];
     }
     return systemNamespace;
 }

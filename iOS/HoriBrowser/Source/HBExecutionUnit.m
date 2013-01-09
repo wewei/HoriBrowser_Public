@@ -52,7 +52,7 @@
 {
     if (__currentNamespace == nil) {
         __currentNamespace = [[HBNamespace alloc] init];
-        [__currentNamespace setOwner:self withName:@"WebViewController"];
+        [__currentNamespace setOwner:self withName:@"webViewController"];
         [__currentNamespace setObject:self.webView forName:@"WebView"];
         [__currentNamespace setObject:self.tempNamespace forName:@"Temp"];
     }

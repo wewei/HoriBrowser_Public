@@ -34,7 +34,7 @@
 
         function showBaidu()
         {
-			$H.bridgedClass("WebViewController").NEW(null).onSuccess(function(webViewCtrl) {
+			$H.bridgedClass("HBWebViewController").NEW(null).onSuccess(function(webViewCtrl) {
 				function unlinkWebViewCtrl() {
 					webViewCtrl.unlink();
 				}
@@ -94,15 +94,15 @@
         }
 
         function $H_main() {
-            $H.bridgedClass("NavigationController").GLOBAL_NEW(
-				"/User/NavigationController",
+            $H.bridgedClass("HBNavigationController").GLOBAL_NEW(
+				"/User/navigationController",
 				{ "rootViewController" : $H.webViewController }
 			).onSuccess(function (_navCtrl) {
 				navCtrl = _navCtrl;
 				setRootViewController(navCtrl);
 			}).onFailure(function (exception) {
 				console.log(exception);
-				navCtrl = $H("/User/NavigationController");
+				navCtrl = $H("/User/navigationController");
             });
             $H.webViewController.setProperty("navigationItemTitle", "Welcome");
         }

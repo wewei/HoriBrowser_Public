@@ -6,9 +6,9 @@
 	<dict>
 		<key>HBClass</key>
 		<string>HBBridgedClass</string>
-		<key>NavigationController</key>
+		<key>HBNavigationController</key>
 		<string>UINavigationController</string>
-		<key>WebViewController</key>
+		<key>HBWebViewController</key>
 		<string>HBExecutionUnit</string>
 	</dict>
 	<key>AdditionalPlugins</key>
