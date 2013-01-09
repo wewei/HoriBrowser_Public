@@ -9,26 +9,20 @@ $H(function (defineClassProc, retrieveClassProc) {
 
     var HBObject = retrieveClassProc('HBObject');
 
-	HBObject.prototype.read = function (callback) {
-		hori.objectManager.__call(
+	HBObject.prototype.read = function () {
+		return hori.objectManager.invoke(
 			'readObject',
-			{
-				'path' : this.path,
-			},
-			callback
+			{ 'path' : this.path, }
 		);
 	};
     
-    HBObject.prototype.write = function (value, callback) {
-        hori.objectManager.__call(
+    HBObject.prototype.write = function (value) {
+        return hori.objectManager.invoke(
 			'writeObject',
-			{
-				'path'  : this.path,
-				'value' : value,
-			},
-			callback
+			{ 'path'  : this.path, 'value' : value, }
 		);
     };
 
     return hori;    
 });
+

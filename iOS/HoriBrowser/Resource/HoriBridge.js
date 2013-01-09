@@ -130,31 +130,29 @@ var $H = function () {
         reloadDummyFrame(BRIDGE_PROTOCOL);
     };
     
-    HBObject.prototype.setProperty = function (property, value, callback) {
-        this.__call(
+    HBObject.prototype.setProperty = function (property, value) {
+        return this.invoke(
             'setProperty',
             {
                 'property' : property,
                 'value' : value,
-            },
-            callback
+            }
         );
     };
     
-    HBObject.prototype.getProperty = function (property, callback) {
-        this.__call(
+    HBObject.prototype.getProperty = function (property) {
+        return this.invoke(
             'getProperty',
-            { 'property' : property },
-            callback
+            { 'property' : property }
         );
     };
 
-    HBObject.prototype.unlink = function (callback) {
-        this.__call('unlink', null, callback);
+    HBObject.prototype.unlink = function () {
+        return this.invoke('unlink', null);
     };
     
-    HBObject.prototype.move = function (path, callback) {
-        this.__call('moveToPath', { 'path' : path }, callback);
+    HBObject.prototype.move = function (path) {
+        return this.invoke('moveToPath', { 'path' : path });
     };
 
     function defaultReturnValueDecorator(returnValue) { return returnValue; }

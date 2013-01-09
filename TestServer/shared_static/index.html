@@ -19,17 +19,20 @@
         function testWriteJSON()
         {
             var text = document.getElementById("textIn").value;
-            $H(PATH).write(JSON.parse(text), function() { alert("write JSON OK"); });
+            $H(PATH).write(JSON.parse(text))
+				.onSuccess(function() { alert("write JSON OK"); });
         }
         function testWrite()
         {
             var text = document.getElementById("textIn").value;
-            $H(PATH).write(text, function() { alert("write OK"); });
+            $H(PATH).write(text)
+				.onSuccess(function() { alert("write OK"); });
         }
 
         function testRead()
         {
-            $H(PATH).read(function(args) { alert(args.returnValue); });
+            $H(PATH).read()
+				.onSuccess(function(returnValue) { alert(returnValue); });
         }
 
         function showBaidu()
@@ -43,13 +46,11 @@
         function testGetProperty(n)
         {
             if (n > 0) {
-                $H.webViewController.getProperty(
-                    "navigationItemTitle",
-                    function (args) {
-                        document.body.innerHTML += "<p>" + args.returnValue + "</p>\n";
+                $H.webViewController.getProperty("navigationItemTitle")
+					.onSuccess(function (returnValue) {
+                        document.body.innerHTML += "<p>" + returnValue + "</p>\n";
                         testGetProperty(n - 1);
-                    }
-                );
+                    });
             }
         }
 
