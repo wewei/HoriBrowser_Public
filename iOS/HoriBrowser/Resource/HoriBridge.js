@@ -1,8 +1,12 @@
 var $H = function () {
     
-    var hori = function (path) {
+    var hori = function (path, typeName, args) {
         if (!__bridgedObjects[path]) {
-            __bridgedObjects[path] = new BridgedObject(path);
+            var constructor = BridgedObject;
+            if (__types[typeName] instanceof Function) {
+                constructor = __types[typeName];
+            }
+            __bridgedObjects[path] = new constructor(path, args);
         }
         return __bridgedObjects[path];
     };
@@ -103,7 +107,7 @@ var $H = function () {
     var __bridgedObjects = new Object();
     var __invocationQueue = new Array();
     
-    var BridgedObject = function (path) {
+    var BridgedObject = function (path, args) {
         this.path = path;
     };
 
@@ -162,37 +166,23 @@ var $H = function () {
 		);
     };
 
-	BridgedObject.prototype.GLOBAL_NEW = function (path, args) {
-		return this.invoke(
-			'new',
-			{
-				'path' : path,
-				'arguments' : args
-			}
-		).onSuccess(function (returnValue) {
-			if (returnValue !== path) {
-				console.log("unlink non-referenced object");
-				hori(returnValue).unlink();
-			}
-		});
-	};
-
-	BridgedObject.prototype.NEW = function (args) {
-		return this.GLOBAL_NEW(null, args);
-	};
+    function defaultReturnValueDecorator(returnValue) { return returnValue; }
 
 	var PublicInvocation = function (obj, method, args) {
 		this.__ready = false;
 		this.__returnArgs = null;
 		this.__onSuccess = null;
 		this.__onFailure = null;
+        this.__returnValueDecorator = defaultReturnValueDecorator;
 		var pubInvoc =  this;
 		obj.__call(method, args, function (_args) {
 			pubInvoc.__returnArgs = _args;
 			pubInvoc.__ready = true;
 			if (_args.exception === null) {
 				if (pubInvoc.__onSuccess instanceof Function) {
-					pubInvoc.__onSuccess(_args.returnValue);
+					pubInvoc.__onSuccess(
+                        pubInvoc.__returnValueDecorator(_args.returnValue)
+                    );
 				}
 			} else {
 				if (pubInvoc.__onFailure instanceof Function) {
@@ -210,7 +200,9 @@ var $H = function () {
 				this.__onSuccess = routine;
 			} else if (this.__onSuccess === null && this.__returnArgs.exception === null) {
 				this.__onSuccess = routine;
-				this.__onSuccess(this.__returnArgs.returnValue);
+				this.__onSuccess(
+                    this.__returnValueDecorator(this.__returnArgs.returnValue)
+                );
 			}
 		}
 		return this;
@@ -227,6 +219,12 @@ var $H = function () {
 		}
 		return this;
 	};
+
+    PublicInvocation.prototype.setReturnValueDecorator = function (decorator) {
+        if (decorator instanceof Function)
+            this.__returnValueDecorator = decorator;
+        return this;
+    };
 
 	BridgedObject.prototype.invoke = function (method, args) {
 		return new PublicInvocation(this, method, args);
@@ -341,30 +339,81 @@ var $H = function () {
 
     hori.__bridge = __bridge;
 
+    // Classes
+    var __types = new Object();
+
+    function defineClass(className, superclassName, constructor) {
+        var superclass = __types[superclassName];
+        if (!(superclass instanceof Function))
+            superclass = BridgedObject;
+        if (!constructor)
+            constructor = function (args) { this.superclass(args); };
+        if (constructor instanceof Function) {
+            constructor.prototype = new superclass();
+            constructor.prototype.superclass = superclass;
+            constructor.prototype.constructor = constructor;
+            __types[className] = constructor;
+            return constructor;
+        }
+        return null;
+    };
+    hori.defineClass = defineClass;
+
+    var HBClass = defineClass('HBClass', null,
+        function (path, args) {
+            this.superclass(path);
+            this.name = args;
+        }
+    );
+
+    HBClass.prototype.NEW = function (args) {
+        return this.GLOBAL_NEW(null, args);
+    };
+
+    HBClass.prototype.GLOBAL_NEW = function (path, args) {
+        console.log(this.name);
+        return this.invoke(
+            'new',
+            {
+                'path' : path,
+                'arguments' : args
+            }
+        ).setReturnValueDecorator(function (returnValue) {
+            return hori(returnValue, this.name);
+        }).onSuccess(function (returnValue) {
+            if (returnValue !== path) {
+                console.log('unlink non-referenced object');
+                hori(returnValue).unlink();
+            }
+        });
+    };
+
     // Short cuts
 
     function objectManager() {
-        return hori("/System/ObjectManager");
+        return hori('/System/ObjectManager');
     }
     hori.objectManager = objectManager;
 
     function webViewController() {
-        return hori("/Current/WebViewController");
+        return hori('/Current/WebViewController');
     }
     hori.webViewController = webViewController;
 
     function rootViewController() {
-        return hori("/System/RootViewController");
+        return hori('/System/RootViewController');
     }
     hori.rootViewController= rootViewController;
 
     function bridgedClass(className) {
-        return hori("/Class/" + className);
+        return hori('/Class/' + className, 'HBClass', className);
     }
     hori.bridgedClass = bridgedClass;
 
     return hori;    
 }();
+
+$H.defineClass('NavigationController');
 
 $H.__asyncCall($H_main, null);
 

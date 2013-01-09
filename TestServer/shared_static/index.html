@@ -34,8 +34,7 @@
 
         function showBaidu()
         {
-			$H.bridgedClass("WebViewController").NEW(null).onSuccess(function(webViewCtrlPath) {
-				var webViewCtrl = $H(webViewCtrlPath);
+			$H.bridgedClass("WebViewController").NEW(null).onSuccess(function(webViewCtrl) {
 				function unlinkWebViewCtrl() {
 					webViewCtrl.unlink();
 				}
@@ -98,8 +97,8 @@
             $H.bridgedClass("NavigationController").GLOBAL_NEW(
 				"/User/NavigationController",
 				{ "rootViewController" : $H.webViewController() }
-			).onSuccess(function (returnValue) {
-				navCtrl = $H(returnValue);
+			).onSuccess(function (_navCtrl) {
+				navCtrl = _navCtrl;
 				setRootViewController(navCtrl);
 			}).onFailure(function (exception) {
 				console.log(exception);
