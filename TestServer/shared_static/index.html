@@ -72,7 +72,7 @@
         function testGetProperty(n)
         {
             if (n > 0) {
-                $H.webViewController().getProperty(
+                $H.webViewController.getProperty(
                     "navigationItemTitle",
                     function (args) {
                         document.body.innerHTML += "<p>" + args.returnValue + "</p>\n";
@@ -84,7 +84,7 @@
 
         function setRootViewController(viewController)
         {
-            $H.rootViewController().invoke(
+            $H.rootViewController.invoke(
                 "presentViewController",
                 {
                     "viewController": viewController,
@@ -96,7 +96,7 @@
         function $H_main() {
             $H.bridgedClass("NavigationController").GLOBAL_NEW(
 				"/User/NavigationController",
-				{ "rootViewController" : $H.webViewController() }
+				{ "rootViewController" : $H.webViewController }
 			).onSuccess(function (_navCtrl) {
 				navCtrl = _navCtrl;
 				setRootViewController(navCtrl);
@@ -104,7 +104,7 @@
 				console.log(exception);
 				navCtrl = $H("/User/NavigationController");
             });
-            $H.webViewController().setProperty("navigationItemTitle", "Welcome");
+            $H.webViewController.setProperty("navigationItemTitle", "Welcome");
         }
 
 		</script>

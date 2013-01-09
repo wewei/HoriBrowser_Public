@@ -13,6 +13,14 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HBAppDelegate class]));
+        @try {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([HBAppDelegate class]));
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", [exception callStackSymbols]);
+        }
+        @finally {
+            ;
+        }
     }
 }

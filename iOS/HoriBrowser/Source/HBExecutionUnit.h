@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define BRIDGE_MAGIC_NUMBER 0xabedcafe
+
 @class HBNamespace;
 @class HBCallback;
 

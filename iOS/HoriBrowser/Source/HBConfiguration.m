@@ -10,6 +10,12 @@
 
 static HBConfiguration *sharedInstance = nil;
 
+@interface HBConfiguration()
+
+@property (readonly, nonatomic) NSDictionary *pluginDictionary;
+
+@end
+
 @implementation HBConfiguration
 
 + (HBConfiguration *)sharedConfiguration
@@ -31,53 +37,43 @@ static HBConfiguration *sharedInstance = nil;
 }
 
 
-@synthesize bridgeScript = __bridgeScript;
+@synthesize bridgeScriptPath = __bridgeScriptPath;
 
 
-- (NSString *)bridgeScript
+- (NSString *)bridgeScriptPath
 {
-    if (__bridgeScript == nil) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"HoriBridge" ofType:@"js"];
-        NSError *error = nil;
-        __bridgeScript = [[NSString alloc] initWithContentsOfFile:path
-                                                         encoding:NSUTF8StringEncoding
-                                                            error:&error];
-        assert(error == nil);
+    if (__bridgeScriptPath == nil) {
+        __bridgeScriptPath = [[[NSBundle mainBundle] pathForResource:@"HoriBridge" ofType:@"js"] retain];
     }
-    return __bridgeScript;
+    return __bridgeScriptPath;
 }
 
-@synthesize createFrameScript = __createFrameScript;
+@synthesize pluginDictionary = __pluginDictionary;
 
-- (NSString *)createFrameScript
+- (NSDictionary *)pluginDictionary
 {
-    if (__createFrameScript == nil) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"CreateBridgeFrame" ofType:@"js"];
-        NSError *error = nil;
-        __createFrameScript = [[NSString alloc] initWithContentsOfFile:path
-                                                              encoding:NSUTF8StringEncoding
-                                                                 error:&error];
-        assert(error == nil);
+    if (__pluginDictionary == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Plugins" ofType:@"plist"];
+        __pluginDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     }
-    return __createFrameScript;
+    return __pluginDictionary;
 }
-
-@synthesize bridgedClasses = __bridgedClasses;
 
 - (NSDictionary *)bridgedClasses
 {
-    if (__bridgedClasses == nil) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"BridgedClasses" ofType:@"plist"];
-        __bridgedClasses = [[NSDictionary alloc] initWithContentsOfFile:path];
-    }
-    return __bridgedClasses;
+    return [self.pluginDictionary objectForKey:@"BridgedClasses"];
+}
+
+- (NSArray *)additionalPlugins
+{
+    return [self.pluginDictionary objectForKey:@"AdditionalPlugins"];
 }
 
 - (void)dealloc
 {
     [__serverURL release];
-    [__bridgeScript release];
-    [__createFrameScript release];
+    [__bridgeScriptPath release];
+    [__pluginDictionary release];
     [super dealloc];
 }
 

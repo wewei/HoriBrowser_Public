@@ -57,7 +57,8 @@
         NSError *error = nil;
         NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
         assert(error == nil);
-        NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallback(%u, %u, %@)",
+        NSString *callbackScript = [NSString stringWithFormat:@"$H(0x%x, 0).__triggerCallback(%u, %u, %@)",
+                                    BRIDGE_MAGIC_NUMBER,
                                     self.invocationContext.index.unsignedIntegerValue,
                                     self.index,
                                     argsJSON];
@@ -77,7 +78,8 @@
         NSError *error = nil;
         NSString *argsJSON = [HBJSONSerialization stringWithJSONObject:arguments error:&error];
         assert(error == nil);
-        NSString *callbackScript = [NSString stringWithFormat:@"$H.__bridge.__triggerCallbackAsync(%u, %u, %@)",
+        NSString *callbackScript = [NSString stringWithFormat:@"$H(0x%x, 0).__triggerCallbackAsync(%u, %u, %@)",
+                                    BRIDGE_MAGIC_NUMBER,
                                     self.invocationContext.index.unsignedIntegerValue,
                                     self.index,
                                     argsJSON];

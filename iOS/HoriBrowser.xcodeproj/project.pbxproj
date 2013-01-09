@@ -18,7 +18,7 @@
 		4C01B4CB169560960064AD49 /* UIViewController+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4CA169560960064AD49 /* UIViewController+BridgedAPI.m */; };
 		4C01B4D516958CC00064AD49 /* HBBridgedClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4D416958CC00064AD49 /* HBBridgedClass.m */; };
 		4C01B4D816958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4D716958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m */; };
-		4C01B4DA1695C1A30064AD49 /* BridgedClasses.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4D91695C1A30064AD49 /* BridgedClasses.plist */; };
+		4C01B4DA1695C1A30064AD49 /* Plugins.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C01B4D91695C1A30064AD49 /* Plugins.plist */; };
 		4C01B4DF1695C4110064AD49 /* UINavigationController+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */; };
 		4C66081816981A7E003C3852 /* HBExecutionUnit+BridgedAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C66081716981A7D003C3852 /* HBExecutionUnit+BridgedAPI.m */; };
 		4C690781169036E600132B2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C690780169036E600132B2E /* UIKit.framework */; };
@@ -42,6 +42,8 @@
 		4CB19C1716972645003083FF /* HoriBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 4CB19C1616972645003083FF /* HoriBridge.js */; };
 		4CB8F18A169ADD4D0089163F /* HBCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8F189169ADD4D0089163F /* HBCallback.m */; };
 		4CB8F18E169AEA200089163F /* HBObjectNormalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8F18D169AEA200089163F /* HBObjectNormalizer.m */; };
+		4CB8F1B2169D809D0089163F /* HBClass.js in Resources */ = {isa = PBXBuildFile; fileRef = 4CB8F1B1169D809D0089163F /* HBClass.js */; };
+		4CB8F1B5169D917F0089163F /* ShortCuts_Plugin.js in Resources */ = {isa = PBXBuildFile; fileRef = 4CB8F1B4169D917F0089163F /* ShortCuts_Plugin.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +78,7 @@
 		4C01B4D416958CC00064AD49 /* HBBridgedClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBridgedClass.m; sourceTree = "<group>"; };
 		4C01B4D616958DFD0064AD49 /* HBBridgedClass+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HBBridgedClass+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4D716958DFD0064AD49 /* HBBridgedClass+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HBBridgedClass+BridgedAPI.m"; sourceTree = "<group>"; };
-		4C01B4D91695C1A30064AD49 /* BridgedClasses.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BridgedClasses.plist; sourceTree = "<group>"; };
+		4C01B4D91695C1A30064AD49 /* Plugins.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Plugins.plist; sourceTree = "<group>"; };
 		4C01B4DD1695C4110064AD49 /* UINavigationController+BridgedAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+BridgedAPI.h"; sourceTree = "<group>"; };
 		4C01B4DE1695C4110064AD49 /* UINavigationController+BridgedAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+BridgedAPI.m"; sourceTree = "<group>"; };
 		4C01B4E41695E8730064AD49 /* HBInstantiatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBInstantiatable.h; sourceTree = "<group>"; };
@@ -114,6 +116,8 @@
 		4CB8F189169ADD4D0089163F /* HBCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCallback.m; sourceTree = "<group>"; };
 		4CB8F18C169AEA200089163F /* HBObjectNormalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBObjectNormalizer.h; sourceTree = "<group>"; };
 		4CB8F18D169AEA200089163F /* HBObjectNormalizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBObjectNormalizer.m; sourceTree = "<group>"; };
+		4CB8F1B1169D809D0089163F /* HBClass.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HBClass.js; sourceTree = "<group>"; };
+		4CB8F1B4169D917F0089163F /* ShortCuts_Plugin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ShortCuts_Plugin.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +159,7 @@
 		4C01B4AC169417E80064AD49 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				4CB19C1616972645003083FF /* HoriBridge.js */,
-				4C01B4D91695C1A30064AD49 /* BridgedClasses.plist */,
+				4CB8F1B7169D92310089163F /* Plugins */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -317,6 +320,33 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		4CB8F1B6169D92210089163F /* AdditionalPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				4CB8F1B4169D917F0089163F /* ShortCuts_Plugin.js */,
+			);
+			name = AdditionalPlugin;
+			sourceTree = "<group>";
+		};
+		4CB8F1B7169D92310089163F /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				4CB8F1B8169D923D0089163F /* BridgedClasses */,
+				4CB8F1B6169D92210089163F /* AdditionalPlugin */,
+				4C01B4D91695C1A30064AD49 /* Plugins.plist */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		4CB8F1B8169D923D0089163F /* BridgedClasses */ = {
+			isa = PBXGroup;
+			children = (
+				4CB8F1B1169D809D0089163F /* HBClass.js */,
+				4CB19C1616972645003083FF /* HoriBridge.js */,
+			);
+			name = BridgedClasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,12 +419,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CB8F1B5169D917F0089163F /* ShortCuts_Plugin.js in Resources */,
+				4CB8F1B2169D809D0089163F /* HBClass.js in Resources */,
 				4CB19C1716972645003083FF /* HoriBridge.js in Resources */,
 				4C69078B169036E600132B2E /* InfoPlist.strings in Resources */,
 				4C690793169036E600132B2E /* Default.png in Resources */,
 				4C690795169036E600132B2E /* Default@2x.png in Resources */,
 				4C690797169036E600132B2E /* Default-568h@2x.png in Resources */,
-				4C01B4DA1695C1A30064AD49 /* BridgedClasses.plist in Resources */,
+				4C01B4DA1695C1A30064AD49 /* Plugins.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

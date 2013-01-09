@@ -119,7 +119,8 @@ static NSString * const HBCompletionAttributeIndex = @"index";
 
 - (void)complete
 {
-    NSString *completionScript = [NSString stringWithFormat:@"$H.__bridge.__completeInvocation(%@)",
+    NSString *completionScript = [NSString stringWithFormat:@"$H(0x%x, 0).__completeInvocation(%@)",
+                                  BRIDGE_MAGIC_NUMBER,
                                   self.completionJSON];
     (void)[self.executionUnit.webView stringByEvaluatingJavaScriptFromString:completionScript];
 }

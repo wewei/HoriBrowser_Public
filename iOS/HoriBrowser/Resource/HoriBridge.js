@@ -1,6 +1,23 @@
 var $H = function () {
+    var MAGIC_NUMBER = 0xabedcafe;
+    var hori = function (arg0, arg1, arg2) {
+        if (arg0 === MAGIC_NUMBER) {
+            if (arg1 === 0)
+                return __bridge;
+            else if (arg1 === 1)
+                return __logger;
+            else
+                return null;
+        } else if (typeof arg0 === 'string') {
+            return BridgedObject(arg0, arg1, arg2);
+        } else if (arg0 instanceof Function) {
+            // Define plugin
+            return arg0.call(hori, defineClass, retrieveClass);
+        }
+        return null;
+    };
     
-    var hori = function (path, typeName, args) {
+    function BridgedObject(path, typeName, args) {
         if (!__bridgedObjects[path]) {
             var constructor = HBObject;
             if (__types[typeName] instanceof Function) {
@@ -11,9 +28,6 @@ var $H = function () {
         return __bridgedObjects[path];
     };
 
-    // Debug
-    hori.__debug = new Object();
-    
     // Utilities
 
     function createDummyFrame(frameID, frameSrc) {
@@ -69,8 +83,6 @@ var $H = function () {
         }
     }
 
-    hori.__asyncCall = asyncCall;
-
     // Log
 
     var LOG_PROTOCOL = 'log';
@@ -93,8 +105,8 @@ var $H = function () {
     window.console.warn = horiLog;
     window.console.error = horiLog;
 
-    hori.__log = new Object();
-    hori.__log.__retrieveLogs = function () {
+    var __logger = new Object();
+    __logger.__retrieveLogs = function () {
         var result = JSON.stringify(__logQueue);
         __logQueue.splice(0, __logQueue.length);
         return result;
@@ -143,27 +155,6 @@ var $H = function () {
     
     HBObject.prototype.move = function (path, callback) {
         this.__call('moveToPath', { 'path' : path }, callback);
-    };
-
-	HBObject.prototype.read = function (callback) {
-		objectManager().__call(
-			'readObject',
-			{
-				'path' : this.path,
-			},
-			callback
-		);
-	};
-    
-    HBObject.prototype.write = function (value, callback) {
-        objectManager().__call(
-			'writeObject',
-			{
-				'path'  : this.path,
-				'value' : value,
-			},
-			callback
-		);
     };
 
     function defaultReturnValueDecorator(returnValue) { return returnValue; }
@@ -337,10 +328,10 @@ var $H = function () {
         }
     };
 
-    hori.__bridge = __bridge;
-
     // Classes
     var __types = new Object();
+
+    __types['HBObject'] = HBObject;
 
     function defineClass(className, superclassName, constructor) {
         var superclass = __types[superclassName];
@@ -356,64 +347,13 @@ var $H = function () {
             return constructor;
         }
         return null;
-    };
-    hori.defineClass = defineClass;
-
-    var HBClass = defineClass('HBClass', null,
-        function (path, args) {
-            this.superclass(path);
-            this.name = args;
-        }
-    );
-
-    HBClass.prototype.NEW = function (args) {
-        return this.GLOBAL_NEW(null, args);
-    };
-
-    HBClass.prototype.GLOBAL_NEW = function (path, args) {
-        console.log(this.name);
-        return this.invoke(
-            'new',
-            {
-                'path' : path,
-                'arguments' : args
-            }
-        ).setReturnValueDecorator(function (returnValue) {
-            return hori(returnValue, this.name);
-        }).onSuccess(function (returnValue) {
-            if (returnValue !== path) {
-                console.log('unlink non-referenced object');
-                hori(returnValue).unlink();
-            }
-        });
-    };
-
-    // Short cuts
-
-    function objectManager() {
-        return hori('/System/ObjectManager');
     }
-    hori.objectManager = objectManager;
 
-    function webViewController() {
-        return hori('/Current/WebViewController');
+    function retrieveClass(className) {
+        return __types[className];
     }
-    hori.webViewController = webViewController;
 
-    function rootViewController() {
-        return hori('/System/RootViewController');
-    }
-    hori.rootViewController= rootViewController;
-
-    function bridgedClass(className) {
-        return hori('/Class/' + className, 'HBClass', className);
-    }
-    hori.bridgedClass = bridgedClass;
-
+    asyncCall($H_main, null);
     return hori;    
 }();
-
-$H.defineClass('NavigationController');
-
-$H.__asyncCall($H_main, null);
 

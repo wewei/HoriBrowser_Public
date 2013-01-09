@@ -12,6 +12,7 @@
 #import "HBAppDelegate.h"
 #import "HBBridgedClass.h"
 #import "HBConfiguration.h"
+#import "HBInstantiatable.h"
 
 static HBNamespace *rootNamespace = nil;
 static HBNamespace *systemNamespace = nil;
@@ -57,8 +58,11 @@ static HBNamespace *classNamespace = nil;
         classNamespace = [[HBNamespace alloc] init];
         NSDictionary *bridgedClasses = [HBConfiguration sharedConfiguration].bridgedClasses;
         [bridgedClasses enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            HBBridgedClass *bridgedClass = [HBBridgedClass classWithName:key objcName:obj];
-            [classNamespace setObject:bridgedClass forName:key];
+            Class cls = NSClassFromString(obj);
+            if ([cls conformsToProtocol:@protocol(HBInstantiatable)]) {
+                HBBridgedClass *bridgedClass = [HBBridgedClass classWithName:key objcName:obj];
+                [classNamespace setObject:bridgedClass forName:key];
+            }
         }];
     }
     return classNamespace;

@@ -191,7 +191,8 @@
 
 - (BOOL)pullInvocation
 {
-    NSString *invocationJSON = [self.webView stringByEvaluatingJavaScriptFromString:@"$H.__bridge.__retrieveInvocation();"];
+    NSString *script = [NSString stringWithFormat:@"$H(0x%x, 0).__retrieveInvocation();", BRIDGE_MAGIC_NUMBER];
+    NSString *invocationJSON = [self.webView stringByEvaluatingJavaScriptFromString:script];
     
     if (invocationJSON == nil)
         return NO;
@@ -222,7 +223,8 @@
 
 - (void)printLogs
 {
-    NSString *logsJSON = [self.webView stringByEvaluatingJavaScriptFromString:@"$H.__log.__retrieveLogs();"];
+    NSString *script = [NSString stringWithFormat:@"$H(0x%x, 1).__retrieveLogs();", BRIDGE_MAGIC_NUMBER];
+    NSString *logsJSON = [self.webView stringByEvaluatingJavaScriptFromString:script];
     NSError *error = nil;
     NSArray *logs = [HBJSONSerialization JSONObjectWithString:logsJSON error:&error];
     assert(error == nil);
@@ -248,12 +250,29 @@
 {
 }
 
+- (void)executeScriptWithPath:(NSString *)path inWebView:(UIWebView *)webView
+{
+    NSError *error = nil;
+    NSString *script = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    if (script != nil && error == nil) {
+        (void)[webView stringByEvaluatingJavaScriptFromString:script];
+    }
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSString *checkResult = [webView stringByEvaluatingJavaScriptFromString:@"typeof $H == 'function'"];
     if (![checkResult isEqualToString:@"true"]) {
-        NSString *script = [HBConfiguration sharedConfiguration].bridgeScript;
-        (void)[webView stringByEvaluatingJavaScriptFromString:script];
+        HBConfiguration *config = [HBConfiguration sharedConfiguration];
+        [self executeScriptWithPath:config.bridgeScriptPath inWebView:webView];
+        [config.bridgedClasses enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:key ofType:@"js"];
+            [self executeScriptWithPath:path inWebView:webView];
+        }];
+        [config.additionalPlugins enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:obj ofType:@"js"];
+            [self executeScriptWithPath:path inWebView:webView];
+        }];
     }
     [self loadURLComplete:YES];
 }

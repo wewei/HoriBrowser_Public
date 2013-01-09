@@ -14,9 +14,10 @@
 
 @property (readonly, nonatomic) NSURL *serverURL;
 
-@property (readonly, nonatomic) NSString *bridgeScript;
-@property (readonly, nonatomic) NSString *createFrameScript;
+@property (readonly, nonatomic) NSString *bridgeScriptPath;
 
 @property (readonly, nonatomic) NSDictionary *bridgedClasses;
+
+@property (readonly, nonatomic) NSArray *additionalPlugins;
 
 @end
