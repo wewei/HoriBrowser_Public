@@ -46,7 +46,7 @@ NSString * const HBExeUnitCannotLoadURLReason = @"Cannot connect to the URL.";
                 NSException *exception = [NSException exceptionWithName:HBExeUnitException
                                                                  reason:HBExeUnitCannotLoadURLReason
                                                                userInfo:userInfo];
-                [exception raise];
+                [context completeWithException:exception];
             }
         }];
     } else {

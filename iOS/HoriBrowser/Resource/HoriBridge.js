@@ -12,7 +12,7 @@ var $H = function () {
             return BridgedObject(arg0, arg1, arg2);
         } else if (arg0 instanceof Function) {
             // Define plugin
-            return arg0.call(hori, defineClass, retrieveClass);
+            return arg0.call(hori, defineClass, retrieveClass, DummyInvocation);
         }
         return null;
     };
@@ -159,33 +159,19 @@ var $H = function () {
 
     function defaultReturnValueDecorator(returnValue) { return returnValue; }
 
-	var PublicInvocation = function (obj, method, args) {
+	// GeneralInvocation
+
+	var GeneralInvocation = function () {
 		this.__ready = false;
 		this.__returnArgs = null;
 		this.__onSuccess = null;
 		this.__onFailure = null;
         this.__returnValueDecorator = defaultReturnValueDecorator;
-		var pubInvoc =  this;
-		obj.__call(method, args, function (_args) {
-			pubInvoc.__returnArgs = _args;
-			pubInvoc.__ready = true;
-			if (_args.exception === null) {
-				if (pubInvoc.__onSuccess instanceof Function) {
-					pubInvoc.__onSuccess(
-                        pubInvoc.__returnValueDecorator(_args.returnValue)
-                    );
-				}
-			} else {
-				if (pubInvoc.__onFailure instanceof Function) {
-					pubInvoc.__onFailure(_args.exception);
-				}
-			}
-		});
 	};
 
-	PublicInvocation.prototype.constructor = PublicInvocation;
+	GeneralInvocation.prototype.constructor = GeneralInvocation;
 
-	PublicInvocation.prototype.onSuccess = function (routine) {
+	GeneralInvocation.prototype.onSuccess = function (routine) {
 		if (routine instanceof Function) {
 			if (!this.__ready) {
 				this.__onSuccess = routine;
@@ -199,7 +185,7 @@ var $H = function () {
 		return this;
 	};
 
-	PublicInvocation.prototype.onFailure = function (routine) {
+	GeneralInvocation.prototype.onFailure = function (routine) {
 		if (routine instanceof Function) {
 			if (!this.__ready) {
 				this.__onFailure = routine;
@@ -211,14 +197,65 @@ var $H = function () {
 		return this;
 	};
 
-    PublicInvocation.prototype.setReturnValueDecorator = function (decorator) {
+    GeneralInvocation.prototype.setReturnValueDecorator = function (decorator) {
         if (decorator instanceof Function)
             this.__returnValueDecorator = decorator;
         return this;
     };
 
+	// DummyInvocation : GeneralInvocation
+
+	var DummyInvocation = function () { this.superclass(); };
+
+	DummyInvocation.prototype = new GeneralInvocation();
+	DummyInvocation.prototype.superclass = GeneralInvocation;
+	DummyInvocation.prototype.constructor = DummyInvocation;
+
+	DummyInvocation.prototype.success = function (returnValue) {
+		this.__ready = true;
+		if (this.__onSuccess instanceof Function) {
+			this.__onSuccess(
+				this.__returnValueDecorator(returnValue)
+			);
+		}
+	};
+
+	DummyInvocation.prototype.fail = function (exception) {
+		this.__ready = true;
+		if (this.__onFailure instanceof Function) {
+			this.__onFailure(exception);
+		}
+	};
+
+	// MethodInvocation : GeneralInvocation
+
+	var MethodInvocation = function (obj, method, args) {
+		this.superclass();
+		var methodInvoc =  this;
+		obj.__call(method, args, function (_args) {
+			methodInvoc.__returnArgs = _args;
+			methodInvoc.__ready = true;
+			if (_args.exception === null) {
+				if (methodInvoc.__onSuccess instanceof Function) {
+					methodInvoc.__onSuccess(
+                        methodInvoc.__returnValueDecorator(_args.returnValue)
+                    );
+				}
+			} else {
+				if (methodInvoc.__onFailure instanceof Function) {
+					methodInvoc.__onFailure(_args.exception);
+				}
+			}
+		});
+	};
+
+	MethodInvocation.prototype = new GeneralInvocation();
+	MethodInvocation.prototype.superclass = GeneralInvocation;
+	MethodInvocation.prototype.constructor = MethodInvocation;
+
+
 	HBObject.prototype.invoke = function (method, args) {
-		return new PublicInvocation(this, method, args);
+		return new MethodInvocation(this, method, args);
 	};
 
     var __activeInvocations = new Object();
