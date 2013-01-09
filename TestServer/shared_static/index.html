@@ -34,39 +34,33 @@
 
         function showBaidu()
         {
-			$H.bridgedClass("HBWebViewController").NEW(null).onSuccess(function(webViewCtrl) {
+			function loadAndPush(webViewCtrl) {
 				function unlinkWebViewCtrl() {
 					webViewCtrl.unlink();
 				}
+
 				function pushControler() {
-					navCtrl.invoke(
-						"pushViewController",
-						{ "viewController" : webViewCtrl }
-					).onSuccess(
-						unlinkWebViewCtrl
-					).onFailure(
-						unlinkWebViewCtrl
-					);
+					navCtrl.pushViewController(webViewCtrl)
+						.onSuccess(unlinkWebViewCtrl)
+						.onFailure(unlinkWebViewCtrl);
 				}
+
+				function onStartLoading() {
+					alert("start load.");
+					return "hello";
+				}
+
 				function loadPage(url) {
-					webViewCtrl.invoke(
-						"loadURL",
-						{
-							"url" : url,
-							"onStartLoading" :
-								function () {
-									alert("start load.");
-									return "hello";
-								},
-						}
-					).onSuccess(
-						pushControler
-					).onFailure(
-						unlinkWebViewCtrl
-					);
+					webViewCtrl.loadURL(url, onStartLoading)
+						.onSuccess(pushControler)
+						.onFailure(unlinkWebViewCtrl);
 				}
+
 				loadPage("http://www.baidu.com/");
-			});
+			}
+
+			$H.bridgedClass("HBWebViewController").NEW()
+				.onSuccess(loadAndPush);
         }
 
         function testGetProperty(n)

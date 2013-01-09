@@ -13,6 +13,7 @@ $H(function (defineClassProc, retrieveClassProc) {
     };
 
     HBClass.prototype.GLOBAL_NEW = function (path, args) {
+		var type = this;
         return this.invoke(
             'new',
             {
@@ -20,7 +21,7 @@ $H(function (defineClassProc, retrieveClassProc) {
                 'arguments' : args
             }
         ).setReturnValueDecorator(function (returnValue) {
-            return hori(returnValue, this.name);
+            return hori(returnValue, type.name);
         }).onSuccess(function (returnValue) {
             if (returnValue !== path) {
                 console.log('unlink non-referenced object');
